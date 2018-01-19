@@ -1,0 +1,15 @@
+urls:
+  reference: https://github.com/wlandau-lilly/drake/reference
+  article: https://github.com/wlandau-lilly/drake/articles
+articles:
+  caution: caution.html
+  debug: debug.html
+  drake: drake.html
+  example-gsp: example-gsp.html
+  example-packages: example-packages.html
+  graph: graph.html
+  parallelism: parallelism.html
+  quickstart: quickstart.html
+  storage: storage.html
+  timing: timing.html
+
