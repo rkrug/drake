@@ -103,7 +103,7 @@
             <h3 class="subtitle">where to begin</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-19</h4>
+            <h4 class="date">2018-01-20</h4>
           </div>
 
     
@@ -123,10 +123,10 @@
 <span class="co"># and saved files in your file system.</span>
 <span class="kw">list.files</span>()
 ##  [1] "caution.html"         "caution.Rmd"          "debug.html"          
-##  [4] "debug.Rmd"            "drake.Rmd"            "example-gsp.Rmd"     
-##  [7] "example-packages.Rmd" "graph.Rmd"            "logo-vignettes.png"  
-## [10] "parallelism.Rmd"      "quickstart.Rmd"       "report.Rmd"          
-## [13] "storage.Rmd"          "timing.Rmd"</code></pre></div>
+##  [4] "debug.Rmd"            "drake.html"           "drake.Rmd"           
+##  [7] "example-gsp.Rmd"      "example-packages.Rmd" "graph.Rmd"           
+## [10] "logo-vignettes.png"   "parallelism.Rmd"      "quickstart.Rmd"      
+## [13] "report.Rmd"           "storage.Rmd"          "timing.Rmd"</code></pre></div>
 <p>Your real work is outlined in a data frame of data analysis steps called “targets”. The targets depend on the imports, and <code>drake</code> will figure out how they are all connected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_plan
 ##                    target                                      command
@@ -192,20 +192,20 @@ whole_plan
 <p>At this point, all your targets are out of date because the project is new.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Master configuration list</span>
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-##  [1] "'report.md'"            "coef_regression1_large"
-##  [3] "coef_regression1_small" "coef_regression2_large"
-##  [5] "coef_regression2_small" "large"                 
-##  [7] "regression1_large"      "regression1_small"     
-##  [9] "regression2_large"      "regression2_small"     
+##  [1] "coef_regression1_large" "coef_regression1_small"
+##  [3] "coef_regression2_large" "coef_regression2_small"
+##  [5] "large"                  "regression1_large"     
+##  [7] "regression1_small"      "regression2_large"     
+##  [9] "regression2_small"      "'report.md'"           
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp714WXU/articles/.drake
+## cache /tmp/RtmpkRvBim/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
+## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## target large
@@ -229,14 +229,14 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>The project is now up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp714WXU/articles/.drake
+## cache /tmp/RtmpkRvBim/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   coef_regression2_small
 ##   large
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
+## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
@@ -250,10 +250,10 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp714WXU/articles/.drake
+## cache /tmp/RtmpkRvBim/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
+## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
