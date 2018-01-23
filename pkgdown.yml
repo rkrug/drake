@@ -2,6 +2,7 @@ urls:
   reference: https://github.com/wlandau-lilly/drake/reference
   article: https://github.com/wlandau-lilly/drake/articles
 articles:
+  best-practices: best-practices.html
   caution: caution.html
   debug: debug.html
   drake: drake.html

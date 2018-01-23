@@ -57,6 +57,9 @@
       <a href="../articles/quickstart.html">Quickstart</a>
     </li>
     <li>
+      <a href="../articles/best-practices.html">General best practices for drake projects</a>
+    </li>
+    <li>
       <a href="../articles/debug.html">Debugging and testing drake projects</a>
     </li>
     <li>
@@ -103,7 +106,7 @@
             <h3 class="subtitle">quickstart example for drake</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-22</h4>
+            <h4 class="date">2018-01-23</h4>
           </div>
 
     
@@ -156,53 +159,61 @@ reg2 &lt;-<span class="st"> </span>function(d){
   <span class="kw">lm</span>(y ~<span class="st"> </span>x2, <span class="dt">data =</span> d)
 }</code></pre></div>
 <p>We want to summarize the final results in an R Markdown report, so we need the following <code>report.Rmd</code> source file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lines &lt;-<span class="st"> </span><span class="kw">c</span>(
-  <span class="st">"---"</span>,
-  <span class="st">"title: Example Report"</span>,
-  <span class="st">"author: You"</span>,
-  <span class="st">"output: html_document"</span>,
-  <span class="st">"---"</span>,
-  <span class="st">""</span>,
-  <span class="st">"Look how I read outputs from the drake cache."</span>,
-  <span class="st">"Drake notices that `small`, `coef_regression2_small`,"</span>,
-  <span class="st">"and `large` are dependencies of the"</span>,
-  <span class="st">"future compiled output report file target, `report.md`."</span>,
-  <span class="st">"Just be sure that the workflow plan command for the target `'report.md'`"</span>,
-  <span class="st">"has an explicit call to `knit()`, something like `knit('report.Rmd')` or"</span>,
-  <span class="st">"`knitr::knit(input = 'report.Rmd', quiet = TRUE)`."</span>,
-  <span class="st">""</span>,
-  <span class="st">"```{r example_chunk}"</span>,
-  <span class="st">"library(drake)"</span>,
-  <span class="st">"readd(small)"</span>,
-  <span class="st">"readd(coef_regression2_small)"</span>,
-  <span class="st">"loadd(large)"</span>,
-  <span class="st">"head(large)"</span>,
-  <span class="st">"```"</span>)
-<span class="kw">writeLines</span>(lines, <span class="st">"report.Rmd"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">"examples"</span>, <span class="st">"basic"</span>, <span class="st">"report.Rmd"</span>)
+report_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(path, <span class="dt">package =</span> <span class="st">"drake"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)
+<span class="kw">file.copy</span>(<span class="dt">from =</span> report_file, <span class="dt">to =</span> <span class="kw">getwd</span>(), <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+## [1] TRUE</code></pre></div>
+<p>Here are the contents of the report. It will serve as a final summary of our work, and we will process it at the very end.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="kw">readLines</span>(<span class="st">"report.Rmd"</span>), <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)
+## ---
+## title: "Final results report for the basic example"
+## author: You
+## output: html_document
+## ---
+## 
+## This report serves as a final summary of the [basic example](https://github.com/wlandau-lilly/drake/tree/master/inst/examples/basic). If your work does not require an R Markdown report, you can do away with this file entirely.
+## 
+## Our workflow originally began with two simulated datasets, `small` and `large`.
+## 
+## ```{r example_chunk}
+## library(drake)
+## readd(small)
+## loadd(large)
+## head(large)
+## ```
+## 
+## Then, we proceeded to analyze and summarize the datasets. One of the summaries is a set of regression coefficients we obtained from analyzing the `small` dataset.
+## 
+## ```{r second_example_chunk}
+## readd(coef_regression2_small)
+## ```
+## 
+## Because of the calls to `readd()` and `loadd()`, `drake` knows that `small`, `large`, and `coef_regression2_small` are dependencies of this R Markdown report. This dependency relationship is what causes the report to be processed at the very end.</code></pre></div>
 <p>Now, all our imports are set up. When the real work begins, <code>drake</code> will import functions and data objects from your R session environment</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()
-## [1] "lines"    "reg1"     "reg2"     "simulate"</code></pre></div>
+## [1] "path"        "reg1"        "reg2"        "report_file" "simulate"</code></pre></div>
 <p>and saved files from your file system.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>()
-##  [1] "caution.html"           "caution.Rmd"           
-##  [3] "debug.html"             "debug.Rmd"             
-##  [5] "drake.html"             "drake.Rmd"             
-##  [7] "example-gsp_files"      "example-gsp.html"      
-##  [9] "example-gsp.Rmd"        "example-packages_files"
-## [11] "example-packages.html"  "example-packages.Rmd"  
-## [13] "graph.html"             "graph.Rmd"             
-## [15] "logo-vignettes.png"     "parallelism.html"      
-## [17] "parallelism.Rmd"        "quickstart.Rmd"        
-## [19] "report.Rmd"             "storage.Rmd"           
-## [21] "timing.Rmd"</code></pre></div>
+##  [1] "best-practices.html"    "best-practices.Rmd"    
+##  [3] "caution.html"           "caution.Rmd"           
+##  [5] "debug.html"             "debug.Rmd"             
+##  [7] "drake.html"             "drake.Rmd"             
+##  [9] "example-gsp_files"      "example-gsp.html"      
+## [11] "example-gsp.Rmd"        "example-packages_files"
+## [13] "example-packages.html"  "example-packages.Rmd"  
+## [15] "graph.html"             "graph.Rmd"             
+## [17] "logo-vignettes.png"     "parallelism.html"      
+## [19] "parallelism.Rmd"        "quickstart.Rmd"        
+## [21] "report.Rmd"             "storage.Rmd"           
+## [23] "timing.Rmd"</code></pre></div>
 </div>
 <div id="the-workflow-plan-data-frame" class="section level1">
 <h1 class="hasAnchor">
 <a href="#the-workflow-plan-data-frame" class="anchor"></a>The workflow plan data frame</h1>
 <p>Now that your workspace of imports is prepared, we can outline the real work step by step in a workflow plan data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpGkqsBa/articles/.drake
-## connect 5 imports: lines, simulate, reg1, my_plan, reg2
+## cache /tmp/RtmpJl3vMl/articles/.drake
+## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 my_plan
 ##                    target                                      command
@@ -232,21 +243,21 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 ## [1] "lm"
 
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(my_plan$command[<span class="dv">1</span>]) <span class="co"># Files like report.Rmd are single-quoted.</span>
-## [1] "coef_regression2_small" "knit"                  
-## [3] "large"                  "'report.Rmd'"          
+## [1] "'report.Rmd'"           "coef_regression2_small"
+## [3] "knit"                   "large"                 
 ## [5] "small"
 
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(my_plan$command[<span class="kw">nrow</span>(my_plan)])
 ## [1] "coefficients"      "regression2_large"</code></pre></div>
 <p>List all the reproducibly-tracked objects and files.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tracked.html">tracked</a></span>(my_plan, <span class="dt">targets =</span> <span class="st">"small"</span>)
-## connect 5 imports: lines, simulate, reg1, my_plan, reg2
+## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## [1] "small"        "simulate"     "data.frame"   "rpois"       
 ## [5] "stats::rnorm"
 
 <span class="kw"><a href="../reference/tracked.html">tracked</a></span>(my_plan)
-## connect 5 imports: lines, simulate, reg1, my_plan, reg2
+## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ##  [1] "'report.md'"            "small"                 
 ##  [3] "large"                  "regression1_small"     
@@ -257,15 +268,15 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 ## [13] "coef_regression1_large" "coef_regression2_small"
 ## [15] "coef_regression2_large" "simulate"              
 ## [17] "reg1"                   "reg2"                  
-## [19] "knit"                   "'report.Rmd'"          
+## [19] "'report.Rmd'"           "knit"                  
 ## [21] "summary"                "suppressWarnings"      
 ## [23] "coefficients"           "data.frame"            
 ## [25] "rpois"                  "stats::rnorm"          
 ## [27] "lm"</code></pre></div>
 <p>Check for circular reasoning, missing input files, and other pitfalls.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/check_plan.html">check_plan</a></span>(my_plan)
-## cache /tmp/RtmpGkqsBa/articles/.drake
-## connect 5 imports: lines, simulate, reg1, my_plan, reg2
+## cache /tmp/RtmpJl3vMl/articles/.drake
+## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...</code></pre></div>
 </div>
 <div id="generate-the-workflow-plan" class="section level1">
@@ -412,11 +423,11 @@ df
 <p>You may want to check for outdated or missing targets/imports first.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config) <span class="co"># Targets that need to be (re)built.</span>
-##  [1] "coef_regression1_large" "coef_regression1_small"
-##  [3] "coef_regression2_large" "coef_regression2_small"
-##  [5] "large"                  "regression1_large"     
-##  [7] "regression1_small"      "regression2_large"     
-##  [9] "regression2_small"      "'report.md'"           
+##  [1] "'report.md'"            "coef_regression1_large"
+##  [3] "coef_regression1_small" "coef_regression2_large"
+##  [5] "coef_regression2_small" "large"                 
+##  [7] "regression1_large"      "regression1_small"     
+##  [9] "regression2_large"      "regression2_small"     
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"
@@ -425,10 +436,10 @@ df
 ## character(0)</code></pre></div>
 <p>Then just <code><a href="../reference/make.html">make(my_plan)</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpGkqsBa/articles/.drake
-## connect 13 imports: lines, report, my_analyses, simulate, reg1, config, my_pl...
+## cache /tmp/RtmpJl3vMl/articles/.drake
+## connect 14 imports: report_file, report, my_analyses, simulate, reg1, config,...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
+## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## target large
@@ -454,45 +465,46 @@ df
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()
 ##  [1] "coef_regression2_small" "config"                
 ##  [3] "df"                     "large"                 
-##  [5] "lines"                  "methods"               
-##  [7] "my_analyses"            "my_datasets"           
-##  [9] "my_plan"                "reg1"                  
+##  [5] "methods"                "my_analyses"           
+##  [7] "my_datasets"            "my_plan"               
+##  [9] "path"                   "reg1"                  
 ## [11] "reg2"                   "report"                
-## [13] "results"                "simulate"              
-## [15] "small"                  "summary_types"</code></pre></div>
+## [13] "report_file"            "results"               
+## [15] "simulate"               "small"                 
+## [17] "summary_types"</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config) <span class="co"># Everything is up to date.</span>
 ## character(0)
 
 <span class="kw"><a href="../reference/build_times.html">build_times</a></span>(<span class="dt">digits =</span> <span class="dv">4</span>) <span class="co"># How long did it take to make each target?</span>
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ##                      item   type elapsed   user system
-## 1            coefficients import  0.002s 0.004s     0s
-## 2  coef_regression1_large target  0.003s 0.004s     0s
-## 3  coef_regression1_small target  0.002s     0s     0s
-## 4  coef_regression2_large target  0.003s     0s     0s
-## 5  coef_regression2_small target  0.002s 0.004s     0s
-## 6              data.frame import  0.005s 0.004s     0s
-## 7                    knit import  0.002s 0.004s     0s
-## 8                   large target  0.046s 0.044s     0s
-## 9                      lm import  0.002s     0s     0s
-## 10                   reg1 import  0.001s 0.004s     0s
-## 11                   reg2 import  0.001s     0s     0s
-## 12      regression1_large target  0.007s 0.008s     0s
-## 13      regression1_small target  0.003s 0.004s     0s
-## 14      regression2_large target  0.003s 0.004s     0s
-## 15      regression2_small target  0.003s 0.004s     0s
-## 16            'report.md' target  0.031s 0.032s     0s
-## 17           'report.Rmd' import  0.001s     0s     0s
-## 18                  rpois import  0.002s     0s     0s
-## 19               simulate import  0.001s 0.004s     0s
-## 20                  small target  0.021s 0.024s     0s
-## 21           stats::rnorm import  0.001s 0.004s     0s
-## 22                summary import  0.003s 0.004s     0s
-## 23 summ_regression1_large target  0.004s 0.004s     0s
-## 24 summ_regression1_small target  0.003s 0.004s     0s
-## 25 summ_regression2_large target  0.004s 0.004s     0s
-## 26 summ_regression2_small target  0.003s 0.004s     0s
-## 27       suppressWarnings import  0.003s     0s     0s</code></pre></div>
+## 1             'report.md' target  0.055s 0.054s 0.001s
+## 2            'report.Rmd' import  0.001s     0s     0s
+## 3  coef_regression1_large target  0.005s 0.005s     0s
+## 4  coef_regression1_small target  0.005s 0.005s     0s
+## 5  coef_regression2_large target  0.005s 0.005s     0s
+## 6  coef_regression2_small target  0.005s 0.005s     0s
+## 7            coefficients import  0.004s 0.004s     0s
+## 8              data.frame import  0.006s 0.006s     0s
+## 9                    knit import  0.003s 0.003s     0s
+## 10                  large target  0.075s 0.074s     0s
+## 11                     lm import  0.003s 0.004s     0s
+## 12                   reg1 import  0.001s 0.001s     0s
+## 13                   reg2 import  0.001s 0.001s     0s
+## 14      regression1_large target  0.008s 0.007s     0s
+## 15      regression1_small target  0.006s 0.006s     0s
+## 16      regression2_large target  0.005s 0.006s     0s
+## 17      regression2_small target  0.007s 0.007s     0s
+## 18                  rpois import  0.004s 0.003s     0s
+## 19               simulate import  0.001s 0.002s     0s
+## 20                  small target  0.032s 0.032s     0s
+## 21           stats::rnorm import  0.003s 0.004s     0s
+## 22 summ_regression1_large target  0.008s 0.007s 0.001s
+## 23 summ_regression1_small target  0.006s 0.005s     0s
+## 24 summ_regression2_large target  0.006s 0.006s     0s
+## 25 summ_regression2_small target  0.005s 0.004s 0.001s
+## 26                summary import  0.005s 0.004s     0s
+## 27       suppressWarnings import  0.004s 0.004s     0s</code></pre></div>
 <p>See also <code><a href="../reference/predict_runtime.html">predict_runtime()</a></code> and <code><a href="../reference/rate_limiting_times.html">rate_limiting_times()</a></code>.</p>
 <p>In the new graph, the black nodes from before are now green.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
@@ -503,64 +515,64 @@ df
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/dataframes_graph.html">dataframes_graph</a></span>(config)</code></pre></div>
 <p>Use <code><a href="../reference/readd.html">readd()</a></code> and <code><a href="../reference/loadd.html">loadd()</a></code> to load targets into your workspace. (They are cached in the hidden <code>.drake/</code> folder using <a href="https://CRAN.R-project.org/package=storr">storr</a>). There are many more functions for interacting with the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_large)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## (Intercept)          x2 
-##   1.2398590  -0.1044874
+##  0.92677966 -0.05891971
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(small)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 
 <span class="kw">head</span>(small)
-##              x y
-## 1  0.805855312 0
-## 2 -0.593609953 3
-## 3  1.624426508 0
-## 4  0.019202177 1
-## 5 -0.003151057 4
+##            x y
+## 1  0.4588508 0
+## 2  0.2186666 1
+## 3  0.8805552 1
+## 4 -0.8305408 1
+## 5 -0.1076020 1
 
 <span class="kw">rm</span>(small)
 <span class="kw"><a href="../reference/cached.html">cached</a></span>(small, large)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## small large 
 ##  TRUE  TRUE
 
 <span class="kw"><a href="../reference/cached.html">cached</a></span>()
-## cache /tmp/RtmpGkqsBa/articles/.drake
-##  [1] "coefficients"           "coef_regression1_large"
-##  [3] "coef_regression1_small" "coef_regression2_large"
-##  [5] "coef_regression2_small" "data.frame"            
-##  [7] "knit"                   "large"                 
-##  [9] "lm"                     "reg1"                  
-## [11] "reg2"                   "regression1_large"     
-## [13] "regression1_small"      "regression2_large"     
-## [15] "regression2_small"      "'report.md'"           
-## [17] "'report.Rmd'"           "rpois"                 
+## cache /tmp/RtmpJl3vMl/articles/.drake
+##  [1] "'report.md'"            "'report.Rmd'"          
+##  [3] "coef_regression1_large" "coef_regression1_small"
+##  [5] "coef_regression2_large" "coef_regression2_small"
+##  [7] "coefficients"           "data.frame"            
+##  [9] "knit"                   "large"                 
+## [11] "lm"                     "reg1"                  
+## [13] "reg2"                   "regression1_large"     
+## [15] "regression1_small"      "regression2_large"     
+## [17] "regression2_small"      "rpois"                 
 ## [19] "simulate"               "small"                 
-## [21] "stats::rnorm"           "summary"               
-## [23] "summ_regression1_large" "summ_regression1_small"
-## [25] "summ_regression2_large" "summ_regression2_small"
+## [21] "stats::rnorm"           "summ_regression1_large"
+## [23] "summ_regression1_small" "summ_regression2_large"
+## [25] "summ_regression2_small" "summary"               
 ## [27] "suppressWarnings"
 
 <span class="kw"><a href="../reference/built.html">built</a></span>()
-## cache /tmp/RtmpGkqsBa/articles/.drake
-##  [1] "coef_regression1_large" "coef_regression1_small"
-##  [3] "coef_regression2_large" "coef_regression2_small"
-##  [5] "large"                  "regression1_large"     
-##  [7] "regression1_small"      "regression2_large"     
-##  [9] "regression2_small"      "'report.md'"           
+## cache /tmp/RtmpJl3vMl/articles/.drake
+##  [1] "'report.md'"            "coef_regression1_large"
+##  [3] "coef_regression1_small" "coef_regression2_large"
+##  [5] "coef_regression2_small" "large"                 
+##  [7] "regression1_large"      "regression1_small"     
+##  [9] "regression2_large"      "regression2_small"     
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"
 
 <span class="kw"><a href="../reference/imported.html">imported</a></span>()
-## cache /tmp/RtmpGkqsBa/articles/.drake
-##  [1] "coefficients"     "data.frame"       "knit"            
-##  [4] "lm"               "reg1"             "reg2"            
-##  [7] "'report.Rmd'"     "rpois"            "simulate"        
+## cache /tmp/RtmpJl3vMl/articles/.drake
+##  [1] "'report.Rmd'"     "coefficients"     "data.frame"      
+##  [4] "knit"             "lm"               "reg1"            
+##  [7] "reg2"             "rpois"            "simulate"        
 ## [10] "stats::rnorm"     "summary"          "suppressWarnings"
 
 <span class="kw">head</span>(<span class="kw"><a href="../reference/read_drake_plan.html">read_drake_plan</a></span>())
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ##              target                          command
 ## 1       'report.md' knit('report.Rmd', quiet = TRUE)
 ## 2             small                      simulate(5)
@@ -570,27 +582,27 @@ df
 ## 6 regression2_small                      reg2(small)
 
 <span class="kw">head</span>(<span class="kw"><a href="../reference/progress.html">progress</a></span>()) <span class="co"># See also in_progress()</span>
-## cache /tmp/RtmpGkqsBa/articles/.drake
-##           coefficients coef_regression1_large coef_regression1_small 
+## cache /tmp/RtmpJl3vMl/articles/.drake
+##            'report.md'           'report.Rmd' coef_regression1_large 
 ##             "finished"             "finished"             "finished" 
-## coef_regression2_large coef_regression2_small             data.frame 
+## coef_regression1_small coef_regression2_large coef_regression2_small 
 ##             "finished"             "finished"             "finished"
 
 <span class="kw"><a href="../reference/progress.html">progress</a></span>(large)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ##      large 
 ## "finished"
 
 <span class="co"># drake_session() # sessionInfo() of the last make() # nolint</span></code></pre></div>
 <p>The next time you run <code><a href="../reference/make.html">make(my_plan)</a></code>, nothing will build because <code>drake</code> knows everything is already up to date.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan) <span class="co"># Will use config later. See also drake_config().</span>
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## Unloading targets from environment:
 ##   large
 ##   coef_regression2_small
-## connect 13 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
+## connect 14 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
+## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
@@ -604,14 +616,14 @@ df
 }</code></pre></div>
 <p>The targets that depend on <code>reg2()</code> need to be rebuilt.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
+## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
 ## check 4 items: coef_regression1_large, coef_regression1_small, summ_regressio...
-## [1] "coef_regression2_large" "coef_regression2_small"
-## [3] "regression2_large"      "regression2_small"     
-## [5] "'report.md'"            "summ_regression2_large"
+## [1] "'report.md'"            "coef_regression2_large"
+## [3] "coef_regression2_small" "regression2_large"     
+## [5] "regression2_small"      "summ_regression2_large"
 ## [7] "summ_regression2_small"</code></pre></div>
 <p><strong>Advanced</strong>: To find out why a target is out of date, you can load the <a href="https://github.com/richfitz/storr">storr</a> cache and compare the appropriate hash keys to the output of <code><a href="../reference/dependency_profile.html">dependency_profile()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/dependency_profile.html">dependency_profile</a></span>(<span class="dt">target =</span> <span class="st">"regression2_small"</span>, <span class="dt">config =</span> config)
@@ -625,20 +637,20 @@ df
 ## NULL
 ## 
 ## $cached_dependency_hash
-## [1] "897c556ace2aea56e44faed6f0d6d0e4f8cd116b5109f77ba1f922444e812fce"
+## [1] "4d39d9df4b077b46691197cb0c1677e332400e796f3067f1da8bd6e6eaeb07d4"
 ## 
 ## $current_dependency_hash
-## [1] "6303dc7a0fd834b788c03e22cabf393e2625ca9ce297be524d608cc688c6c5a5"
+## [1] "1db0510de8b251c25df21c60d8add497994fae0a0dd46c1ec2f4e56504c345a7"
 ## 
 ## $hashes_of_dependencies
 ##               reg2              small 
-## "d47109544c89ca7a" "9c59c4ad2843dcc1"
+## "d47109544c89ca7a" "858d2aad09910229"
 
 config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"small"</span>) <span class="co"># same</span>
-## [1] "9c59c4ad2843dcc1"
+## [1] "858d2aad09910229"
 
 config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"reg2"</span>) <span class="co"># different</span>
-## [1] "5f5364142bd6562c"</code></pre></div>
+## [1] "9040d81c7e6ae131"</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
 <span class="co"># Same as drake_graph():</span>
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>
@@ -646,10 +658,10 @@ config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <spa
 </iframe>
 <p>The next <code><a href="../reference/make.html">make()</a></code> will rebuild the targets depending on <code>reg2()</code> and leave everything else alone.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpGkqsBa/articles/.drake
-## connect 13 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
+## cache /tmp/RtmpJl3vMl/articles/.drake
+## connect 14 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
+## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
@@ -671,7 +683,7 @@ config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <spa
     <span class="kw">lm</span>(y ~<span class="st"> </span>x3, <span class="dt">data =</span> d) <span class="co"># I indented here.</span>
 }
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config) <span class="co"># Everything is up to date.</span>
-## check 9 items: coefficients, data.frame, knit, lm, 'report.Rmd', rpois, stats...
+## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
@@ -710,14 +722,14 @@ my_plan
 ## 16               new_data                new_simulation(36) + sqrt(10)
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
 ##   coef_regression2_small
-## connect 15 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
+## connect 16 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
 ## connect 16 targets: 'report.md', small, large, regression1_small, regression1...
-## check 11 items: coefficients, data.frame, knit, lm, 'report.Rmd', rnorm, rpoi...
+## check 11 items: 'report.Rmd', coefficients, data.frame, knit, lm, rnorm, rpoi...
 ## check 4 items: new_simulation, reg1, reg2, simulate
 ## check 3 items: large, new_data, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
@@ -785,7 +797,7 @@ my_plan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>

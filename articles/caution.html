@@ -57,6 +57,9 @@
       <a href="../articles/quickstart.html">Quickstart</a>
     </li>
     <li>
+      <a href="../articles/best-practices.html">General best practices for drake projects</a>
+    </li>
+    <li>
       <a href="../articles/debug.html">Debugging and testing drake projects</a>
     </li>
     <li>
@@ -103,7 +106,7 @@
             <h3 class="subtitle">Cautionary notes for drake</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-22</h4>
+            <h4 class="date">2018-01-23</h4>
           </div>
 
     
@@ -132,6 +135,11 @@
 <div id="workflow-plans" class="section level1">
 <h1 class="hasAnchor">
 <a href="#workflow-plans" class="anchor"></a>Workflow plans</h1>
+<div id="externalizing-commands-in-r-script-files" class="section level2">
+<h2 class="hasAnchor">
+<a href="#externalizing-commands-in-r-script-files" class="anchor"></a>Externalizing commands in R script files</h2>
+<p>It is common practice to divide the work of a project into multiple R files, but if you do this, you will not get the most out of <code>drake</code>. Please see the <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/best_practices.Rmd">best practices vignette</a> for more details.</p>
+</div>
 <div id="beware-unparsable-symbols-in-your-workflow-plan-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#beware-unparsable-symbols-in-your-workflow-plan-" class="anchor"></a>Beware unparsable symbols in your workflow plan.</h2>
@@ -225,7 +233,7 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## connect 5 imports: files, datasets, f, rules, bad_plan
 ## connect 1 target: target
 ## Loading required package: methods
@@ -238,15 +246,15 @@ withr::<span class="kw">with_message_sink</span>(
 ## Error: Target 'target' failed to build. Use diagnose(target) to retrieve diagnostic information.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>() <span class="co"># From the last make() only</span>
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## [1] "target"
 
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>() <span class="co"># From all previous make()s</span>
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## [1] "target"
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(target)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 
 <span class="kw">str</span>(error)
 ## List of 3
@@ -257,7 +265,7 @@ error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagn
 ##   ..$ : language f()
 ##   ..$ : language stop("unusual error")
 ##   .. ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 4 3 4 23 3 23 4 4
-##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x24789b8&gt; 
+##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x53b0598&gt; 
 ##  - attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
 
 error$calls <span class="co"># View the traceback.</span>
@@ -296,7 +304,7 @@ envir &lt;-<span class="st"> </span><span class="kw">new.env</span>(<span class=
 myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">out =</span> <span class="kw">f</span>(<span class="dv">1</span>:<span class="dv">3</span>))
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(myplan, <span class="dt">envir =</span> envir)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## connect 2 imports: f, g
 ## connect 1 target: out
 ## check 1 item: g
@@ -315,7 +323,7 @@ envir$out
 ## [1] 3 4 5
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(out)
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## [1] 3 4 5</code></pre></div>
 </div>
 <div id="refresh-the-drake_config-list-early-and-often-" class="section level2">
@@ -415,7 +423,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(multis
 
 command &lt;-<span class="st"> "x &lt;- digest::digest('input_file.rds'); assign(</span><span class="ch">\"</span><span class="st">x</span><span class="ch">\"</span><span class="st">, 1); x"</span>
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(command)
-## [1] "assign"           "digest::digest"   "'input_file.rds'"</code></pre></div>
+## [1] "'input_file.rds'" "assign"           "digest::digest"</code></pre></div>
 </div>
 <div id="dynamic-r-markdown-knitr-reports" class="section level2">
 <h2 class="hasAnchor">
@@ -426,7 +434,7 @@ command &lt;-<span class="st"> "x &lt;- digest::digest('input_file.rds'); assign
 <li>the <code>*.Rmd</code>/<code>*.Rnw</code> source file already exists before <code><a href="../reference/make.html">make()</a></code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpGkqsBa/articles/.drake
+## cache /tmp/RtmpJl3vMl/articles/.drake
 ## connect 13 imports: error, envir, files, datasets, myplan, f, simulate, rules...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 my_plan[<span class="dv">1</span>, ]
@@ -434,13 +442,13 @@ my_plan[<span class="dv">1</span>, ]
 ## 1 'report.md' knit('report.Rmd', quiet = TRUE)</code></pre></div>
 <p>Above, the <a href="http://rmarkdown.rstudio.com/lesson-1.html">R Markdown report</a> loads targets ‘small’, ‘large’, and ‘coef_regression2_small’ using code chunks marked for evaluation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/deps.html">deps</a></span>(<span class="st">"knit('report.Rmd')"</span>)
-## [1] "coef_regression2_small" "knit"                  
-## [3] "large"                  "'report.Rmd'"          
+## [1] "'report.Rmd'"           "coef_regression2_small"
+## [3] "knit"                   "large"                 
 ## [5] "small"
 
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(<span class="st">"render('report.Rmd')"</span>)
-## [1] "coef_regression2_small" "large"                 
-## [3] "render"                 "'report.Rmd'"          
+## [1] "'report.Rmd'"           "coef_regression2_small"
+## [3] "large"                  "render"                
 ## [5] "small"
 
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(<span class="st">"'report.Rmd'"</span>) <span class="co"># These are actually dependencies of 'report.md' (output)</span>
@@ -493,6 +501,22 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
 <div id="high-performance-computing" class="section level1">
 <h1 class="hasAnchor">
 <a href="#high-performance-computing" class="anchor"></a>High-performance computing</h1>
+<div id="the-practical-utility-of-parallel-computing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#the-practical-utility-of-parallel-computing" class="anchor"></a>The practical utility of parallel computing</h2>
+<p><code>Drake</code> claims that it can</p>
+<ol style="list-style-type: decimal">
+<li>Build and cache your targets in parallel (in stages).</li>
+<li>Build and cache your targets in the correct order, finishing dependencies before starting targets that depend on them.</li>
+<li>Deploy your targets to the parallel backend of your choice.</li>
+</ol>
+<p>However, the practical efficiency of the parallel computing functionality remains to be verified rigorously. Serious performance studies will be part of future work that has not yet been conducted at the time of writing. In addition, each project has its own best parallel computing set up, and the user needs to optimize it on a case-by-case basis. Some general considerations include the following.</p>
+<ul>
+<li>The high overhead and high scalability of distributed computing versus the low overhead and low scalability of local multicore computing.</li>
+<li>The high memory usage of local multicore computing, especially <code>"mclapply"</code> parallelism, as opposed to distributed computing, which can spread the memory demands over the available nodes on a cluster.</li>
+<li>The marginal gains of increasing the number of jobs indefinitely, especially in the case of local multicore computing if the number of cores is low.</li>
+</ul>
+</div>
 <div id="maximum-number-of-simultaneous-jobs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#maximum-number-of-simultaneous-jobs" class="anchor"></a>Maximum number of simultaneous jobs</h2>
@@ -569,7 +593,8 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
 <li><a href="#projects-built-with-drake-4-4-0-are-not-back-compatible-with-drake-4-4-0-">Projects built with drake &lt;= 4.4.0 are not back compatible with drake &gt; 4.4.0.</a></li>
       <li>
 <a href="#workflow-plans">Workflow plans</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#beware-unparsable-symbols-in-your-workflow-plan-">Beware unparsable symbols in your workflow plan.</a></li>
+<li><a href="#externalizing-commands-in-r-script-files">Externalizing commands in R script files</a></li>
+      <li><a href="#beware-unparsable-symbols-in-your-workflow-plan-">Beware unparsable symbols in your workflow plan.</a></li>
       <li><a href="#commands-are-not-perfectly-flexible-">Commands are NOT perfectly flexible.</a></li>
       </ul>
 </li>
@@ -599,7 +624,8 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
 </li>
       <li>
 <a href="#high-performance-computing">High-performance computing</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#maximum-number-of-simultaneous-jobs">Maximum number of simultaneous jobs</a></li>
+<li><a href="#the-practical-utility-of-parallel-computing">The practical utility of parallel computing</a></li>
+      <li><a href="#maximum-number-of-simultaneous-jobs">Maximum number of simultaneous jobs</a></li>
       <li><a href="#parallel-computing-on-windows">Parallel computing on Windows</a></li>
       <li>
 <a href="#configuring-futurebatchtools-parallelism-for-clusters">Configuring </a><a href="https://github-com/HenrikBengtsson/future">future</a>/<a href="https://github-com/mllg/batchtools">batchtools</a> parallelism for clusters</li>
@@ -626,7 +652,7 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
