@@ -221,10 +221,10 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <span class="kw"><a href="reference/outdated.html">outdated</a></span>(config)
 
 ## character(0)</code></pre></div>
-<p>With everything up to date, you have <strong>tangible evidence</strong> of reproducibility. <code>Drake</code> told you that the results <strong>faithfully show</strong> what the code is producing. You are much more confident that you have everything you need to verify the original author’s claims. In fact, it may no longer be necessary to re-run the code and regenerate the final answers. But in case you want to be extra thorough, it is easy to begin from scratch and see for yourself.</p>
+<p>With everything up to date, you have <strong>tangible evidence</strong> of reproducibility. <code>Drake</code> told you that the results <strong>faithfully show</strong> what the code is producing. You are much more confident that you have everything you need to compute all the output yourself. Now, you can re-run the project with confidence.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/clean.html">clean</a></span>()       <span class="co"># Remove the original author's results.</span>
 <span class="kw"><a href="reference/make.html">make</a></span>(my_plan) <span class="co"># Independently re-create the results from the code and input data.</span></code></pre></div>
-<p>With even more evidence and more confidence, you can begin to independently replicate the code if there is a need.</p>
+<p>At this point, with even more evidence and even more confidence, you can take the time to independently replicate the whole analysis if necessary.</p>
 </div>
 <div id="aggressively-scale-up-" class="section level1">
 <h1 class="hasAnchor">
@@ -249,7 +249,7 @@ reg2 &lt;-<span class="st"> </span>function(d){
 config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_config.html">drake_config</a></span>(my_plan)
 <span class="kw"><a href="reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
 <iframe
-  src = 'https://cdn.rawgit.com/wlandau-lilly/drake/bd8a086f/images/reg2.html'
+  src = 'https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/reg2.html'
   width = '100%' height = '600px' allowtransparency='true'
   style='border: none; box-shadow: none'>
   </iframe>

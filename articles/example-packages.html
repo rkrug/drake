@@ -261,7 +261,7 @@ whole_plan
 ## 7     any</code></pre></div>
 <p>Now, we run the project to download the data and analyze it. The results will be summarized in the knitted report, <code>report.md</code>, but you can also read the results directly from the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmphF6cGe/articles/.drake
+## cache /tmp/RtmpR8B5Zt/articles/.drake
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, make_...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_recen...
 ## Loading required package: methods
@@ -281,29 +281,29 @@ whole_plan
 ## Used non-default triggers. Some targets may be not be up to date.
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_recent)
-## cache /tmp/RtmphF6cGe/articles/.drake
+## cache /tmp/RtmpR8B5Zt/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2      10285.767
 ## 2   knitr       7959.867
 ## 3    Rcpp      12558.833
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_older)
-## cache /tmp/RtmphF6cGe/articles/.drake
+## cache /tmp/RtmpR8B5Zt/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14641.29
 ## 2   knitr        9068.71
 ## 3    Rcpp       14408.06
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_recent)
-## cache /tmp/RtmphF6cGe/articles/.drake</code></pre></div>
+## cache /tmp/RtmpR8B5Zt/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_older)
-## cache /tmp/RtmphF6cGe/articles/.drake</code></pre></div>
+## cache /tmp/RtmpR8B5Zt/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-2.png" width="672"></p>
 <p>Because we used triggers, each <code><a href="../reference/make.html">make()</a></code> rebuilds the <code>recent</code> target to get the latest download numbers for today. If the newly-downloaded data are the same as last time and nothing else changes, <code>drake</code> skips all the other targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmphF6cGe/articles/.drake
+## cache /tmp/RtmpR8B5Zt/articles/.drake
 ## Unloading targets from environment:
 ##   averages_recent
 ##   plot_older
