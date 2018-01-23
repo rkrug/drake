@@ -129,12 +129,12 @@
 
 <span class="co"># and saved files in your file system.</span>
 <span class="kw">list.files</span>()
-##  [1] "best-practices.html"  "best-practices.Rmd"   "caution.html"        
-##  [4] "caution.Rmd"          "debug.html"           "debug.Rmd"           
-##  [7] "drake.Rmd"            "example-gsp.Rmd"      "example-packages.Rmd"
-## [10] "graph.Rmd"            "logo-vignettes.png"   "parallelism.Rmd"     
-## [13] "quickstart.Rmd"       "report.Rmd"           "storage.Rmd"         
-## [16] "timing.Rmd"</code></pre></div>
+##  [1] "#best-practices.Rmd#" "best-practices.html"  "best-practices.Rmd"  
+##  [4] "caution.html"         "caution.Rmd"          "debug.html"          
+##  [7] "debug.Rmd"            "drake.Rmd"            "example-gsp.Rmd"     
+## [10] "example-packages.Rmd" "graph.Rmd"            "logo-vignettes.png"  
+## [13] "parallelism.Rmd"      "quickstart.Rmd"       "report.Rmd"          
+## [16] "storage.Rmd"          "timing.Rmd"</code></pre></div>
 <p>Your real work is outlined in a data frame of data analysis steps called “targets”. The targets depend on the imports, and <code>drake</code> will figure out how they are all connected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_plan
 ##                    target                                      command
@@ -210,7 +210,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmphnYN9H/articles/.drake
+## cache /tmp/Rtmpk7p4p7/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
@@ -237,7 +237,7 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>The project is now up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmphnYN9H/articles/.drake
+## cache /tmp/Rtmpk7p4p7/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   coef_regression2_small
@@ -258,7 +258,7 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmphnYN9H/articles/.drake
+## cache /tmp/Rtmpk7p4p7/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', coefficients, data.frame, knit, lm, rpois, stats...
