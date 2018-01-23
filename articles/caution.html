@@ -103,7 +103,7 @@
             <h3 class="subtitle">Cautionary notes for drake</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-20</h4>
+            <h4 class="date">2018-01-22</h4>
           </div>
 
     
@@ -225,7 +225,7 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/RtmpkRvBim/articles/.drake
+## cache /tmp/RtmpGkqsBa/articles/.drake
 ## connect 5 imports: files, datasets, f, rules, bad_plan
 ## connect 1 target: target
 ## Loading required package: methods
@@ -238,15 +238,15 @@ withr::<span class="kw">with_message_sink</span>(
 ## Error: Target 'target' failed to build. Use diagnose(target) to retrieve diagnostic information.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>() <span class="co"># From the last make() only</span>
-## cache /tmp/RtmpkRvBim/articles/.drake
+## cache /tmp/RtmpGkqsBa/articles/.drake
 ## [1] "target"
 
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>() <span class="co"># From all previous make()s</span>
-## cache /tmp/RtmpkRvBim/articles/.drake
+## cache /tmp/RtmpGkqsBa/articles/.drake
 ## [1] "target"
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(target)
-## cache /tmp/RtmpkRvBim/articles/.drake
+## cache /tmp/RtmpGkqsBa/articles/.drake
 
 <span class="kw">str</span>(error)
 ## List of 3
@@ -257,7 +257,7 @@ error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagn
 ##   ..$ : language f()
 ##   ..$ : language stop("unusual error")
 ##   .. ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 4 3 4 23 3 23 4 4
-##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x2bd43d8&gt; 
+##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x24789b8&gt; 
 ##  - attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
 
 error$calls <span class="co"># View the traceback.</span>
@@ -296,7 +296,7 @@ envir &lt;-<span class="st"> </span><span class="kw">new.env</span>(<span class=
 myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">out =</span> <span class="kw">f</span>(<span class="dv">1</span>:<span class="dv">3</span>))
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(myplan, <span class="dt">envir =</span> envir)
-## cache /tmp/RtmpkRvBim/articles/.drake
+## cache /tmp/RtmpGkqsBa/articles/.drake
 ## connect 2 imports: f, g
 ## connect 1 target: out
 ## check 1 item: g
@@ -315,7 +315,7 @@ envir$out
 ## [1] 3 4 5
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(out)
-## cache /tmp/RtmpkRvBim/articles/.drake
+## cache /tmp/RtmpGkqsBa/articles/.drake
 ## [1] 3 4 5</code></pre></div>
 </div>
 <div id="refresh-the-drake_config-list-early-and-often-" class="section level2">
@@ -376,7 +376,7 @@ packages_to_load &lt;-<span class="st"> </span><span class="kw">setdiff</span>(<
 <p><code><a href="../reference/make.html">make(..., lazy_load = TRUE, parallelism = "parLapply", jobs = 2)</a></code> does not work. If you want to use local multisession parallelism with multiple jobs and lazy loading, try <code>"future_lapply"</code> parallelism instead.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(future)
 future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(multisession)
-<span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>()
+<span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">lazy_load =</span> <span class="ot">TRUE</span>, <span class="dt">parallelism =</span> <span class="st">"future_lapply"</span>)</code></pre></div>
 </li>
 <li><p>Delayed evaluation may cause the same dependencies to be loaded multiple times, and these duplicated loads could be slow.</p></li>
@@ -425,8 +425,8 @@ command &lt;-<span class="st"> "x &lt;- digest::digest('input_file.rds'); assign
 <li>the appropriate command in your command has an explicit reference to <code>knit()</code> or <code>render()</code> (from the <code>rmarkdown</code> package), and</li>
 <li>the <code>*.Rmd</code>/<code>*.Rnw</code> source file already exists before <code><a href="../reference/make.html">make()</a></code>.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>()
-## cache /tmp/RtmpkRvBim/articles/.drake
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
+## cache /tmp/RtmpGkqsBa/articles/.drake
 ## connect 13 imports: error, envir, files, datasets, myplan, f, simulate, rules...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 my_plan[<span class="dv">1</span>, ]
@@ -534,7 +534,7 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
   includes &lt;-<span class="st"> "#include &lt;sys/wait.h&gt;"</span>
   code &lt;-<span class="st"> "int wstat; while (waitpid(-1, &amp;wstat, WNOHANG) &gt; 0) {};"</span>
 
-  wait &lt;-<span class="st"> </span>inline::<span class="kw">cfunction</span>(
+  wait &lt;-<span class="st"> </span>inline::<span class="kw"><a href="http://www.rdocumentation.org/packages/inline/topics/cfunction">cfunction</a></span>(
     <span class="dt">body =</span> code,
     <span class="dt">includes =</span> includes,
     <span class="dt">convention =</span> <span class="st">".C"</span>
@@ -626,7 +626,7 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

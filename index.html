@@ -130,6 +130,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(drake)
 
 <span class="co"># Drake comes with a basic example.</span>
+<span class="co"># Get the code with drake_example("basic").</span>
 <span class="kw"><a href="reference/load_basic_example.html">load_basic_example</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 
 <span class="co"># Your workspace starts with a bunch of "imports":</span>
@@ -216,6 +217,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <span class="kw"><a href="reference/outdated.html">outdated</a></span>(config)
 
 ## character(0)</code></pre></div>
+<p>In other words, you have <strong>tangible evidence</strong> that someone else could re-create your output using your code and data. And if some targets are out of date, just run <code><a href="reference/make.html">make()</a></code> again restore reproducibility fast.</p>
 </div>
 <div id="aggressively-scale-up-" class="section level1">
 <h1 class="hasAnchor">
@@ -306,6 +308,15 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <li><a href="https://wlandau-lilly.github.io/drake/articles/parallelism.html">Parallel computing</a></li>
 <li><a href="https://wlandau-lilly.github.io/drake/articles/timing.html">Time logging</a></li>
 <li><a href="https://wlandau-lilly.github.io/drake/articles/storage.html">Storage</a></li>
+</ul>
+<p><code>Drake</code> also has built-in example projects with code files <a href="https://github.com/wlandau-lilly/drake/tree/master/inst/examples">available here</a>. You can generate the files for a project with <code><a href="reference/drake_example.html">drake_example()</a></code> (e.g. <code><a href="reference/drake_example.html">drake_example("gsp")</a></code>), and you can list the available projects with <code><a href="reference/drake_examples.html">drake_examples()</a></code>. Here are the beginner-oriented examples to help you learn <code>drake</code>.</p>
+<ul>
+<li>
+<code>gsp</code>: A concrete example using real econometrics data. It explores the relationships between gross state product and other quantities, and it shows off <code>drake</code>’s ability to generate lots of reproducibly-tracked tasks with ease.</li>
+<li>
+<code>packages</code>: A concrete example using data on R package downloads. It demonstrates how <code>drake</code> can refresh a project based on new incoming data without restarting everything from scratch.</li>
+<li>
+<code>basic</code>: An old tutorial for walking though <code>drake</code>’s core functionality. The walkthrough is based on a small fabricated project that you can load with <code><a href="reference/load_basic_example.html">load_basic_example()</a></code>. The <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a> is a parallel walkthrough of the same example.</li>
 </ul>
 <p>For context and history, you can listen to a full-length interview about <code>drake</code> in <a href="https://www.r-podcast.org/episode/022-diving-in-to-drake-with-will-landau/">episode 22 of the R Podcast</a>.</p>
 </div>
@@ -427,7 +438,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
