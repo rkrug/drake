@@ -129,19 +129,19 @@ reg2 &lt;-<span class="st"> </span>function(d) {
 }
 <span class="co"># Hover, click, drag, zoom, and pan.</span>
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/bd8a086f/images/reg2.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/reg2.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>The nodes in each column above are conditionally independent given the dependencies to the left. So in general, the targets and imports are processed column by column from left to right, and everything within a column is executed in parallel. When some targets are already up to date, <code>drake</code> searches ahead in the graph to maximize the number of outdated targets in each parallelizable stage.</p>
 <p>To show the parallelizable stages of the next <code><a href="../reference/make.html">make()</a></code> programmatically, use the <code><a href="../reference/parallel_stages.html">parallel_stages()</a></code> function. All the targets/imports in a stage are processed in parallel before moving on to the next stage.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/parallel_stages.html">parallel_stages</a></span>(config)
 ##                      item imported  file stage
 ## 1            'report.Rmd'     TRUE  TRUE     1
-## 2            coefficients     TRUE FALSE     1
-## 3              data.frame     TRUE FALSE     1
-## 4                    knit     TRUE FALSE     1
-## 5                      lm     TRUE FALSE     1
-## 6                   rpois     TRUE FALSE     1
-## 7            stats::rnorm     TRUE FALSE     1
+## 2              data.frame     TRUE FALSE     1
+## 3                    knit     TRUE FALSE     1
+## 4                      lm     TRUE FALSE     1
+## 5                  mtcars     TRUE FALSE     1
+## 6                    nrow     TRUE FALSE     1
+## 7              sample.int     TRUE FALSE     1
 ## 8                 summary     TRUE FALSE     1
 ## 9        suppressWarnings     TRUE FALSE     1
 ## 10                   reg1     TRUE FALSE     2
@@ -341,7 +341,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 <p>But be warned: that particular recipe fails on Windows.</p>
 <p>Use the <code><a href="../reference/Makefile_recipe.html">Makefile_recipe()</a></code> function to show and tweak <code>Makefile</code> recipes in advance.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>()
-## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/Rtmpk7p4p7/articles/.drake")'
+## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmphF6cGe/articles/.drake")'
 
 <span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(
   <span class="dt">recipe_command =</span> <span class="st">"R -e 'R_RECIPE' -q"</span>,
@@ -351,7 +351,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 ## R -e 'drake::mk(target = "this_target", cache_path = "custom_cache")' -q</code></pre></div>
 <p>If <code>recipe_command</code> contains no mention of <code>R_RECIPE</code>, then <code>R_RECIPE</code> is single-quoted and appended automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(<span class="dt">recipe_command =</span> <span class="st">"R -q -e"</span>)
-## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/Rtmpk7p4p7/articles/.drake")'</code></pre></div>
+## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmphF6cGe/articles/.drake")'</code></pre></div>
 <p>Try each of the following and look at the generated <code>Makefile</code> after each call to <code><a href="../reference/make.html">make()</a></code>. To see the recipes printed to the console, run <code><a href="../reference/clean.html">clean()</a></code> between each <code><a href="../reference/make.html">make()</a></code> and leave <code>verbose</code> equal to <code>TRUE</code> (default).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>)
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>,

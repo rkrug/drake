@@ -129,12 +129,14 @@
     </div>
 
     
-    <p>Use <code><a href='drake_example.html'>drake_example</a>('basic')</code> to get the code
-for the basic example. The included R script is a detailed,
-heavily-commented walkthrough. The quickstart vignette at
-<a href='https://github.com/wlandau-lilly/drake/blob/master/vignettes/quickstart.Rmd'>https://github.com/wlandau-lilly/drake/blob/master/vignettes/quickstart.Rmd</a> # nolint
-and <a href='https://wlandau-lilly.github.io/drake/articles/quickstart.html'>https://wlandau-lilly.github.io/drake/articles/quickstart.html</a>
-also walks through the basic example.</p>
+    <p>Is there an association between
+the weight and the fuel efficiency of cars?
+To find out, we use the mtcars dataset.
+The mtcars dataset itself only has 32 rows,
+so we generate two larger bootstrapped datasets
+and then analyze them with regression models.
+Finally, we summarize the regression models
+to see if there is an association.</p>
     
 
     <pre class="usage"><span class='fu'>load_basic_example</span>(<span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>(), <span class='kw'>cache</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -186,7 +188,13 @@ non-back-compatible cache from a previous version of drake.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function also writes/overwrites
+    <p>Use <code><a href='drake_example.html'>drake_example</a>('basic')</code> to get the code
+for the basic example. The included R script is a detailed,
+heavily-commented walkthrough. The quickstart vignette at
+<a href='https://github.com/wlandau-lilly/drake/blob/master/vignettes/quickstart.Rmd'>https://github.com/wlandau-lilly/drake/blob/master/vignettes/quickstart.Rmd</a> # nolint
+and <a href='https://wlandau-lilly.github.io/drake/articles/quickstart.html'>https://wlandau-lilly.github.io/drake/articles/quickstart.html</a>
+also walks through the basic example.
+This function also writes/overwrites
 the file, <code>report.Rmd</code>.</p>
     
 
@@ -205,6 +213,10 @@ the file, <code>report.Rmd</code>.</p>
 <span class='fu'><a href='vis_drake_graph.html'>vis_drake_graph</a></span>(<span class='no'>config</span>)
 <span class='co'># Run the workflow to build all the targets in the plan.</span>
 <span class='fu'><a href='make.html'>make</a></span>(<span class='no'>my_plan</span>)
+<span class='co'># For the reg2() model on the small dataset,</span>
+<span class='co'># the p-value is so small that there may be an association</span>
+<span class='co'># between weight and fuel efficiency after all.</span>
+<span class='fu'><a href='readd.html'>readd</a></span>(<span class='no'>coef_regression2_small</span>)
 <span class='co'># Remove the whole cache.</span>
 <span class='fu'><a href='clean.html'>clean</a></span>(<span class='kw'>destroy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'># Clean up the imported file.</span>
