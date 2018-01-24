@@ -174,7 +174,7 @@ bad_plan
 <code>Drake</code> is oblivious to <code>data.csv</code> since it is not explicitly mentioned in a workflow plan command. So when <code>data.csv</code> changes, <code><a href="../reference/make.html">make(bad_plan)</a></code> will not rebuild <code>my_data</code>.</li>
 <li>
 <code>my_analysis</code> will not update when <code>my_data</code> changes.</li>
-<li>The return value of <code>source()</code> is formatted counter-intuitively. If <code>source('get_data.R')</code> is the command for <code>my_data</code>, then <code>my_data</code> will always be a list with elements <code>"value"</code> and <code>"visible"</code>. In other words, <code>source('get_data.R')$value</code> is really what you want.</li>
+<li>The return value of <code>source()</code> is formatted counter-intuitively. If <code>source('get_data.R')</code> is the command for <code>my_data</code>, then <code>my_data</code> will always be a list with elements <code>"value"</code> and <code>"visible"</code>. In other words, <code>source('get_data.R')$value</code> is really what you would want.</li>
 </ol>
 <p>In addition, this <code>source()</code>-based approach is simply inconvenient. <code>Drake</code> rebuilds <code>my_data</code> every time <code>get_data.R</code> changes, even when those changes are just extra comments or blank lines. On the other hand, in the previous plan that uses <code>my_data = get_data()</code>, <code>drake</code> does not trigger rebuilds when comments or whitespace in <code>get_data()</code> are modified. <code>Drake</code> is R-focused, not file-focused. If you embrace this viewpoint, your work will be easier.</p>
 </div>
@@ -185,7 +185,7 @@ bad_plan
 <p><code>Drake</code> makes special exceptions for R Markdown reports and other <a href="https://github.com/yihui/knitr">knitr</a> reports such as <code>*.Rmd</code> and <code>*.Rnw</code> files. Not every <code>drake</code> project needs them, but it is good practice to use them to summarize the final results of a project once all the other targets have already been built. The basic example, for instance, has an R Markdown report. <code>report.Rmd</code> is knitted to build <code>report.md</code>, which summarizes the final results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load all the functions and the workflow plan data frame, my_plan.</span>
 <span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpR8B5Zt/articles/.drake
+## cache /tmp/RtmpN3VCk8/articles/.drake
 ## connect 7 imports: tmp, simulate, reg1, my_plan, reg2, bad_plan, good_plan
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...</code></pre></div>
 <p>To see where <code>report.md</code> will be built, look to the right of the workflow graph.</p>
@@ -223,7 +223,7 @@ bad_plan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

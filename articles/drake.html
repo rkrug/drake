@@ -147,10 +147,10 @@
 <span class="kw">list.files</span>()
 ##  [1] "best-practices.html"  "best-practices.Rmd"   "caution.html"        
 ##  [4] "caution.Rmd"          "debug.html"           "debug.Rmd"           
-##  [7] "drake.Rmd"            "example-gsp.Rmd"      "example-packages.Rmd"
-## [10] "graph.Rmd"            "logo-vignettes.png"   "parallelism.Rmd"     
-## [13] "quickstart.Rmd"       "report.Rmd"           "storage.Rmd"         
-## [16] "timing.Rmd"</code></pre></div>
+##  [7] "drake.html"           "drake.Rmd"            "example-gsp.Rmd"     
+## [10] "example-packages.Rmd" "graph.Rmd"            "logo-vignettes.png"  
+## [13] "parallelism.Rmd"      "quickstart.Rmd"       "report.Rmd"          
+## [16] "storage.Rmd"          "timing.Rmd"</code></pre></div>
 <p>Your real work is outlined in a data frame of data analysis steps called “targets”. The targets depend on the imports, and <code>drake</code> will figure out how they are all connected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_plan
 ##                    target
@@ -234,41 +234,44 @@ whole_plan
 ## Warning in value[[3L]](cond): Could not parse file 'report.Rmd'. Drake
 ## dependencies could not be extracted from code chunks.
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-##  [1] "'report.md'"            "coef_regression1_large"
-##  [3] "coef_regression1_small" "coef_regression2_large"
-##  [5] "coef_regression2_small" "large"                 
-##  [7] "regression1_large"      "regression1_small"     
-##  [9] "regression2_large"      "regression2_small"     
+##  [1] "coef_regression1_large" "coef_regression1_small"
+##  [3] "coef_regression2_large" "coef_regression2_small"
+##  [5] "large"                  "regression1_large"     
+##  [7] "regression1_small"      "regression2_large"     
+##  [9] "regression2_small"      "'report.md'"           
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpR8B5Zt/articles/.drake
+## cache /tmp/RtmpN3VCk8/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## Warning in value[[3L]](cond): Could not parse file 'report.Rmd'. Drake
 ## dependencies could not be extracted from code chunks.
-## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
 ## check 3 items: reg1, reg2, simulate
-## check 3 items: 'report.md', large, small
+## check 3 items: large, 'report.md', small
+## target large
 ## target 'report.md'
 ## fail 'report.md'
 ## Error: Target ''report.md'' failed to build. Use diagnose('report.md') to retrieve diagnostic information.</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpR8B5Zt/articles/.drake
+## cache /tmp/RtmpN3VCk8/articles/.drake
 ## Error: key 'coef_regression2_small' ('objects') not found</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpR8B5Zt/articles/.drake
+## cache /tmp/RtmpN3VCk8/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## Warning in value[[3L]](cond): Could not parse file 'report.Rmd'. Drake
 ## dependencies could not be extracted from code chunks.
-## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
 ## check 3 items: reg1, reg2, simulate
-## check 3 items: 'report.md', large, small
+## check 3 items: large, 'report.md', small
+## check 2 items: regression1_large, regression2_large
+## load 1 item: large
 ## target 'report.md'
 ## fail 'report.md'
 ## Error: Target ''report.md'' failed to build. Use diagnose('report.md') to retrieve diagnostic information.</code></pre></div>
@@ -279,14 +282,18 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpR8B5Zt/articles/.drake
+## cache /tmp/RtmpN3VCk8/articles/.drake
+## Unloading targets from environment:
+##   large
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## Warning in value[[3L]](cond): Could not parse file 'report.Rmd'. Drake
 ## dependencies could not be extracted from code chunks.
-## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
 ## check 3 items: reg1, reg2, simulate
-## check 3 items: 'report.md', large, small
+## check 3 items: large, 'report.md', small
+## check 2 items: regression1_large, regression2_large
+## load 1 item: large
 ## target 'report.md'
 ## fail 'report.md'
 ## Error: Target ''report.md'' failed to build. Use diagnose('report.md') to retrieve diagnostic information.</code></pre></div>
@@ -353,7 +360,7 @@ whole_plan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
