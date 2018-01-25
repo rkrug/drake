@@ -105,7 +105,7 @@
       <h1>Parallel computing</h1>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-23</h4>
+            <h4 class="date">2018-01-25</h4>
           </div>
 
     
@@ -135,12 +135,12 @@ reg2 &lt;-<span class="st"> </span>function(d) {
 <p>To show the parallelizable stages of the next <code><a href="../reference/make.html">make()</a></code> programmatically, use the <code><a href="../reference/parallel_stages.html">parallel_stages()</a></code> function. All the targets/imports in a stage are processed in parallel before moving on to the next stage.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/parallel_stages.html">parallel_stages</a></span>(config)
 ##                      item imported  file stage
-## 1              data.frame     TRUE FALSE     1
-## 2                    knit     TRUE FALSE     1
-## 3                      lm     TRUE FALSE     1
-## 4                  mtcars     TRUE FALSE     1
-## 5                    nrow     TRUE FALSE     1
-## 6            'report.Rmd'     TRUE  TRUE     1
+## 1            'report.Rmd'     TRUE  TRUE     1
+## 2              data.frame     TRUE FALSE     1
+## 3                    knit     TRUE FALSE     1
+## 4                      lm     TRUE FALSE     1
+## 5                  mtcars     TRUE FALSE     1
+## 6                    nrow     TRUE FALSE     1
 ## 7              sample.int     TRUE FALSE     1
 ## 8                 summary     TRUE FALSE     1
 ## 9        suppressWarnings     TRUE FALSE     1
@@ -341,7 +341,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 <p>But be warned: that particular recipe fails on Windows.</p>
 <p>Use the <code><a href="../reference/Makefile_recipe.html">Makefile_recipe()</a></code> function to show and tweak <code>Makefile</code> recipes in advance.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>()
-## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpN3VCk8/articles/.drake")'
+## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/Rtmp12v9UU/articles/.drake")'
 
 <span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(
   <span class="dt">recipe_command =</span> <span class="st">"R -e 'R_RECIPE' -q"</span>,
@@ -351,7 +351,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 ## R -e 'drake::mk(target = "this_target", cache_path = "custom_cache")' -q</code></pre></div>
 <p>If <code>recipe_command</code> contains no mention of <code>R_RECIPE</code>, then <code>R_RECIPE</code> is single-quoted and appended automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(<span class="dt">recipe_command =</span> <span class="st">"R -q -e"</span>)
-## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpN3VCk8/articles/.drake")'</code></pre></div>
+## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/Rtmp12v9UU/articles/.drake")'</code></pre></div>
 <p>Try each of the following and look at the generated <code>Makefile</code> after each call to <code><a href="../reference/make.html">make()</a></code>. To see the recipes printed to the console, run <code><a href="../reference/clean.html">clean()</a></code> between each <code><a href="../reference/make.html">make()</a></code> and leave <code>verbose</code> equal to <code>TRUE</code> (default).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>)
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>,
@@ -480,7 +480,7 @@ echo "module load R; $*" | qsub -sync y -cwd -j y
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run your project (build the outdated targets). — make • drake</title>
+<title>Run your project (build the outdated targets). <U+2014> make • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -130,7 +130,11 @@
 
     
     <p>This is the central, most important function
-of the drake package.</p>
+of the drake package. It runs all the steps of your
+workflow in the correct order, skipping any work
+that is already up to date.
+See <a href='https://wlandau-lilly.github.io/drake/'>https://wlandau-lilly.github.io/drake/</a>
+for the full documentation, which includes multiple in-depth tutorials.</p>
     
 
     <pre class="usage"><span class='fu'>make</span>(<span class='kw'>plan</span> <span class='kw'>=</span> <span class='fu'><a href='drake_plan.html'>drake_plan</a></span>(), <span class='kw'>targets</span> <span class='kw'>=</span> <span class='kw pkg'>drake</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/drake/topics/possible_targets'>possible_targets</a></span>(<span class='no'>plan</span>),
@@ -543,7 +547,7 @@ for more details.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
