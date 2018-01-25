@@ -85,7 +85,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/wlandau-lilly/drake">
+  <a href="https://github.com/ropensci/drake">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -116,7 +116,7 @@
 <img src="logo-vignettes.png">
 </div>
 <p>The following data analysis workflow shows off <code>drake</code>’s ability to generate lots of reproducibly-tracked tasks with ease. The same technique would be cumbersome, even intractable, with <a href="https://www.gnu.org/software/make/">GNU Make</a>.</p>
-<p>If you wish to tinker with the example yourself, you can generate the <a href="https://github.com/wlandau-lilly/drake/tree/master/inst/examples/gsp">underlying code files</a> with <code><a href="../reference/drake_example.html">drake_example("gsp")</a></code> and then step through <code>run.R</code>.</p>
+<p>If you wish to tinker with the example yourself, you can generate the <a href="https://github.com/ropensci/drake/tree/master/inst/examples/gsp">underlying code files</a> with <code><a href="../reference/drake_example.html">drake_example("gsp")</a></code> and then step through <code>run.R</code>.</p>
 <div id="objective-and-methods" class="section level1">
 <h1 class="hasAnchor">
 <a href="#objective-and-methods" class="anchor"></a>Objective and methods</h1>
@@ -263,7 +263,7 @@ rmspe_plan &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
   <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(rmspe) +
 <span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_histogram">geom_histogram</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> rmspe), <span class="dt">bins =</span> <span class="dv">30</span>)
 }</code></pre></div>
-<p>We also need the <a href="https://github.com/wlandau-lilly/drake/blob/master/inst/examples/gsp/report.Rmd">report.Rmd file</a> for this example.</p>
+<p>We also need the <a href="https://github.com/ropensci/drake/blob/master/inst/examples/gsp/report.Rmd">report.Rmd file</a> for this example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">local &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">"examples"</span>, <span class="st">"gsp"</span>, <span class="st">"report.Rmd"</span>)
 path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">path =</span> local, <span class="dt">package =</span> <span class="st">"drake"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)
 <span class="kw">file.copy</span>(<span class="dt">from =</span> path, <span class="dt">to =</span> <span class="st">"report.Rmd"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
@@ -277,10 +277,10 @@ path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span cla
 <a href="#results" class="anchor"></a>Results</h1>
 <p>Here are the root mean squared prediction errors of all the models.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readd.html">readd</a></span>(rmspe)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(plot_rmspe)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 
 <span class="kw">library</span>(ggplot2)
 <span class="kw">plot_rmspe</span>(<span class="dt">rmspe =</span> results)</code></pre></div>

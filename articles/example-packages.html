@@ -85,7 +85,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/wlandau-lilly/drake">
+  <a href="https://github.com/ropensci/drake">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -230,7 +230,7 @@ whole_plan
 ## 5                                                                  make_my_plot(recent)
 ## 6                                                                   make_my_plot(older)
 ## 7                                                      knit('report.Rmd', quiet = TRUE)</code></pre></div>
-<p>The latest download data needs to be refreshed every day, so we use triggers to force <code>recent</code> to always build. For more on triggers, see the <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/debug.Rmd">vignette on debugging and testing</a>. Instead of triggers, we could have just made <code>recent</code> a global variable like <code>package_list</code> instead of a formal target in <code>whole_plan</code>.</p>
+<p>The latest download data needs to be refreshed every day, so we use triggers to force <code>recent</code> to always build. For more on triggers, see the <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd">vignette on debugging and testing</a>. Instead of triggers, we could have just made <code>recent</code> a global variable like <code>package_list</code> instead of a formal target in <code>whole_plan</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_plan$trigger &lt;-<span class="st"> "any"</span> <span class="co"># default trigger</span>
 whole_plan$trigger[whole_plan$target ==<span class="st"> "recent"</span>] &lt;-<span class="st"> "always"</span>
 
@@ -261,7 +261,7 @@ whole_plan
 ## 7     any</code></pre></div>
 <p>Now, we run the project to download the data and analyze it. The results will be summarized in the knitted report, <code>report.md</code>, but you can also read the results directly from the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, make_...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_recen...
 ## Loading required package: methods
@@ -281,29 +281,29 @@ whole_plan
 ## Used non-default triggers. Some targets may be not be up to date.
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_recent)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2      11212.533
 ## 2   knitr       8731.967
 ## 3    Rcpp      14067.333
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_older)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14641.29
 ## 2   knitr        9068.71
 ## 3    Rcpp       14408.06
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_recent)
-## cache /tmp/RtmpSQFnh2/articles/.drake</code></pre></div>
+## cache /tmp/RtmpLJbXlq/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_older)
-## cache /tmp/RtmpSQFnh2/articles/.drake</code></pre></div>
+## cache /tmp/RtmpLJbXlq/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-2.png" width="672"></p>
 <p>Because we used triggers, each <code><a href="../reference/make.html">make()</a></code> rebuilds the <code>recent</code> target to get the latest download numbers for today. If the newly-downloaded data are the same as last time and nothing else changes, <code>drake</code> skips all the other targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## Unloading targets from environment:
 ##   averages_recent
 ##   plot_older
@@ -322,7 +322,7 @@ whole_plan
 <p>To visualize the build behavior, plot the dependency network. Target <code>recent</code> and everything depending on it is always out of date because of the <code>"always"</code> trigger. If you rerun the project tomorrow, the <code>recent</code> dataset will have shifted one day forward, so <code><a href="../reference/make.html">make()</a></code> will refresh <code>averages_recent</code>, <code>plot_recent</code>, and <code>'report.md'</code>. Targets <code>averages_older</code> and <code>plot_older</code> should be unaffected, so <code>drake</code> will skip them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(whole_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/packages.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/0b76e536/images/packages.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 </div>
 </div>

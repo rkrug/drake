@@ -85,7 +85,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/wlandau-lilly/drake">
+  <a href="https://github.com/ropensci/drake">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -129,7 +129,7 @@ reg2 &lt;-<span class="st"> </span>function(d) {
 }
 <span class="co"># Hover, click, drag, zoom, and pan.</span>
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/reg2.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/0b76e536/images/reg2.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>The nodes in each column above are conditionally independent given the dependencies to the left. So in general, the targets and imports are processed column by column from left to right, and everything within a column is executed in parallel. When some targets are already up to date, <code>drake</code> searches ahead in the graph to maximize the number of outdated targets in each parallelizable stage.</p>
 <p>To show the parallelizable stages of the next <code><a href="../reference/make.html">make()</a></code> programmatically, use the <code><a href="../reference/parallel_stages.html">parallel_stages()</a></code> function. All the targets/imports in a stage are processed in parallel before moving on to the next stage.</p>
@@ -297,7 +297,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
   )
 )
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"future_lapply"</span>)</code></pre></div>
-<p>For parallelism on clusters and job schedulers, special <a href="https://github.com/mllg/batchtools">batchtools</a> <code>*.tmpl</code> configuration files are required, and the technique is described in the documentation of <a href="https://github.com/mllg/batchtools">batchtools</a>. It is your responsibility to configure these files for your job scheduler. You can find some examples on the <code>inst/templates</code> folders of the <a href="https://github.com/mllg/batchtools/tree/master/inst/templates">batchtools</a> and <a href="https://github.com/HenrikBengtsson/future.batchtools/tree/master/inst/templates">future.batchtools</a> GitHub repositories. <code>Drake</code> has some <a href="https://github.com/wlandau-lilly/drake/tree/master/inst/examples">built-in prepackaged example workflows</a> as well. See <code><a href="../reference/drake_examples.html">drake_examples()</a></code> to view your options, and then <code><a href="../reference/drake_example.html">drake_example()</a></code> to write the files for an example.</p>
+<p>For parallelism on clusters and job schedulers, special <a href="https://github.com/mllg/batchtools">batchtools</a> <code>*.tmpl</code> configuration files are required, and the technique is described in the documentation of <a href="https://github.com/mllg/batchtools">batchtools</a>. It is your responsibility to configure these files for your job scheduler. You can find some examples on the <code>inst/templates</code> folders of the <a href="https://github.com/mllg/batchtools/tree/master/inst/templates">batchtools</a> and <a href="https://github.com/HenrikBengtsson/future.batchtools/tree/master/inst/templates">future.batchtools</a> GitHub repositories. <code>Drake</code> has some <a href="https://github.com/ropensci/drake/tree/master/inst/examples">built-in prepackaged example workflows</a> as well. See <code><a href="../reference/drake_examples.html">drake_examples()</a></code> to view your options, and then <code><a href="../reference/drake_example.html">drake_example()</a></code> to write the files for an example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/drake_example.html">drake_example</a></span>(<span class="st">"sge"</span>)   <span class="co"># Sun/Univa Grid Engine workflow and supporting files</span>
 <span class="kw"><a href="../reference/drake_example.html">drake_example</a></span>(<span class="st">"slurm"</span>) <span class="co"># SLURM workflow and supporting files</span></code></pre></div>
 <p>To just write the <a href="https://github.com/mllg/batchtools">batchtools</a> <code>*.tmpl</code> for an example, use</p>
@@ -341,7 +341,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 <p>But be warned: that particular recipe fails on Windows.</p>
 <p>Use the <code><a href="../reference/Makefile_recipe.html">Makefile_recipe()</a></code> function to show and tweak <code>Makefile</code> recipes in advance.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>()
-## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpSQFnh2/articles/.drake")'
+## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpLJbXlq/articles/.drake")'
 
 <span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(
   <span class="dt">recipe_command =</span> <span class="st">"R -e 'R_RECIPE' -q"</span>,
@@ -351,7 +351,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 ## R -e 'drake::mk(target = "this_target", cache_path = "custom_cache")' -q</code></pre></div>
 <p>If <code>recipe_command</code> contains no mention of <code>R_RECIPE</code>, then <code>R_RECIPE</code> is single-quoted and appended automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(<span class="dt">recipe_command =</span> <span class="st">"R -q -e"</span>)
-## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpSQFnh2/articles/.drake")'</code></pre></div>
+## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpLJbXlq/articles/.drake")'</code></pre></div>
 <p>Try each of the following and look at the generated <code>Makefile</code> after each call to <code><a href="../reference/make.html">make()</a></code>. To see the recipes printed to the console, run <code><a href="../reference/clean.html">clean()</a></code> between each <code><a href="../reference/make.html">make()</a></code> and leave <code>verbose</code> equal to <code>TRUE</code> (default).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>)
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>,
@@ -399,10 +399,10 @@ echo "module load R; $*" | qsub -sync y -cwd -j y
 <div id="drake-as-an-ordinary-job-scheduler" class="section level1">
 <h1 class="hasAnchor">
 <a href="#drake-as-an-ordinary-job-scheduler" class="anchor"></a>Drake as an ordinary job scheduler</h1>
-<p>If you do not care about reproducibility and you want <code>drake</code> to be an ordinary job scheduler, consider using <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/debug.Rmd#test-with-triggers">alternative triggers</a>.</p>
+<p>If you do not care about reproducibility and you want <code>drake</code> to be an ordinary job scheduler, consider using <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd#test-with-triggers">alternative triggers</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>()
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">trigger =</span> <span class="st">"missing"</span>) <span class="co"># Also consider "always".</span></code></pre></div>
-<p>Above, <code>drake</code> only builds the missing targets. This skips much of the <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/storage.Rmd#hash-algorithms">time-consuming hashing</a> that ordinarily detects which targets are out of date.</p>
+<p>Above, <code>drake</code> only builds the missing targets. This skips much of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/storage.Rmd#hash-algorithms">time-consuming hashing</a> that ordinarily detects which targets are out of date.</p>
 </div>
 <div id="final-thoughts" class="section level1">
 <h1 class="hasAnchor">
@@ -410,12 +410,12 @@ echo "module load R; $*" | qsub -sync y -cwd -j y
 <div id="debugging" class="section level2">
 <h2 class="hasAnchor">
 <a href="#debugging" class="anchor"></a>Debugging</h2>
-<p>For large workflows, downsizing and debugging tools become super important. See the <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/debug.Rmd">“debug” vignette</a> for help on diagnosing problems with a workflow. <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/debug.Rmd#test-with-triggers">Triggers</a> and <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/debug.Rmd#diagnose-failures">cached error logs</a> especially speed the development and testing process.</p>
+<p>For large workflows, downsizing and debugging tools become super important. See the <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd">“debug” vignette</a> for help on diagnosing problems with a workflow. <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd#test-with-triggers">Triggers</a> and <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd#diagnose-failures">cached error logs</a> especially speed the development and testing process.</p>
 </div>
 <div id="zombies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#zombies" class="anchor"></a>Zombies</h2>
-<p>In versions of R prior to 3.5.0, some parallel backends, particularly <code>mclapply</code> and <code><a href="http://www.rdocumentation.org/packages/future/topics/multicore">future::multicore</a></code>, may create zombie processes. This issue is fixed in R versions 3.5.0 and later. Zombie children are not usually harmful, but you may wish to kill them yourself. The following function by <a href="https://github.com/CarlBoneri">Carl Boneri</a> should work on Unix-like systems. For a discussion, see <a href="https://github.com/wlandau-lilly/drake/issues/116">drake issue 116</a>.</p>
+<p>In versions of R prior to 3.5.0, some parallel backends, particularly <code>mclapply</code> and <code><a href="http://www.rdocumentation.org/packages/future/topics/multicore">future::multicore</a></code>, may create zombie processes. This issue is fixed in R versions 3.5.0 and later. Zombie children are not usually harmful, but you may wish to kill them yourself. The following function by <a href="https://github.com/CarlBoneri">Carl Boneri</a> should work on Unix-like systems. For a discussion, see <a href="https://github.com/ropensci/drake/issues/116">drake issue 116</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fork_kill_zombies &lt;-<span class="st"> </span>function(){
   <span class="kw">require</span>(inline)
   includes &lt;-<span class="st"> "#include &lt;sys/wait.h&gt;"</span>
@@ -433,7 +433,7 @@ echo "module load R; $*" | qsub -sync y -cwd -j y
 <div id="more-resources" class="section level2">
 <h2 class="hasAnchor">
 <a href="#more-resources" class="anchor"></a>More resources</h2>
-<p>See the <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/timing.Rmd">timing vignette</a> for explanations of functions <code><a href="../reference/rate_limiting_times.html">rate_limiting_times()</a></code> and <code><a href="../reference/predict_runtime.html">predict_runtime()</a></code>, which can help predict the possible speed gains of having multiple independent jobs. If you suspect <code>drake</code> itself is slowing down your project, you may want to read the storage vignette to learn how to set the hashing algorithms of your project.</p>
+<p>See the <a href="https://github.com/ropensci/drake/blob/master/vignettes/timing.Rmd">timing vignette</a> for explanations of functions <code><a href="../reference/rate_limiting_times.html">rate_limiting_times()</a></code> and <code><a href="../reference/predict_runtime.html">predict_runtime()</a></code>, which can help predict the possible speed gains of having multiple independent jobs. If you suspect <code>drake</code> itself is slowing down your project, you may want to read the storage vignette to learn how to set the hashing algorithms of your project.</p>
 </div>
 </div>
 </div>

@@ -85,7 +85,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/wlandau-lilly/drake">
+  <a href="https://github.com/ropensci/drake">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -115,7 +115,7 @@
 <div class="figure">
 <img src="logo-vignettes.png">
 </div>
-<p>This tutorial is the abridged version of the <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a>. For more information, see the <a href="https://wlandau-lilly.github.io/drake/">documentation website</a>, which includes the <a href="https://wlandau-lilly.github.io/drake/articles/quickstart.html">rendered online version of the quickstart vignette</a>.</p>
+<p>This tutorial is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/quickstart.html">rendered online version of the quickstart vignette</a>.</p>
 <div id="the-motivation-of-the-basic-example" class="section level1">
 <h1 class="hasAnchor">
 <a href="#the-motivation-of-the-basic-example" class="anchor"></a>The motivation of the basic example</h1>
@@ -225,7 +225,7 @@ whole_plan
 ## 6 regression_2_large  reg2(large)</code></pre></div>
 <p>Using static code analysis, <code>drake</code> detects the dependencies of all your targets. The result is an interactive network diagram.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(my_plan)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/0b76e536/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>At this point, all your targets are out of date because the project is new.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Master configuration list</span>
@@ -240,7 +240,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
@@ -267,13 +267,13 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpSQFnh2/articles/.drake
-##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 25.8684734 0.91916826 28.143349 1.225124e-30
-## x2          -0.5632543 0.05967345 -9.438944 2.470947e-12</code></pre></div>
+## cache /tmp/RtmpLJbXlq/articles/.drake
+##               Estimate Std. Error  t value     Pr(&gt;|t|)
+## (Intercept) 29.8428311 1.07914198 27.65422 2.626025e-30
+## x2          -0.8496885 0.08878046 -9.57067 1.612502e-12</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   coef_regression2_small
@@ -294,7 +294,7 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
@@ -317,13 +317,13 @@ whole_plan
 <div id="built-in-example-projects" class="section level1">
 <h1 class="hasAnchor">
 <a href="#built-in-example-projects" class="anchor"></a>Built-in example projects</h1>
-<p><code>Drake</code> has <a href="https://github.com/wlandau-lilly/drake/tree/master/inst/examples">built-in example projects</a>. You can generate the code files for an example with <code><a href="../reference/drake_example.html">drake_example()</a></code>, and you can list the available examples with <code><a href="../reference/drake_examples.html">drake_examples()</a></code>. For instance, <code><a href="../reference/drake_example.html">drake_example("gsp")</a></code> generates the R script and R Markdown report for the built-in econometrics data analysis project. See below for the currently supported examples.</p>
+<p><code>Drake</code> has <a href="https://github.com/ropensci/drake/tree/master/inst/examples">built-in example projects</a>. You can generate the code files for an example with <code><a href="../reference/drake_example.html">drake_example()</a></code>, and you can list the available examples with <code><a href="../reference/drake_examples.html">drake_examples()</a></code>. For instance, <code><a href="../reference/drake_example.html">drake_example("gsp")</a></code> generates the R script and R Markdown report for the built-in econometrics data analysis project. See below for the currently supported examples.</p>
 <div id="learn-how-to-use-drake-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#learn-how-to-use-drake-" class="anchor"></a>Learn how to use <code>drake</code>.</h2>
 <ul>
 <li>
-<code>basic</code>: A tiny, minimal example with the <code>mtcars</code> dataset to demonstrate how to use <code>drake</code>. Use <code><a href="../reference/load_basic_example.html">load_basic_example()</a></code> to set up the project in your workspace. The <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a> is a parallel walkthrough of the same example.</li>
+<code>basic</code>: A tiny, minimal example with the <code>mtcars</code> dataset to demonstrate how to use <code>drake</code>. Use <code><a href="../reference/load_basic_example.html">load_basic_example()</a></code> to set up the project in your workspace. The <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a> is a parallel walkthrough of the same example.</li>
 <li>
 <code>gsp</code>: A more concrete, practical example using real econometrics data. It explores the relationships between gross state product and other quantities, and it shows off <code>drake</code>’s ability to generate lots of reproducibly-tracked tasks with ease.</li>
 <li>

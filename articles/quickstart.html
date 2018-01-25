@@ -85,7 +85,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/wlandau-lilly/drake">
+  <a href="https://github.com/ropensci/drake">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -197,7 +197,7 @@ report_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(pa
 ## 
 ## Is there an association between the weight and the fuel efficiency of cars? To find out, we use the `mtcars` dataset from the `datasets` package. The `mtcars` data originally came from the 1974 Motor Trend US magazine, and it contains design and performance data on 32 models of automobile.
 ## 
-## ```{r mtcars}
+## ```{r showmtcars}
 ## # ?mtcars # more info
 ## head(mtcars)
 ## ```
@@ -245,7 +245,7 @@ report_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(pa
 <a href="#the-workflow-plan-data-frame" class="anchor"></a>The workflow plan data frame</h1>
 <p>Now that your workspace of imports is prepared, we can outline the real work step by step in a workflow plan data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 my_plan
@@ -285,7 +285,7 @@ my_plan
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
 config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>) <span class="co"># Also drake_graph()</span></code></pre></div>
-<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/0b76e536/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>You can also check the dependencies of individual targets and imported functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/deps.html">deps</a></span>(reg2)
@@ -324,7 +324,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 ## [27] "lm"</code></pre></div>
 <p>Check for circular reasoning, missing input files, and other pitfalls.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/check_plan.html">check_plan</a></span>(my_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...</code></pre></div>
 </div>
@@ -511,7 +511,7 @@ df
 ## character(0)</code></pre></div>
 <p>Then just <code><a href="../reference/make.html">make(my_plan)</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## connect 14 imports: report_file, report, my_analyses, simulate, reg1, config,...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
@@ -538,10 +538,10 @@ df
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 26.3378244 1.04848999 25.119767 1.669838e-28
-## x2          -0.6317636 0.08329293 -7.584841 1.218277e-09</code></pre></div>
+## (Intercept) 29.1050225 0.83857833  34.70758 1.217791e-34
+## x2          -0.7396881 0.06112624 -12.10099 6.755688e-16</code></pre></div>
 <p>The non-file dependencies of your last target are already loaded in your workspace.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()
 ##  [1] "coef_regression2_small" "config"                
@@ -557,70 +557,70 @@ df
 ## character(0)
 
 <span class="kw"><a href="../reference/build_times.html">build_times</a></span>(<span class="dt">digits =</span> <span class="dv">4</span>) <span class="co"># How long did it take to make each target?</span>
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##                      item   type elapsed   user system
-## 1             'report.md' target  0.058s 0.055s 0.004s
-## 2            'report.Rmd' import  0.003s 0.002s     0s
-## 3  coef_regression1_large target  0.006s 0.005s     0s
-## 4  coef_regression1_small target  0.005s 0.003s 0.001s
-## 5  coef_regression2_large target  0.004s 0.005s     0s
-## 6  coef_regression2_small target  0.005s 0.005s     0s
-## 7              data.frame import  0.006s 0.007s     0s
+## 1             'report.md' target   0.06s 0.058s 0.002s
+## 2            'report.Rmd' import  0.001s 0.001s     0s
+## 3  coef_regression1_large target  0.005s 0.004s 0.001s
+## 4  coef_regression1_small target  0.004s 0.005s     0s
+## 5  coef_regression2_large target  0.005s 0.005s     0s
+## 6  coef_regression2_small target  0.004s 0.005s     0s
+## 7              data.frame import  0.007s 0.007s     0s
 ## 8                    knit import  0.003s 0.003s     0s
-## 9                   large target  0.074s 0.074s 0.001s
+## 9                   large target  0.076s 0.075s     0s
 ## 10                     lm import  0.004s 0.004s     0s
 ## 11                 mtcars import  0.001s 0.001s     0s
-## 12                   nrow import  0.005s 0.005s     0s
-## 13                   reg1 import  0.002s 0.001s     0s
-## 14                   reg2 import  0.001s 0.002s     0s
-## 15      regression1_large target  0.008s 0.007s     0s
-## 16      regression1_small target  0.005s 0.004s 0.001s
-## 17      regression2_large target  0.005s 0.006s     0s
-## 18      regression2_small target  0.005s 0.006s     0s
-## 19             sample.int import  0.005s 0.005s     0s
-## 20               simulate import  0.001s 0.001s     0s
-## 21                  small target   0.03s 0.031s     0s
+## 12                   nrow import  0.004s 0.004s     0s
+## 13                   reg1 import  0.002s 0.002s     0s
+## 14                   reg2 import  0.001s 0.001s     0s
+## 15      regression1_large target  0.007s 0.007s     0s
+## 16      regression1_small target  0.005s 0.006s     0s
+## 17      regression2_large target  0.006s 0.006s     0s
+## 18      regression2_small target  0.006s 0.006s     0s
+## 19             sample.int import  0.005s 0.004s     0s
+## 20               simulate import  0.002s 0.001s     0s
+## 21                  small target  0.031s 0.031s     0s
 ## 22 summ_regression1_large target  0.006s 0.006s     0s
 ## 23 summ_regression1_small target  0.005s 0.004s     0s
-## 24 summ_regression2_large target  0.004s 0.005s     0s
-## 25 summ_regression2_small target  0.004s 0.005s     0s
-## 26                summary import  0.005s 0.004s     0s
-## 27       suppressWarnings import  0.004s 0.005s     0s</code></pre></div>
+## 24 summ_regression2_large target  0.005s 0.004s     0s
+## 25 summ_regression2_small target  0.005s 0.005s     0s
+## 26                summary import  0.004s 0.005s     0s
+## 27       suppressWarnings import  0.004s 0.004s     0s</code></pre></div>
 <p>See also <code><a href="../reference/predict_runtime.html">predict_runtime()</a></code> and <code><a href="../reference/rate_limiting_times.html">rate_limiting_times()</a></code>.</p>
 <p>In the new graph, the black nodes from before are now green.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/built.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/0b76e536/images/built.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>Optionally, get <a href="http://datastorm-open.github.io/visNetwork/">visNetwork</a> nodes and edges so you can make your own plot with <code>visNetwork()</code> or <code><a href="../reference/render_drake_graph.html">render_drake_graph()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/dataframes_graph.html">dataframes_graph</a></span>(config)</code></pre></div>
 <p>Use <code><a href="../reference/readd.html">readd()</a></code> and <code><a href="../reference/loadd.html">loadd()</a></code> to load targets into your workspace. (They are cached in the hidden <code>.drake/</code> folder using <a href="https://CRAN.R-project.org/package=storr">storr</a>). There are many more functions for interacting with the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_large)
-## cache /tmp/RtmpSQFnh2/articles/.drake
-##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 28.7584882 0.79916494  35.98567 2.939695e-43
-## x2          -0.7197793 0.06142918 -11.71722 2.300225e-17
+## cache /tmp/RtmpLJbXlq/articles/.drake
+##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) 28.879482 0.89529644  32.25689 1.847039e-40
+## x2          -0.751433 0.06523847 -11.51825 4.786372e-17
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(small)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 
 <span class="kw">head</span>(small)
 ##       x    y
-## 1 1.615 30.4
-## 2 3.440 17.8
-## 3 2.770 19.7
-## 4 3.460 18.1
-## 5 3.780 15.2
-## 6 3.440 18.7
+## 1 5.250 10.4
+## 2 3.730 17.3
+## 3 1.615 30.4
+## 4 5.424 10.4
+## 5 3.150 22.8
+## 6 5.250 10.4
 
 <span class="kw">rm</span>(small)
 <span class="kw"><a href="../reference/cached.html">cached</a></span>(small, large)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## small large 
 ##  TRUE  TRUE
 
 <span class="kw"><a href="../reference/cached.html">cached</a></span>()
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##  [1] "'report.md'"            "'report.Rmd'"          
 ##  [3] "coef_regression1_large" "coef_regression1_small"
 ##  [5] "coef_regression2_large" "coef_regression2_small"
@@ -637,7 +637,7 @@ df
 ## [27] "suppressWarnings"
 
 <span class="kw"><a href="../reference/built.html">built</a></span>()
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##  [1] "'report.md'"            "coef_regression1_large"
 ##  [3] "coef_regression1_small" "coef_regression2_large"
 ##  [5] "coef_regression2_small" "large"                 
@@ -648,14 +648,14 @@ df
 ## [15] "summ_regression2_small"
 
 <span class="kw"><a href="../reference/imported.html">imported</a></span>()
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##  [1] "'report.Rmd'"     "data.frame"       "knit"            
 ##  [4] "lm"               "mtcars"           "nrow"            
 ##  [7] "reg1"             "reg2"             "sample.int"      
 ## [10] "simulate"         "summary"          "suppressWarnings"
 
 <span class="kw">head</span>(<span class="kw"><a href="../reference/read_drake_plan.html">read_drake_plan</a></span>())
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##              target                          command
 ## 1       'report.md' knit('report.Rmd', quiet = TRUE)
 ## 2             small                     simulate(48)
@@ -665,21 +665,21 @@ df
 ## 6 regression2_small                      reg2(small)
 
 <span class="kw">head</span>(<span class="kw"><a href="../reference/progress.html">progress</a></span>()) <span class="co"># See also in_progress()</span>
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##            'report.md'           'report.Rmd' coef_regression1_large 
 ##             "finished"             "finished"             "finished" 
 ## coef_regression1_small coef_regression2_large coef_regression2_small 
 ##             "finished"             "finished"             "finished"
 
 <span class="kw"><a href="../reference/progress.html">progress</a></span>(large)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ##      large 
 ## "finished"
 
 <span class="co"># drake_session() # sessionInfo() of the last make() # nolint</span></code></pre></div>
 <p>The next time you run <code><a href="../reference/make.html">make(my_plan)</a></code>, nothing will build because <code>drake</code> knows everything is already up to date.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan) <span class="co"># Will use config later. See also drake_config().</span>
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## Unloading targets from environment:
 ##   large
 ##   coef_regression2_small
@@ -720,28 +720,28 @@ df
 ## NULL
 ## 
 ## $cached_dependency_hash
-## [1] "049e39bedb7cb3198e5e7599052da46cc31f8a251b03c63ed4beb8d3264da65f"
+## [1] "96329eb4d0de8b99bb152dbc690ea6f6e9c28e73b855d063fd4003004c46047a"
 ## 
 ## $current_dependency_hash
-## [1] "816fb315a42c50ba32135a938c854dddc0fccc2eff75e2594f17bbdd0b12c086"
+## [1] "96595d0b46752ed10f4da4a17cbe7689b3562c8d9892b0cd151bf4559f372d2f"
 ## 
 ## $hashes_of_dependencies
 ##               reg2              small 
-## "d47109544c89ca7a" "3cc8768caa60f7ba"
+## "d47109544c89ca7a" "253d58b428487acc"
 
 config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"small"</span>) <span class="co"># same</span>
-## [1] "3cc8768caa60f7ba"
+## [1] "253d58b428487acc"
 
 config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"reg2"</span>) <span class="co"># different</span>
-## [1] "b1459f0e683a8285"</code></pre></div>
+## [1] "53318808a57198d5"</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
 <span class="co"># Same as drake_graph():</span>
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/wlandau-lilly/drake/0b76e536/images/reg2.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/0b76e536/images/reg2.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>The next <code><a href="../reference/make.html">make()</a></code> will rebuild the targets depending on <code>reg2()</code> and leave everything else alone.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## connect 14 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
@@ -822,7 +822,7 @@ my_plan
 ## 16                             new_simulation(36) + sqrt(10)
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpSQFnh2/articles/.drake
+## cache /tmp/RtmpLJbXlq/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
@@ -867,7 +867,7 @@ my_plan
 <div id="need-more-speed" class="section level1">
 <h1 class="hasAnchor">
 <a href="#need-more-speed" class="anchor"></a>Need more speed?</h1>
-<p><code>Drake</code> has extensive high-performance computing support, from local multicore processing to serious distributed computing across multiple nodes of a cluster. See the <a href="https://github.com/wlandau-lilly/drake/blob/master/vignettes/parallelism.Rmd">parallelism vignette</a> for detailed instructions.</p>
+<p><code>Drake</code> has extensive high-performance computing support, from local multicore processing to serious distributed computing across multiple nodes of a cluster. See the <a href="https://github.com/ropensci/drake/blob/master/vignettes/parallelism.Rmd">parallelism vignette</a> for detailed instructions.</p>
 </div>
 </div>
   </div>

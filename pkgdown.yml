@@ -1,6 +1,6 @@
 urls:
-  reference: https://github.com/wlandau-lilly/drake/reference
-  article: https://github.com/wlandau-lilly/drake/articles
+  reference: https://github.com/ropensci/drake/reference
+  article: https://github.com/ropensci/drake/articles
 articles:
   best-practices: best-practices.html
   caution: caution.html
