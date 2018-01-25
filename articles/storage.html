@@ -124,74 +124,74 @@
 config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>You can explore your cached data using functions like <code><a href="../reference/loadd.html">loadd()</a></code>, <code><a href="../reference/readd.html">readd()</a></code>, and <code><a href="../reference/cached.html">cached()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw"><a href="../reference/cached.html">cached</a></span>())
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 ## [1] "'report.md'"            "'report.Rmd'"          
 ## [3] "coef_regression1_large" "coef_regression1_small"
 ## [5] "coef_regression2_large" "coef_regression2_small"
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(small)
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 ##        x    y
-## 1  3.215 21.4
-## 2  3.730 17.3
-## 3  3.440 19.2
-## 4  2.780 21.4
-## 5  3.150 22.8
-## 6  3.520 15.5
-## 7  5.345 14.7
-## 8  3.150 22.8
-## 9  5.250 10.4
-## 10 2.140 26.0
+## 1  5.345 14.7
+## 2  2.465 21.5
+## 3  2.620 21.0
+## 4  3.730 17.3
+## 5  2.140 26.0
+## 6  2.620 21.0
+## 7  2.465 21.5
+## 8  3.440 19.2
+## 9  1.513 30.4
+## 10 3.435 15.2
 ## 11 5.345 14.7
-## 12 5.250 10.4
-## 13 3.845 19.2
-## 14 2.320 22.8
-## 15 3.845 19.2
-## 16 2.620 21.0
-## 17 3.440 19.2
-## 18 3.435 15.2
-## 19 3.435 15.2
-## 20 3.440 19.2
-## 21 3.730 17.3
-## 22 1.935 27.3
-## 23 2.875 21.0
-## 24 3.520 15.5
-## 25 3.440 17.8
-## 26 3.730 17.3
-## 27 5.424 10.4
-## 28 3.435 15.2
-## 29 2.140 26.0
-## 30 1.935 27.3
-## 31 3.780 15.2
-## 32 3.440 19.2
+## 12 1.513 30.4
+## 13 2.770 19.7
+## 14 2.780 21.4
+## 15 1.935 27.3
+## 16 3.780 15.2
+## 17 3.460 18.1
+## 18 3.440 19.2
+## 19 3.570 14.3
+## 20 3.730 17.3
+## 21 3.440 19.2
+## 22 1.513 30.4
+## 23 3.730 17.3
+## 24 1.835 33.9
+## 25 3.460 18.1
+## 26 3.845 19.2
+## 27 1.835 33.9
+## 28 1.615 30.4
+## 29 3.570 14.3
+## 30 2.875 21.0
+## 31 2.200 32.4
+## 32 5.424 10.4
 ## 33 3.170 15.8
-## 34 3.730 17.3
-## 35 2.140 26.0
-## 36 3.150 22.8
-## 37 2.875 21.0
-## 38 3.845 19.2
-## 39 3.170 15.8
-## 40 3.150 22.8
-## 41 3.190 24.4
-## 42 1.513 30.4
-## 43 3.170 15.8
-## 44 1.513 30.4
-## 45 5.424 10.4
-## 46 3.435 15.2
-## 47 3.215 21.4
-## 48 3.170 15.8
+## 34 1.513 30.4
+## 35 3.440 18.7
+## 36 1.615 30.4
+## 37 1.935 27.3
+## 38 2.465 21.5
+## 39 1.835 33.9
+## 40 2.770 19.7
+## 41 2.465 21.5
+## 42 3.460 18.1
+## 43 3.440 18.7
+## 44 3.780 15.2
+## 45 3.170 15.8
+## 46 2.770 19.7
+## 47 1.615 30.4
+## 48 2.620 21.0
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(large)
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 
 <span class="kw">head</span>(large)
 ##       x    y
-## 1 2.780 21.4
-## 2 2.140 26.0
-## 3 3.190 24.4
-## 4 3.215 21.4
-## 5 1.513 30.4
-## 6 3.170 15.8
+## 1 1.935 27.3
+## 2 1.935 27.3
+## 3 2.770 19.7
+## 4 3.190 24.4
+## 5 2.465 21.5
+## 6 3.570 15.0
 
 <span class="kw">rm</span>(large) <span class="co"># Does not remove `large` from the cache.</span></code></pre></div>
 </div>
@@ -203,7 +203,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make
 ## [1] "storr" "R6"
 
 cache &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_cache.html">get_cache</a></span>() <span class="co"># Get the default cache from the last build.</span>
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 
 <span class="kw">class</span>(cache)
 ## [1] "storr" "R6"
@@ -226,54 +226,54 @@ cache$<span class="kw">list</span>() <span class="co"># Functionality from storr
 
 cache$<span class="kw">get</span>(<span class="st">"small"</span>) <span class="co"># Functionality from storr</span>
 ##        x    y
-## 1  3.215 21.4
-## 2  3.730 17.3
-## 3  3.440 19.2
-## 4  2.780 21.4
-## 5  3.150 22.8
-## 6  3.520 15.5
-## 7  5.345 14.7
-## 8  3.150 22.8
-## 9  5.250 10.4
-## 10 2.140 26.0
+## 1  5.345 14.7
+## 2  2.465 21.5
+## 3  2.620 21.0
+## 4  3.730 17.3
+## 5  2.140 26.0
+## 6  2.620 21.0
+## 7  2.465 21.5
+## 8  3.440 19.2
+## 9  1.513 30.4
+## 10 3.435 15.2
 ## 11 5.345 14.7
-## 12 5.250 10.4
-## 13 3.845 19.2
-## 14 2.320 22.8
-## 15 3.845 19.2
-## 16 2.620 21.0
-## 17 3.440 19.2
-## 18 3.435 15.2
-## 19 3.435 15.2
-## 20 3.440 19.2
-## 21 3.730 17.3
-## 22 1.935 27.3
-## 23 2.875 21.0
-## 24 3.520 15.5
-## 25 3.440 17.8
-## 26 3.730 17.3
-## 27 5.424 10.4
-## 28 3.435 15.2
-## 29 2.140 26.0
-## 30 1.935 27.3
-## 31 3.780 15.2
-## 32 3.440 19.2
+## 12 1.513 30.4
+## 13 2.770 19.7
+## 14 2.780 21.4
+## 15 1.935 27.3
+## 16 3.780 15.2
+## 17 3.460 18.1
+## 18 3.440 19.2
+## 19 3.570 14.3
+## 20 3.730 17.3
+## 21 3.440 19.2
+## 22 1.513 30.4
+## 23 3.730 17.3
+## 24 1.835 33.9
+## 25 3.460 18.1
+## 26 3.845 19.2
+## 27 1.835 33.9
+## 28 1.615 30.4
+## 29 3.570 14.3
+## 30 2.875 21.0
+## 31 2.200 32.4
+## 32 5.424 10.4
 ## 33 3.170 15.8
-## 34 3.730 17.3
-## 35 2.140 26.0
-## 36 3.150 22.8
-## 37 2.875 21.0
-## 38 3.845 19.2
-## 39 3.170 15.8
-## 40 3.150 22.8
-## 41 3.190 24.4
-## 42 1.513 30.4
-## 43 3.170 15.8
-## 44 1.513 30.4
-## 45 5.424 10.4
-## 46 3.435 15.2
-## 47 3.215 21.4
-## 48 3.170 15.8</code></pre></div>
+## 34 1.513 30.4
+## 35 3.440 18.7
+## 36 1.615 30.4
+## 37 1.935 27.3
+## 38 2.465 21.5
+## 39 1.835 33.9
+## 40 2.770 19.7
+## 41 2.465 21.5
+## 42 3.460 18.1
+## 43 3.440 18.7
+## 44 3.780 15.2
+## 45 3.170 15.8
+## 46 2.770 19.7
+## 47 1.615 30.4
+## 48 2.620 21.0</code></pre></div>
 </div>
 <div id="hash-algorithms" class="section level1">
 <h1 class="hasAnchor">
@@ -287,19 +287,19 @@ larger_data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span cl
 ## [1] "23c80a31c0713176016e6e18d76a5f31"
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest</a></span>(larger_data)
-## [1] "2434f55cfb6660a40ef43c225697f899"</code></pre></div>
+## [1] "a238e9415ba56b8974594d9dc5e97628"</code></pre></div>
 <p>However, different hash algorithms vary in length.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest</a></span>(larger_data, <span class="dt">algo =</span> <span class="st">"sha512"</span>)
-## [1] "458a8426795650519a512e8fa684e64085ea12c7c0e12b6973c88dfeaeab55e9770a6c1d4123df063fcfcc82d68c03161bfbdddca48a49c0fe174ffcf21fe1fc"
+## [1] "1db2516b23d0e4e4c5cec898004247e6883f81c404628e99861b2e9501473fcf70b7c52c3edb87f8e4e207a5ff14309dde5f4045d6880e13d2f8401f429faa40"
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest</a></span>(larger_data, <span class="dt">algo =</span> <span class="st">"md5"</span>)
-## [1] "2434f55cfb6660a40ef43c225697f899"
+## [1] "a238e9415ba56b8974594d9dc5e97628"
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest</a></span>(larger_data, <span class="dt">algo =</span> <span class="st">"xxhash64"</span>)
-## [1] "f7ef10793b108022"
+## [1] "ec53f0f19490e5bc"
 
 <span class="kw"><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest</a></span>(larger_data, <span class="dt">algo =</span> <span class="st">"murmur32"</span>)
-## [1] "9c291a38"</code></pre></div>
+## [1] "80a5c2c6"</code></pre></div>
 </div>
 <div id="which-hash-algorithm-should-you-choose" class="section level1">
 <h1 class="hasAnchor">
@@ -322,18 +322,18 @@ larger_data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span cl
 <a href="#select-the-hash-algorithms-of-the-default-cache" class="anchor"></a>Select the hash algorithms of the default cache</h1>
 <p>For new projects, use <code><a href="../reference/new_cache.html">new_cache()</a></code> to set the hash algorithms of the default cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/cache_path.html">cache_path</a></span>(cache) <span class="co"># Default cache from before.</span>
-## [1] "/tmp/Rtmp2k5PNF/articles/.drake"
+## [1] "/tmp/Rtmpd5jxvv/articles/.drake"
 
 <span class="co"># Start from scratch to reset both hash algorithms.</span>
 <span class="kw"><a href="../reference/clean.html">clean</a></span>(<span class="dt">destroy =</span> <span class="ot">TRUE</span>)
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 
 tmp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/new_cache.html">new_cache</a></span>(
   <span class="dt">path =</span> <span class="kw"><a href="../reference/default_cache_path.html">default_cache_path</a></span>(), <span class="co"># The `.drake/` folder.</span>
   <span class="dt">short_hash_algo =</span> <span class="st">"crc32"</span>,
   <span class="dt">long_hash_algo =</span> <span class="st">"sha1"</span>
 )
-## cache /tmp/Rtmp2k5PNF/articles/.drake</code></pre></div>
+## cache /tmp/Rtmpd5jxvv/articles/.drake</code></pre></div>
 <p>The cache at <code><a href="../reference/default_cache_path.html">default_cache_path()</a></code> (equivalently, the <code>.drake/</code> folder) is the default cache used for <code><a href="../reference/make.html">make()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 
@@ -380,13 +380,13 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make
   <span class="dt">short_hash_algo =</span> <span class="st">"murmur32"</span>,
   <span class="dt">long_hash_algo =</span> <span class="st">"murmur32"</span>
 )
-## cache /tmp/Rtmp2k5PNF/articles/faster_cache
+## cache /tmp/Rtmpd5jxvv/articles/faster_cache
 
 <span class="kw"><a href="../reference/cache_path.html">cache_path</a></span>(faster_cache)
-## [1] "/tmp/Rtmp2k5PNF/articles/faster_cache"
+## [1] "/tmp/Rtmpd5jxvv/articles/faster_cache"
 
 <span class="kw"><a href="../reference/cache_path.html">cache_path</a></span>(cache) <span class="co"># location of the previous cache</span>
-## [1] "/tmp/Rtmp2k5PNF/articles/.drake"
+## [1] "/tmp/Rtmpd5jxvv/articles/.drake"
 
 <span class="kw"><a href="../reference/short_hash.html">short_hash</a></span>(faster_cache)
 ## [1] "murmur32"
@@ -459,7 +459,7 @@ other_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/
 ## [7] "some_data"
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(result, <span class="dt">cache =</span> memory_cache)
-## [1] 5.854609</code></pre></div>
+## [1] 5.535513</code></pre></div>
 <p>In theory, it should be possible to leverage serious databases using <code><a href="http://www.rdocumentation.org/packages/storr/topics/storr_dbi">storr_dbi()</a></code>. However, if you use such caches, please heed the following.</p>
 <ol style="list-style-type: decimal">
 <li>Be sure you have <a href="https://github.com/richfitz/storr">storr</a> version 1.1.3 or greater installed.</li>
@@ -481,10 +481,10 @@ cache &lt;-<span class="st"> </span>storr::<span class="kw"><a href="http://www.
 <a href="#cleaning-up" class="anchor"></a>Cleaning up</h1>
 <p>If you want to start from scratch, you can <code><a href="../reference/clean.html">clean()</a></code> the cache. Use the <code>destroy</code> argument to remove it completely. <code>cache$del()</code> and <code>cache$destroy()</code> are also options, but they leave output file targets dangling. By contrast, <code><a href="../reference/clean.html">clean(destroy = TRUE)</a></code> removes file targets generated by <code><a href="http://www.rdocumentation.org/packages/drake/topics/make">drake::make()</a></code>. <code><a href="../reference/drake_gc.html">drake_gc()</a></code> and <code><a href="../reference/clean.html">clean(..., garbage_collection = TRUE)</a></code> do garbage collection, and <code><a href="../reference/clean.html">clean(purge = TRUE)</a></code> removes all target-level data, not just the final output values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/clean.html">clean</a></span>(small, large)
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 
 <span class="kw"><a href="../reference/cached.html">cached</a></span>() <span class="co"># 'small' and 'large' are gone</span>
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 ##  [1] "'report.md'"            "'report.Rmd'"          
 ##  [3] "coef_regression1_large" "coef_regression1_small"
 ##  [5] "coef_regression2_large" "coef_regression2_small"
@@ -500,7 +500,7 @@ cache &lt;-<span class="st"> </span>storr::<span class="kw"><a href="http://www.
 ## [25] "suppressWarnings"
 
 <span class="kw"><a href="../reference/clean.html">clean</a></span>(<span class="dt">destroy =</span> <span class="ot">TRUE</span>)
-## cache /tmp/Rtmp2k5PNF/articles/.drake
+## cache /tmp/Rtmpd5jxvv/articles/.drake
 
 <span class="kw"><a href="../reference/clean.html">clean</a></span>(<span class="dt">destroy =</span> <span class="ot">TRUE</span>, <span class="dt">cache =</span> faster_cache)
 <span class="kw"><a href="../reference/clean.html">clean</a></span>(<span class="dt">destroy =</span> <span class="ot">TRUE</span>, <span class="dt">cache =</span> my_storr)</code></pre></div>

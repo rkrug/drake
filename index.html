@@ -211,7 +211,7 @@ reg2 &lt;-<span class="st"> </span>function(d){
 <div id="reproducibility-with-confidence" class="section level1">
 <h1 class="hasAnchor">
 <a href="#reproducibility-with-confidence" class="anchor"></a>Reproducibility with confidence</h1>
-<p>The R community likes to emphasize reproducibility, which one could interpret to mean <a href="https://en.wikipedia.org/wiki/Replication_crisis">scientific replicability</a>, literate programming with <a href="https://yihui.name/knitr/">knitr</a>, or version control with <a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">git</a>. But internal consistency is important too. Reproducibility carries the promise that your output matches the code and data it came from.</p>
+<p>The R community likes to emphasize reproducibility, an umbrella term that often covers <a href="https://en.wikipedia.org/wiki/Replication_crisis">scientific replicability</a>, literate programming with <a href="https://yihui.name/knitr/">knitr</a>, and version control with <a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">git</a>. But internal consistency is important too. Reproducibility carries the promise that your output matches the code and data it came from.</p>
 <div id="evidence-of-re-creatability" class="section level2">
 <h2 class="hasAnchor">
 <a href="#evidence-of-re-creatability" class="anchor"></a>Evidence of re-creatability</h2>
@@ -229,14 +229,14 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <div id="ease-of-re-creatability" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ease-of-re-creatability" class="anchor"></a>Ease of re-creatability</h2>
-<p>When it comes time to actually re-run the entire project, you have much more confidence. Starting over from scratch is trivially easy.</p>
+<p>When it comes time to actually rerun the entire project, you have much more confidence. Starting over from scratch is trivially easy.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/clean.html">clean</a></span>()       <span class="co"># Remove the original author's results.</span>
 <span class="kw"><a href="reference/make.html">make</a></span>(my_plan) <span class="co"># Independently re-create the results from the code and input data.</span></code></pre></div>
 </div>
 <div id="blinded-and-unbiased-independent-replication" class="section level2">
 <h2 class="hasAnchor">
 <a href="#blinded-and-unbiased-independent-replication" class="anchor"></a>Blinded and unbiased independent replication</h2>
-<p>With even more evidence and even more confidence, you can take the time to independently replicate the original code base if necessary. Up until this point, you only needed to know about <code><a href="reference/make.html">make()</a></code>, so there was no need to peek at any revealing pieces of the author’s code. You can stay blinded and unbiased as you reimplement the original author’s methodology.</p>
+<p>With even more evidence and confidence, you can invest the time to independently replicate the original code base if necessary. Up until this point, you only needed to know about basic <code>drake</code> functions such as <code><a href="reference/make.html">make()</a></code>, so there was no need to peek at any revealing pieces of the code. You can stay blinded and unbiased as you reimplement the original author’s methodology.</p>
 </div>
 </div>
 <div id="aggressively-scale-up-" class="section level1">
