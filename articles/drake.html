@@ -240,7 +240,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpuaaIho/articles/.drake
+## cache /tmp/RtmpM2XI3L/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
@@ -267,13 +267,13 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpuaaIho/articles/.drake
-##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 28.6274608 1.12440200 25.460165 9.363638e-29
-## x2          -0.8430103 0.09050275 -9.314748 3.701999e-12</code></pre></div>
+## cache /tmp/RtmpM2XI3L/articles/.drake
+##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) 26.700858 0.93537606 28.545587 6.602501e-31
+## x2          -0.562774 0.05923514 -9.500678 2.022469e-12</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpuaaIho/articles/.drake
+## cache /tmp/RtmpM2XI3L/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   coef_regression2_small
@@ -294,7 +294,7 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpuaaIho/articles/.drake
+## cache /tmp/RtmpM2XI3L/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
