@@ -116,13 +116,12 @@
 <img src="logo-vignettes.png">
 </div>
 <p>The following data analysis workflow shows off <code>drake</code>’s ability to generate lots of reproducibly-tracked tasks with ease. The same technique would be cumbersome, even intractable, with <a href="https://www.gnu.org/software/make/">GNU Make</a>.</p>
-<p>If you wish to tinker with the example yourself, you can generate the <a href="https://github.com/ropensci/drake/tree/master/inst/examples/gsp">underlying code files</a> with <code><a href="../reference/drake_example.html">drake_example("gsp")</a></code> and then step through <code>run.R</code>.</p>
 <div id="get-the-code-" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-the-code-" class="anchor"></a>Get the code.</h1>
 <p>Write the code files to your workspace.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/drake_example.html">drake_example</a></span>(<span class="st">"gsp"</span>)</code></pre></div>
-<p>The new <code>gsp</code> folder now includes a file structure of a serious <code>drake</code> project, plus an <code>interactive-tutorial.R</code> to narrate the example.</p>
+<p>The new <code>gsp</code> folder now includes a file structure of a serious <code>drake</code> project, plus an <code>interactive-tutorial.R</code> to narrate the example. The code is also <a href="https://github.com/ropensci/drake/tree/master/inst/examples/gsp">online here</a>.</p>
 </div>
 <div id="objective-and-methods" class="section level1">
 <h1 class="hasAnchor">
@@ -284,10 +283,10 @@ path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span cla
 <a href="#results" class="anchor"></a>Results</h1>
 <p>Here are the root mean squared prediction errors of all the models.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readd.html">readd</a></span>(rmspe)
-## cache /tmp/RtmpLnuYYB/articles/.drake
+## cache /tmp/RtmpJV8lbr/articles/.drake
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(plot_rmspe)
-## cache /tmp/RtmpLnuYYB/articles/.drake
+## cache /tmp/RtmpJV8lbr/articles/.drake
 
 <span class="kw">library</span>(ggplot2)
 <span class="kw">plot_rmspe</span>(<span class="dt">rmspe =</span> results)</code></pre></div>

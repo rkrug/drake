@@ -130,114 +130,6 @@
     </div>
 
     <div class="contents">
-    <div id="version-5-0-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#version-5-0-0" class="anchor"></a>Version 5.0.0</h1>
-<ul>
-<li>Transfer <code>drake</code> to rOpenSci: <a href="https://github.com/ropensci/drake" class="uri">https://github.com/ropensci/drake</a>
-</li>
-<li>Several functions now require an explicit <code>config</code> argument, which you can get from <code><a href="../reference/drake_config.html">drake_config()</a></code> or <code><a href="../reference/make.html">make()</a></code>. Examples:
-<ul>
-<li>outdated()</li>
-<li>missed()</li>
-<li>rate_limiting_times()</li>
-<li>predict_runtime()</li>
-<li>vis_drake_graph()</li>
-<li>dataframes_graph()</li>
-</ul>
-</li>
-<li>Always process all the imports before building any targets. This is part of the solution to #168: if imports and targets are processed together, the full power of parallelism is taken away from the targets. Also, the way parallelism happens is now consistent for all parallel backends.</li>
-<li>Major speed improvement: dispense with internal inventories and rely on <code>cache$exists()</code> instead.</li>
-<li>Let the user define a trigger for each target to customize when <code><a href="../reference/make.html">make()</a></code> decides to build targets.</li>
-<li>Document triggers and other debugging/testing tools in the new <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd">debug vignette</a>.</li>
-<li>Restructure the internals of the <code>storr</code> cache in a way that is not back-compatible with projects from versions 4.4.0 and earlier. The main change is to make more intelligent use of <code>storr</code> namespaces, improving efficiency (both time and storage) and opening up possibilities for new features. If you attempt to run drake &gt;= 5.0.0 on a project from drake &lt;= 4.0.0, drake will stop you before any damage to the cache is done, and you will be instructed how to migrate your project to the new drake.</li>
-<li>Use <code><a href="http://www.rdocumentation.org/packages/formatR/topics/tidy_source">formatR::tidy_source()</a></code> instead of <code>parse()</code> in <code>tidy_command()</code> (originally <code>tidy()</code> in <code>R/dependencies.R</code>). Previously, <code>drake</code> was having problems with an edge case: as a command, the literal string <code>"A"</code> was interpreted as the symbol <code>A</code> after tidying. With <code>tidy_source()</code>, literal quoted strings stay literal quoted strings in commands. This may put some targets out of date in old projects, yet another loss of back compatibility in version 5.0.0.</li>
-<li>Speed up clean() by refactoring the cache inventory and using light parallelism.</li>
-<li>Implement <code><a href="../reference/rescue_cache.html">rescue_cache()</a></code>, exposed to the user and used in <code><a href="../reference/clean.html">clean()</a></code>. This function removes dangling orphaned files in the cache so that a broken cache can be cleaned and used in the usual ways once more.</li>
-<li>Change the default <code>cpu</code> and <code>elapsed</code> arguments of <code><a href="../reference/make.html">make()</a></code> to <code>NULL</code>. This solves an elusive bug in how drake imposes timeouts.</li>
-<li>Allow users to set target-level timeouts (overall, cpu, and elapsed) with columns in the workflow plan data frame.</li>
-<li>Document timeouts and retries in the new <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd">debug vignette</a>.</li>
-<li>Add a new <code>graph</code> argument to functions <code><a href="../reference/make.html">make()</a></code>, <code><a href="../reference/outdated.html">outdated()</a></code>, and <code><a href="../reference/missed.html">missed()</a></code>.</li>
-<li>Export a new <code>prune_graph()</code> function for igraph objects.</li>
-<li>Delete long-deprecated functions <code>prune()</code> and <code>status()</code>.</li>
-<li>Deprecate and rename functions:
-<ul>
-<li>
-<code><a href="../reference/analyses.html">analyses()</a></code> =&gt; <code><a href="../reference/plan_analyses.html">plan_analyses()</a></code>
-</li>
-<li>
-<code><a href="../reference/as_file.html">as_file()</a></code> =&gt; <code><a href="../reference/as_drake_filename.html">as_drake_filename()</a></code>
-</li>
-<li>
-<code><a href="../reference/backend.html">backend()</a></code> =&gt; <code><a href="http://www.rdocumentation.org/packages/future/topics/plan">future::plan()</a></code>
-</li>
-<li>
-<code><a href="../reference/build_graph.html">build_graph()</a></code> =&gt; <code><a href="../reference/build_drake_graph.html">build_drake_graph()</a></code>
-</li>
-<li>
-<code><a href="../reference/check.html">check()</a></code> =&gt; <code><a href="../reference/check_plan.html">check_plan()</a></code>
-</li>
-<li>
-<code><a href="../reference/config.html">config()</a></code> =&gt; <code><a href="../reference/drake_config.html">drake_config()</a></code>
-</li>
-<li>
-<code><a href="../reference/evaluate.html">evaluate()</a></code> =&gt; <code><a href="../reference/evaluate_plan.html">evaluate_plan()</a></code>
-</li>
-<li>
-<code><a href="../reference/example_drake.html">example_drake()</a></code> =&gt; <code><a href="../reference/drake_example.html">drake_example()</a></code>
-</li>
-<li>
-<code><a href="../reference/examples_drake.html">examples_drake()</a></code> =&gt; <code><a href="../reference/drake_examples.html">drake_examples()</a></code>
-</li>
-<li>
-<code><a href="../reference/expand.html">expand()</a></code> =&gt; <code><a href="../reference/expand_plan.html">expand_plan()</a></code>
-</li>
-<li>
-<code><a href="../reference/gather.html">gather()</a></code> =&gt; <code><a href="../reference/gather_plan.html">gather_plan()</a></code>
-</li>
-<li>
-<code><a href="../reference/plan.html">plan()</a></code>, <code><a href="../reference/workflow.html">workflow()</a></code>, <code><a href="../reference/workplan.html">workplan()</a></code> =&gt; <code><a href="../reference/drake_plan.html">drake_plan()</a></code>
-</li>
-<li>
-<code><a href="../reference/plot_graph.html">plot_graph()</a></code> =&gt; <code><a href="../reference/vis_drake_graph.html">vis_drake_graph()</a></code>
-</li>
-<li>
-<code><a href="../reference/read_config.html">read_config()</a></code> =&gt; <code><a href="../reference/read_drake_config.html">read_drake_config()</a></code>
-</li>
-<li>
-<code><a href="../reference/read_graph.html">read_graph()</a></code> =&gt; <code><a href="../reference/read_drake_graph.html">read_drake_graph()</a></code>
-</li>
-<li>
-<code><a href="../reference/read_plan.html">read_plan()</a></code> =&gt; <code><a href="../reference/read_drake_plan.html">read_drake_plan()</a></code>
-</li>
-<li>
-<code><a href="../reference/render_graph.html">render_graph()</a></code> =&gt; <code><a href="../reference/render_drake_graph.html">render_drake_graph()</a></code>
-</li>
-<li>
-<code><a href="../reference/session.html">session()</a></code> =&gt; <code><a href="../reference/drake_session.html">drake_session()</a></code>
-</li>
-<li>
-<code><a href="../reference/summaries.html">summaries()</a></code> =&gt; <code><a href="../reference/plan_summaries.html">plan_summaries()</a></code>
-</li>
-</ul>
-</li>
-<li>Disallow <code>output</code> and <code>code</code> as names in the workflow plan data frame. Use <code>target</code> and <code>command</code> instead. This naming switch has been formally deprecated for several months prior.</li>
-<li>Deprecate the ..analysis.. and ..dataset.. wildcards in favor of analysis__ and dataset__, respectively. The new wildcards are stylistically better an pass linting checks.</li>
-<li>Add new functions <code><a href="../reference/drake_quotes.html">drake_quotes()</a></code>, <code><a href="../reference/drake_unquote.html">drake_unquote()</a></code>, and <code><a href="../reference/drake_strings.html">drake_strings()</a></code> to remove the silly dependence on the <code>eply</code> package.</li>
-<li>Add a <code>skip_safety_checks</code> flag to <code><a href="../reference/make.html">make()</a></code> and <code><a href="../reference/drake_config.html">drake_config()</a></code>. Increases speed.</li>
-<li>In <code>sanitize_plan()</code>, remove rows with blank targets “”.</li>
-<li>Add a <code>purge</code> argument to <code><a href="../reference/clean.html">clean()</a></code> to optionally remove all target-level information.</li>
-<li>Add a <code>namespace</code> argument to <code><a href="../reference/cached.html">cached()</a></code> so users can inspect individual <code>storr</code> namespaces.</li>
-<li>Change <code>verbose</code> to numeric: 0 = print nothing, 1 = print progress on imports only, 2 = print everything.</li>
-<li>Add a new <code><a href="../reference/next_stage.html">next_stage()</a></code> function to report the targets to be made in the next parallelizable stage.</li>
-<li>Add a new <code>session_info</code> argument to <code><a href="../reference/make.html">make()</a></code>. Apparently, <code>sessionInfo()</code> is a bottleneck for small <code><a href="../reference/make.html">make()</a></code>s, so there is now an option to suppress it. This is mostly for the sake of speeding up unit tests.</li>
-<li>Add a new <code>log_progress</code> argument to <code><a href="../reference/make.html">make()</a></code> to suppress progress logging. This increases storage efficiency and speeds some projects up a tiny bit.</li>
-<li>Add an optional <code>namespace</code> argument to <code><a href="../reference/loadd.html">loadd()</a></code> and <code><a href="../reference/readd.html">readd()</a></code>. You can now load and read from non-default <code>storr</code> namespaces.</li>
-<li>Add <code><a href="../reference/drake_cache_log.html">drake_cache_log()</a></code>, <code><a href="../reference/drake_cache_log_file.html">drake_cache_log_file()</a></code>, and <code><a href="../reference/make.html">make(..., cache_log_file = TRUE)</a></code> as options to track changes to targets/imports in the drake cache.</li>
-<li>Detect knitr code chunk dependencies in response to commands with <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code>, not just <code>knit()</code>.</li>
-<li>Add a new general best practices vignette to clear up misconceptions about how to use <code>drake</code> properly.</li>
-</ul>
-</div>
     <div id="version-4-4-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#version-4-4-0" class="anchor"></a>Version 4.4.0</h1>
@@ -287,6 +179,7 @@
 <a href="#version-1-0-1-2017-02-28" class="anchor"></a>Version 1.0.1: 2017-02-28</h1>
 <p>Version 1.0.1 is on CRAN! I’m already working on a massive update, though. 2.0.0 is cleaner and more powerful.</p>
 </div>
+    NA
     </div>
   </div>
 
@@ -294,12 +187,12 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#version-5-0-0">5.0.0</a></li>
         <li><a href="#version-4-4-0">4.4.0</a></li>
         <li><a href="#version-4-3-0-2017-10-17">4.3.0</a></li>
         <li><a href="#version-4-2-0-2017-09-29">4.2.0</a></li>
         <li><a href="#version-3-0-0-2017-05-03">3.0.0</a></li>
         <li><a href="#version-1-0-1-2017-02-28">1.0.1</a></li>
+        <li><a href="#NA">NA</a></li>
       </ul>
     </div>
   </div>
