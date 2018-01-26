@@ -116,6 +116,13 @@
 <img src="logo-vignettes.png">
 </div>
 <p>This tutorial is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/quickstart.html">rendered online version of the quickstart vignette</a>.</p>
+<div id="get-the-code-" class="section level1">
+<h1 class="hasAnchor">
+<a href="#get-the-code-" class="anchor"></a>Get the code.</h1>
+<p>Write the code files to your workspace.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/example_drake.html">example_drake</a></span>(<span class="st">"basic"</span>)</code></pre></div>
+<p>The new <code>basic</code> folder now includes a file structure of a serious <code>drake</code> project, plus an <code>interactive-tutorial.R</code> to narrate the example.</p>
+</div>
 <div id="the-motivation-of-the-basic-example" class="section level1">
 <h1 class="hasAnchor">
 <a href="#the-motivation-of-the-basic-example" class="anchor"></a>The motivation of the basic example</h1>
@@ -240,7 +247,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpXFQxNC/articles/.drake
+## cache /tmp/RtmpTNsyQY/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
@@ -267,13 +274,13 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpXFQxNC/articles/.drake
+## cache /tmp/RtmpTNsyQY/articles/.drake
 ##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 27.8230242 0.86847381  32.03669 4.197708e-33
-## x2          -0.6684318 0.06401348 -10.44205 1.010071e-13</code></pre></div>
+## (Intercept) 28.5779682 0.89917994 31.782257 5.964335e-33
+## x2          -0.7699171 0.08478113 -9.081232 7.954763e-12</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpXFQxNC/articles/.drake
+## cache /tmp/RtmpTNsyQY/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   coef_regression2_small
@@ -294,7 +301,7 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpXFQxNC/articles/.drake
+## cache /tmp/RtmpTNsyQY/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
@@ -356,7 +363,8 @@ whole_plan
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#the-motivation-of-the-basic-example">The motivation of the basic example</a></li>
+<li><a href="#get-the-code-">Get the code.</a></li>
+      <li><a href="#the-motivation-of-the-basic-example">The motivation of the basic example</a></li>
       <li><a href="#a-taste-of-drakes-basic-example">A taste of <code>drake</code>’s basic example</a></li>
       <li>
 <a href="#built-in-example-projects">Built-in example projects</a><ul class="nav nav-pills nav-stacked">
