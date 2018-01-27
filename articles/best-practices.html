@@ -105,19 +105,16 @@
       <h1>General best practices for drake projects</h1>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-26</h4>
+            <h4 class="date">2018-01-27</h4>
           </div>
 
     
     
 <div class="contents">
-<div class="figure">
-<img src="logo-vignettes.png">
-</div>
-<p>This vignette describes general best practices for creating, configuring, and running <code>drake</code> projects.</p>
-<div id="where-to-put-your-code" class="section level1">
+<p>This vignette describes general best practices for creating, configuring, and running <code>drake</code> projects. It answers frequently asked questions and clears up common misconceptions, and it will continuously develop in response to community feedback.</p>
+<div id="how-to-organize-your-files" class="section level1">
 <h1 class="hasAnchor">
-<a href="#where-to-put-your-code" class="anchor"></a>Where to put your code</h1>
+<a href="#how-to-organize-your-files" class="anchor"></a>How to organize your files</h1>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
@@ -132,9 +129,9 @@
 <span class="kw"><a href="../reference/drake_example.html">drake_example</a></span>(<span class="st">"gsp"</span>)
 <span class="kw"><a href="../reference/drake_example.html">drake_example</a></span>(<span class="st">"packages"</span>)</code></pre></div>
 </div>
-<div id="generalities" class="section level2">
+<div id="where-do-you-put-your-code" class="section level2">
 <h2 class="hasAnchor">
-<a href="#generalities" class="anchor"></a>Generalities</h2>
+<a href="#where-do-you-put-your-code" class="anchor"></a>Where do you put your code?</h2>
 <p>It is best to write your code as a bunch of functions. You can save those functions in R scripts and then <code>source()</code> them before doing anything else.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load functions get_data(), analyze_data, and summarize_results()</span>
 <span class="kw">source</span>(<span class="st">"my_functions.R"</span>)</code></pre></div>
@@ -196,14 +193,13 @@ bad_plan
 </ol>
 <p>In addition, this <code>source()</code>-based approach is simply inconvenient. <code>Drake</code> rebuilds <code>my_data</code> every time <code>get_data.R</code> changes, even when those changes are just extra comments or blank lines. On the other hand, in the previous plan that uses <code>my_data = get_data()</code>, <code>drake</code> does not trigger rebuilds when comments or whitespace in <code>get_data()</code> are modified. <code>Drake</code> is R-focused, not file-focused. If you embrace this viewpoint, your work will be easier.</p>
 </div>
-</div>
-<div id="r-markdown-and-knitr-reports" class="section level1">
-<h1 class="hasAnchor">
-<a href="#r-markdown-and-knitr-reports" class="anchor"></a>R Markdown and knitr reports</h1>
-<p><code>Drake</code> makes special exceptions for R Markdown reports and other <a href="https://github.com/yihui/knitr">knitr</a> reports such as <code>*.Rmd</code> and <code>*.Rnw</code> files. Not every <code>drake</code> project needs them, but it is good practice to use them to summarize the final results of a project once all the other targets have already been built. The basic example, for instance, has an R Markdown report. <code>report.Rmd</code> is knitted to build <code>report.md</code>, which summarizes the final results.</p>
+<div id="r-markdown-and-knitr-reports" class="section level2">
+<h2 class="hasAnchor">
+<a href="#r-markdown-and-knitr-reports" class="anchor"></a>R Markdown and knitr reports</h2>
+<p>For a serious project, you should use <code>drake</code>’s <code><a href="../reference/make.html">make()</a></code> function outside <code>knitr</code>. In other words, you should treat R Markdown reports and other <code>knitr</code> documents as targets and imports, not as a way to run <code><a href="../reference/make.html">make()</a></code>. Viewed as targets, <code>drake</code> makes special exceptions for R Markdown reports and other <a href="https://github.com/yihui/knitr">knitr</a> reports such as <code>*.Rmd</code> and <code>*.Rnw</code> files. Not every <code>drake</code> project needs them, but it is good practice to use them to summarize the final results of a project once all the other targets have already been built. The basic example, for instance, has an R Markdown report. <code>report.Rmd</code> is knitted to build <code>report.md</code>, which summarizes the final results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load all the functions and the workflow plan data frame, my_plan.</span>
 <span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpQDJjW2/articles/.drake
+## cache /tmp/RtmpU9IzkF/articles/.drake
 ## connect 7 imports: tmp, simulate, reg1, my_plan, reg2, bad_plan, good_plan
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...</code></pre></div>
 <p>To see where <code>report.md</code> will be built, look to the right of the workflow graph.</p>
@@ -216,6 +212,7 @@ bad_plan
 <pre><code>## Error in file.remove(): invalid first filename</code></pre>
 </div>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -224,13 +221,13 @@ bad_plan
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#where-to-put-your-code">Where to put your code</a><ul class="nav nav-pills nav-stacked">
+<a href="#how-to-organize-your-files">How to organize your files</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#examples">Examples</a></li>
-      <li><a href="#generalities">Generalities</a></li>
+      <li><a href="#where-do-you-put-your-code">Where do you put your code?</a></li>
       <li><a href="#remember-your-commands-are-code-chunks-not-r-scripts">Remember: your commands are code chunks, not R scripts</a></li>
+      <li><a href="#r-markdown-and-knitr-reports">R Markdown and knitr reports</a></li>
       </ul>
 </li>
-      <li><a href="#r-markdown-and-knitr-reports">R Markdown and knitr reports</a></li>
       </ul>
 </div>
       </div>
@@ -243,7 +240,7 @@ bad_plan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
