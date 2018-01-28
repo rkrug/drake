@@ -106,13 +106,14 @@
             <h3 class="subtitle">where to begin</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-27</h4>
+            <h4 class="date">2018-01-28</h4>
           </div>
 
     
     
 <div class="contents">
-<p>This tutorial is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/quickstart.html">rendered online version of the quickstart vignette</a>.</p>
+<p><img src="https://cdn.rawgit.com/ropensci/drake/e8c08663/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
+<p>This tutorial is a recommended starting place for learning how to use <code>drake</code>. It is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/quickstart.html">rendered online version of the quickstart vignette</a>.</p>
 <div id="get-the-code-" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-the-code-" class="anchor"></a>Get the code.</h1>
@@ -243,7 +244,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmpw65JGb/articles/.drake
+## cache /tmp/RtmpkREbKS/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
@@ -270,13 +271,13 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/Rtmpw65JGb/articles/.drake
+## cache /tmp/RtmpkREbKS/articles/.drake
 ##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 28.1891826  0.9249333  30.47699 3.768271e-32
-## x2          -0.6789433  0.0661830 -10.25857 1.795881e-13</code></pre></div>
+## (Intercept) 28.7576831 0.90432429  31.80019 5.818007e-33
+## x2          -0.7505996 0.06936455 -10.82108 3.118224e-14</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmpw65JGb/articles/.drake
+## cache /tmp/RtmpkREbKS/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   coef_regression2_small
@@ -297,7 +298,7 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmpw65JGb/articles/.drake
+## cache /tmp/RtmpkREbKS/articles/.drake
 ## connect 9 imports: analysis_plan, simulate, reg1, config, whole_plan, my_plan...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
