@@ -106,7 +106,7 @@
             <h3 class="subtitle">A thorough walk through drake’s basic example</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-29</h4>
+            <h4 class="date">2018-01-30</h4>
           </div>
 
     
@@ -249,7 +249,7 @@ report_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(pa
 <a href="#the-workflow-plan-data-frame" class="anchor"></a>The workflow plan data frame</h1>
 <p>Now that your workspace of imports is prepared, we can outline the real work step by step in a workflow plan data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 my_plan
@@ -328,7 +328,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 ## [27] "lm"</code></pre></div>
 <p>Check for circular reasoning, missing input files, and other pitfalls.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/check_plan.html">check_plan</a></span>(my_plan)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## connect 6 imports: report_file, simulate, reg1, my_plan, reg2, path
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...</code></pre></div>
 </div>
@@ -515,7 +515,7 @@ df
 ## character(0)</code></pre></div>
 <p>Then just <code><a href="../reference/make.html">make(my_plan)</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## connect 14 imports: report_file, report, my_analyses, simulate, reg1, config,...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
@@ -542,10 +542,10 @@ df
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 26.5592010 0.96933641 27.399364 3.925511e-30
-## x2          -0.6035473 0.06291799 -9.592603 1.502183e-12</code></pre></div>
+## (Intercept) 27.5688092 1.06927176 25.782790 5.445236e-29
+## x2          -0.7172171 0.08560064 -8.378641 8.230678e-11</code></pre></div>
 <p>The non-file dependencies of your last target are already loaded in your workspace.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()
 ##  [1] "coef_regression2_small" "config"                
@@ -561,31 +561,31 @@ df
 ## character(0)
 
 <span class="kw"><a href="../reference/build_times.html">build_times</a></span>(<span class="dt">digits =</span> <span class="dv">4</span>) <span class="co"># How long did it take to make each target?</span>
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ##                      item   type elapsed   user system
-## 1  coef_regression1_large target  0.004s 0.004s     0s
-## 2  coef_regression1_small target  0.003s 0.004s     0s
+## 1  coef_regression1_large target  0.005s 0.004s     0s
+## 2  coef_regression1_small target  0.006s 0.008s     0s
 ## 3  coef_regression2_large target  0.003s 0.004s     0s
-## 4  coef_regression2_small target  0.005s 0.004s     0s
+## 4  coef_regression2_small target  0.003s 0.004s     0s
 ## 5              data.frame import  0.004s 0.004s     0s
-## 6                    knit import  0.003s     0s     0s
-## 7                   large target  0.046s 0.044s     0s
-## 8                      lm import  0.002s     0s     0s
+## 6                    knit import  0.002s 0.004s     0s
+## 7                   large target  0.054s 0.056s     0s
+## 8                      lm import  0.002s 0.004s     0s
 ## 9                  mtcars import      0s     0s     0s
 ## 10                   nrow import  0.003s 0.004s     0s
-## 11                   reg1 import  0.001s     0s     0s
-## 12                   reg2 import  0.001s     0s     0s
-## 13      regression1_large target  0.005s 0.008s     0s
-## 14      regression1_small target  0.004s     0s 0.004s
-## 15      regression2_large target  0.003s 0.004s     0s
-## 16      regression2_small target  0.004s 0.004s     0s
-## 17            'report.md' target  0.038s 0.036s 0.004s
-## 18           'report.Rmd' import      0s 0.004s     0s
-## 19             sample.int import  0.003s     0s     0s
+## 11                   reg1 import  0.001s 0.004s     0s
+## 12                   reg2 import  0.003s     0s     0s
+## 13      regression1_large target  0.005s 0.004s     0s
+## 14      regression1_small target  0.006s 0.008s     0s
+## 15      regression2_large target  0.004s 0.004s     0s
+## 16      regression2_small target  0.005s 0.004s     0s
+## 17            'report.md' target  0.036s 0.032s 0.004s
+## 18           'report.Rmd' import      0s     0s     0s
+## 19             sample.int import  0.003s 0.004s     0s
 ## 20               simulate import  0.001s     0s     0s
-## 21                  small target  0.022s 0.024s     0s
-## 22                summary import  0.003s     0s     0s
-## 23 summ_regression1_large target  0.003s 0.004s     0s
+## 21                  small target  0.023s 0.024s     0s
+## 22                summary import  0.003s 0.004s     0s
+## 23 summ_regression1_large target  0.004s 0.004s     0s
 ## 24 summ_regression1_small target  0.003s 0.004s     0s
 ## 25 summ_regression2_large target  0.003s 0.004s     0s
 ## 26 summ_regression2_small target  0.003s 0.004s     0s
@@ -600,31 +600,31 @@ df
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/dataframes_graph.html">dataframes_graph</a></span>(config)</code></pre></div>
 <p>Use <code><a href="../reference/readd.html">readd()</a></code> and <code><a href="../reference/loadd.html">loadd()</a></code> to load targets into your workspace. (They are cached in the hidden <code>.drake/</code> folder using <a href="https://CRAN.R-project.org/package=storr">storr</a>). There are many more functions for interacting with the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_large)
-## cache /tmp/RtmpRcnVtx/articles/.drake
-##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 29.4978284 0.92951566  31.73462 4.800612e-40
-## x2          -0.8593626 0.07501556 -11.45579 6.030217e-17
+## cache /tmp/Rtmp22xnkm/articles/.drake
+##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) 28.238371 0.92343490  30.57971 4.173257e-39
+## x2          -0.747035 0.07016459 -10.64689 1.252183e-15
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(small)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 
 <span class="kw">head</span>(small)
 ##       x    y
-## 1 1.935 27.3
-## 2 3.780 15.2
-## 3 3.170 15.8
-## 4 2.770 19.7
-## 5 4.070 16.4
-## 6 3.570 14.3
+## 1 3.570 15.0
+## 2 5.250 10.4
+## 3 1.615 30.4
+## 4 2.620 21.0
+## 5 1.615 30.4
+## 6 3.440 17.8
 
 <span class="kw">rm</span>(small)
 <span class="kw"><a href="../reference/cached.html">cached</a></span>(small, large)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## small large 
 ##  TRUE  TRUE
 
 <span class="kw"><a href="../reference/cached.html">cached</a></span>()
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ##  [1] "coef_regression1_large" "coef_regression1_small"
 ##  [3] "coef_regression2_large" "coef_regression2_small"
 ##  [5] "data.frame"             "knit"                  
@@ -641,7 +641,7 @@ df
 ## [27] "suppressWarnings"
 
 <span class="kw"><a href="../reference/built.html">built</a></span>()
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ##  [1] "coef_regression1_large" "coef_regression1_small"
 ##  [3] "coef_regression2_large" "coef_regression2_small"
 ##  [5] "large"                  "regression1_large"     
@@ -652,14 +652,14 @@ df
 ## [15] "summ_regression2_small"
 
 <span class="kw"><a href="../reference/imported.html">imported</a></span>()
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ##  [1] "data.frame"       "knit"             "lm"              
 ##  [4] "mtcars"           "nrow"             "reg1"            
 ##  [7] "reg2"             "'report.Rmd'"     "sample.int"      
 ## [10] "simulate"         "summary"          "suppressWarnings"
 
 <span class="kw">head</span>(<span class="kw"><a href="../reference/read_drake_plan.html">read_drake_plan</a></span>())
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ##              target                          command
 ## 1       'report.md' knit('report.Rmd', quiet = TRUE)
 ## 2             small                     simulate(48)
@@ -669,21 +669,21 @@ df
 ## 6 regression2_small                      reg2(small)
 
 <span class="kw">head</span>(<span class="kw"><a href="../reference/progress.html">progress</a></span>()) <span class="co"># See also in_progress()</span>
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## coef_regression1_large coef_regression1_small coef_regression2_large 
 ##             "finished"             "finished"             "finished" 
 ## coef_regression2_small             data.frame                   knit 
 ##             "finished"             "finished"             "finished"
 
 <span class="kw"><a href="../reference/progress.html">progress</a></span>(large)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ##      large 
 ## "finished"
 
 <span class="co"># drake_session() # sessionInfo() of the last make() # nolint</span></code></pre></div>
 <p>The next time you run <code><a href="../reference/make.html">make(my_plan)</a></code>, nothing will build because <code>drake</code> knows everything is already up to date.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan) <span class="co"># Will use config later. See also drake_config().</span>
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## Unloading targets from environment:
 ##   large
 ##   coef_regression2_small
@@ -724,20 +724,20 @@ df
 ## NULL
 ## 
 ## $cached_dependency_hash
-## [1] "01b94ff98f5afe68ce41de040bd2d7154c9bcb283ce190db618845326d15af92"
+## [1] "86a0c1bc64c18a947aa8ca205b7cda481e18135756f1686f607fb395ecaece35"
 ## 
 ## $current_dependency_hash
-## [1] "2d9a49941055f8654fbc591d221a5b1f9d2c801ed899d859558b99206965d950"
+## [1] "f596ac4f3deae0bb13d07f86c34de3d80222c57262bc17e3c962f55c32221182"
 ## 
 ## $hashes_of_dependencies
 ##               reg2              small 
-## "d47109544c89ca7a" "1d7b233f1cbce96b"
+## "d47109544c89ca7a" "32bf66184eab8ccf"
 
 config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"small"</span>) <span class="co"># same</span>
-## [1] "1d7b233f1cbce96b"
+## [1] "32bf66184eab8ccf"
 
 config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"reg2"</span>) <span class="co"># different</span>
-## [1] "1b2f303ae795f96d"</code></pre></div>
+## [1] "51c845c76e597efe"</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
 <span class="co"># Same as drake_graph():</span>
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>
@@ -745,7 +745,7 @@ config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <spa
 </iframe>
 <p>The next <code><a href="../reference/make.html">make()</a></code> will rebuild the targets depending on <code>reg2()</code> and leave everything else alone.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## connect 14 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
@@ -826,7 +826,7 @@ my_plan
 ## 16                             new_simulation(36) + sqrt(10)
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
@@ -868,6 +868,55 @@ my_plan
 </ol>
 <p>To enhance reproducibility beyond the scope of drake, you might consider <a href="https://rstudio.github.io/packrat">packrat</a> and <a href="https://www.docker.com/">Docker</a>. <a href="https://rstudio.github.io/packrat">Packrat</a> creates a tightly-controlled local library of packages to extend the shelf life of your project. And with <a href="https://www.docker.com/">Docker</a>, you can execute your project on a <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machine</a> to ensure platform independence. Together, <a href="https://rstudio.github.io/packrat">packrat</a> and <a href="https://www.docker.com/">Docker</a> can help others reproduce your work even if they have different software and hardware.</p>
 </div>
+<div id="a-note-on-tidy-evaluation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#a-note-on-tidy-evaluation" class="anchor"></a>A note on tidy evaluation</h1>
+<p>Running commands in your R console is not always exactly like running them with <code><a href="../reference/make.html">make()</a></code>. That’s because <code><a href="../reference/make.html">make()</a></code> uses tidy evaluation as implemented in the <a href="https://github.com/tidyverse/rlang"><code>rlang</code> package</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This workflow plan uses rlang's quasiquotation operator `!!`.</span>
+my_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">list =</span> <span class="kw">c</span>(
+  <span class="dt">little_b =</span> <span class="st">"</span><span class="ch">\"</span><span class="st">b</span><span class="ch">\"</span><span class="st">"</span>,
+  <span class="dt">letter =</span> <span class="st">"!!little_b"</span>
+))
+my_plan
+##     target    command
+## 1 little_b        "b"
+## 2   letter !!little_b
+<span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
+## cache /tmp/Rtmp22xnkm/articles/.drake
+## connect 17 imports: reg1, df, reg2, my_plan, results, my_analyses, simulate, ...
+## connect 2 targets: little_b, letter
+## check 1 item: little_b
+## target little_b
+## check 1 item: letter
+## target letter
+<span class="kw"><a href="../reference/readd.html">readd</a></span>(letter)
+## cache /tmp/Rtmp22xnkm/articles/.drake
+## [1] "b"</code></pre></div>
+<p>For the commands you specify the free-form <code>...</code> argument, <code><a href="../reference/drake_plan.html">drake_plan()</a></code> also supports tidy evaluation. For example, it supports quasiquotation with the <code>!!</code> argument. Use <code>tidy_evaluation = FALSE</code> or the <code>list</code> argument to suppress this behavior.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">5</span>
+
+<span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
+  <span class="dt">a =</span> !!my_variable,
+  <span class="dt">b =</span> !!my_variable +<span class="st"> </span><span class="dv">1</span>,
+  <span class="dt">list =</span> <span class="kw">c</span>(<span class="dt">d =</span> <span class="st">"!!my_variable"</span>)
+)
+##   target       command
+## 1      a             5
+## 2      b             6
+## 3      d !!my_variable
+
+<span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
+  <span class="dt">a =</span> !!my_variable,
+  <span class="dt">b =</span> !!my_variable +<span class="st"> </span><span class="dv">1</span>,
+  <span class="dt">list =</span> <span class="kw">c</span>(<span class="dt">d =</span> <span class="st">"!!my_variable"</span>),
+  <span class="dt">tidy_evaluation =</span> <span class="ot">FALSE</span>
+)
+##   target             command
+## 1      a     !(!my_variable)
+## 2      b !(!my_variable + 1)
+## 3      d       !!my_variable</code></pre></div>
+<p>For instances of <code>!!</code> that remain in the workflow plan, <code><a href="../reference/make.html">make()</a></code> will run these commands in tidy fashion, evaluating the <code>!!</code> operator using the environment you provided.</p>
+</div>
 <div id="need-more-speed" class="section level1">
 <h1 class="hasAnchor">
 <a href="#need-more-speed" class="anchor"></a>Need more speed?</h1>
@@ -890,6 +939,7 @@ my_plan
       <li><a href="#flexible-workflow-plan-generation">Flexible workflow plan generation</a></li>
       <li><a href="#run-the-workflow">Run the workflow</a></li>
       <li><a href="#automatic-watching-for-changed-dependencies">Automatic watching for changed dependencies</a></li>
+      <li><a href="#a-note-on-tidy-evaluation">A note on tidy evaluation</a></li>
       <li><a href="#need-more-speed">Need more speed?</a></li>
       </ul>
 </div>

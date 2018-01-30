@@ -106,7 +106,7 @@
             <h3 class="subtitle">Cautionary notes for drake</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-29</h4>
+            <h4 class="date">2018-01-30</h4>
           </div>
 
     
@@ -213,11 +213,62 @@ datasets &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dr
 <a href="#install-all-your-packages-" class="anchor"></a>Install all your packages.</h2>
 <p>Your workflow may depend on external packages such as <a href="https://CRAN.R-project.org/package=ggplot2">ggplot2</a>, <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a>, and <a href="https://CRAN.R-project.org/package=MASS">MASS</a>. Such packages must be formally installed with <code>install.packages()</code>, <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github()</a></code>, <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_local">devtools::install_local()</a></code>, or a similar command. If you load uninstalled packages with <code><a href="http://www.rdocumentation.org/packages/devtools/topics/load_all">devtools::load_all()</a></code>, results may be unpredictable and incorrect.</p>
 </div>
+<div id="a-note-on-tidy-evaluation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#a-note-on-tidy-evaluation" class="anchor"></a>A note on tidy evaluation</h2>
+<p>Running commands in your R console is not always exactly like running them with <code><a href="../reference/make.html">make()</a></code>. That’s because <code><a href="../reference/make.html">make()</a></code> uses tidy evaluation as implemented in the <a href="https://github.com/tidyverse/rlang"><code>rlang</code> package</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This workflow plan uses rlang's quasiquotation operator `!!`.</span>
+my_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">list =</span> <span class="kw">c</span>(
+  <span class="dt">little_b =</span> <span class="st">"</span><span class="ch">\"</span><span class="st">b</span><span class="ch">\"</span><span class="st">"</span>,
+  <span class="dt">letter =</span> <span class="st">"!!little_b"</span>
+))
+my_plan
+##     target    command
+## 1 little_b        "b"
+## 2   letter !!little_b
+<span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
+## cache /tmp/Rtmp22xnkm/articles/.drake
+## connect 4 imports: files, datasets, rules, my_plan
+## connect 2 targets: little_b, letter
+## Loading required package: methods
+## check 1 item: little_b
+## target little_b
+## check 1 item: letter
+## target letter
+<span class="kw"><a href="../reference/readd.html">readd</a></span>(letter)
+## cache /tmp/Rtmp22xnkm/articles/.drake
+## [1] "b"</code></pre></div>
+<p>For the commands you specify the free-form <code>...</code> argument, <code><a href="../reference/drake_plan.html">drake_plan()</a></code> also supports tidy evaluation. For example, it supports quasiquotation with the <code>!!</code> argument. Use <code>tidy_evaluation = FALSE</code> or the <code>list</code> argument to suppress this behavior.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">5</span>
+
+<span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
+  <span class="dt">a =</span> !!my_variable,
+  <span class="dt">b =</span> !!my_variable +<span class="st"> </span><span class="dv">1</span>,
+  <span class="dt">list =</span> <span class="kw">c</span>(<span class="dt">d =</span> <span class="st">"!!my_variable"</span>)
+)
+##   target       command
+## 1      a             5
+## 2      b             6
+## 3      d !!my_variable
+
+<span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
+  <span class="dt">a =</span> !!my_variable,
+  <span class="dt">b =</span> !!my_variable +<span class="st"> </span><span class="dv">1</span>,
+  <span class="dt">list =</span> <span class="kw">c</span>(<span class="dt">d =</span> <span class="st">"!!my_variable"</span>),
+  <span class="dt">tidy_evaluation =</span> <span class="ot">FALSE</span>
+)
+##   target             command
+## 1      a     !(!my_variable)
+## 2      b !(!my_variable + 1)
+## 3      d       !!my_variable</code></pre></div>
+<p>For instances of <code>!!</code> that remain in the workflow plan, <code><a href="../reference/make.html">make()</a></code> will run these commands in tidy fashion, evaluating the <code>!!</code> operator using the environment you provided.</p>
+</div>
 <div id="find-and-diagnose-your-errors-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#find-and-diagnose-your-errors-" class="anchor"></a>Find and diagnose your errors.</h2>
 <p>When <code><a href="../reference/make.html">make()</a></code> fails, use <code><a href="../reference/failed.html">failed()</a></code> and <code><a href="../reference/diagnose.html">diagnose()</a></code> to debug. Try the following out yourself.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>()
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## character(0)
 
 f &lt;-<span class="st"> </span>function(){
@@ -230,10 +281,9 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/RtmpRcnVtx/articles/.drake
-## connect 5 imports: files, datasets, f, rules, bad_plan
+## cache /tmp/Rtmp22xnkm/articles/.drake
+## connect 9 imports: my_variable, files, letter, datasets, f, rules, little_b, ...
 ## connect 1 target: target
-## Loading required package: methods
 ## check 1 item: stop
 ## check 1 item: f
 ## check 1 item: target
@@ -243,34 +293,32 @@ withr::<span class="kw">with_message_sink</span>(
 ## Error: Target 'target' failed to build. Use diagnose(target) to retrieve diagnostic information.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>() <span class="co"># From the last make() only</span>
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## [1] "target"
 
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>() <span class="co"># From all previous make()s</span>
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## [1] "target"
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(target)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 
 <span class="kw">str</span>(error)
 ## List of 3
 ##  $ message: chr "unusual error"
 ##  $ call   : language f()
 ##  $ calls  :List of 3
-##   ..$ : language (function() {     { ...
+##   ..$ : language (function() {     f() ...
 ##   ..$ : language f()
 ##   ..$ : language stop("unusual error")
 ##   .. ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 4 3 4 23 3 23 4 4
-##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x38f3930&gt; 
+##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x4819d78&gt; 
 ##  - attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
 
 error$calls <span class="co"># View the traceback.</span>
 ## [[1]]
 ## (function() {
-##     {
-##         f()
-##     }
+##     f()
 ## })()
 ## 
 ## [[2]]
@@ -301,7 +349,7 @@ envir &lt;-<span class="st"> </span><span class="kw">new.env</span>(<span class=
 myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">out =</span> <span class="kw">f</span>(<span class="dv">1</span>:<span class="dv">3</span>))
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(myplan, <span class="dt">envir =</span> envir)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## connect 2 imports: f, g
 ## connect 1 target: out
 ## check 1 item: g
@@ -310,8 +358,9 @@ myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 ## target out
 
 <span class="kw">ls</span>() <span class="co"># Check that your workspace did not change.</span>
-## [1] "bad_plan" "datasets" "envir"    "error"    "f"        "files"   
-## [7] "myplan"   "rules"
+##  [1] "bad_plan"    "datasets"    "envir"       "error"       "f"          
+##  [6] "files"       "letter"      "little_b"    "myplan"      "my_plan"    
+## [11] "my_variable" "rules"
 
 <span class="kw">ls</span>(envir) <span class="co"># Check your evaluation environment.</span>
 ## [1] "f"   "g"   "out"
@@ -320,7 +369,7 @@ envir$out
 ## [1] 3 4 5
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(out)
-## cache /tmp/RtmpRcnVtx/articles/.drake
+## cache /tmp/Rtmp22xnkm/articles/.drake
 ## [1] 3 4 5</code></pre></div>
 </div>
 <div id="refresh-the-drake_config-list-early-and-often-" class="section level2">
@@ -431,8 +480,8 @@ command &lt;-<span class="st"> "x &lt;- digest::digest('input_file.rds'); assign
 <li>the <code>*.Rmd</code>/<code>*.Rnw</code> source file already exists before <code><a href="../reference/make.html">make()</a></code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpRcnVtx/articles/.drake
-## connect 13 imports: error, envir, files, datasets, myplan, f, simulate, rules...
+## cache /tmp/Rtmp22xnkm/articles/.drake
+## connect 16 imports: error, envir, my_variable, files, letter, datasets, mypla...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 my_plan[<span class="dv">1</span>, ]
 ##        target                          command
@@ -599,6 +648,7 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
 <a href="#execution">Execution</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#install-drake-properly-">Install <code>drake</code> properly.</a></li>
       <li><a href="#install-all-your-packages-">Install all your packages.</a></li>
+      <li><a href="#a-note-on-tidy-evaluation">A note on tidy evaluation</a></li>
       <li><a href="#find-and-diagnose-your-errors-">Find and diagnose your errors.</a></li>
       <li><a href="#your-workspace-is-modified-by-default-">Your workspace is modified by default.</a></li>
       <li><a href="#refresh-the-drake_config-list-early-and-often-">Refresh the <code><a href="--/reference/drake_config-html">drake_config()</a></code> list early and often.</a></li>

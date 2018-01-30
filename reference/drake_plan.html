@@ -139,7 +139,7 @@ argument to supply them as character strings.</p>
     
 
     <pre class="usage"><span class='fu'>drake_plan</span>(<span class='no'>...</span>, <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>character</span>(<span class='fl'>0</span>), <span class='kw'>file_targets</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>strings_in_dots</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"filenames"</span>, <span class='st'>"literals"</span>))</pre>
+  <span class='kw'>strings_in_dots</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"filenames"</span>, <span class='st'>"literals"</span>), <span class='kw'>tidy_evaluation</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -173,6 +173,13 @@ you cannot simply leave literal quotes alone in the
 <code>...</code> argument. R will either convert all these quotes
 to single quotes or double quotes. Literal quotes in the
 <code>list</code> argument are left alone.</p></td>
+    </tr>
+    <tr>
+      <th>tidy_evaluation</th>
+      <td><p>logical, whether to use tidy evaluation
+such as quasiquotation
+when evaluating commands passed through the free-form
+<code>...</code> argument.</p></td>
     </tr>
     </table>
     
@@ -230,7 +237,32 @@ argument to control the quoting in <code>...</code>.</p>
   <span class='kw'>strings_in_dots</span> <span class='kw'>=</span> <span class='st'>"literals"</span>
 )
 <span class='no'>mtcars_plan</span></div><div class='output co'>#&gt;              target                              command
-#&gt; 1 'output_file.csv' write.csv(mtcars, "output_file.csv")</div><div class='input'># make(mtcars_plan) # Would write output_file.csv. # nolint
+#&gt; 1 'output_file.csv' write.csv(mtcars, "output_file.csv")</div><div class='input'><span class='co'># make(mtcars_plan) # Would write output_file.csv. # nolint</span>
+<span class='co'># In the free-form `...` argument</span>
+<span class='co'># drake_plan() uses tidy evaluation to figure out your commands.</span>
+<span class='co'># For example, it respects the quasiquotation operator `!!`</span>
+<span class='co'># when it figures out what your code should be.</span>
+<span class='co'># Suppress this with `tidy_evaluation = FALSE` or</span>
+<span class='co'># with the `list` argument.</span>
+<span class='no'>my_variable</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>
+<span class='fu'>drake_plan</span>(
+  <span class='kw'>a</span> <span class='kw'>=</span> !!<span class='no'>my_variable</span>,
+  <span class='kw'>b</span> <span class='kw'>=</span> !!<span class='no'>my_variable</span> + <span class='fl'>1</span>,
+  <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='st'>"!!my_variable"</span>)
+)</div><div class='output co'>#&gt;   target       command
+#&gt; 1      a             5
+#&gt; 2      b             6
+#&gt; 3      d !!my_variable</div><div class='input'><span class='fu'>drake_plan</span>(
+  <span class='kw'>a</span> <span class='kw'>=</span> !!<span class='no'>my_variable</span>,
+  <span class='kw'>b</span> <span class='kw'>=</span> !!<span class='no'>my_variable</span> + <span class='fl'>1</span>,
+  <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='st'>"!!my_variable"</span>),
+  <span class='kw'>tidy_evaluation</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</div><div class='output co'>#&gt;   target             command
+#&gt; 1      a     !(!my_variable)
+#&gt; 2      b !(!my_variable + 1)
+#&gt; 3      d       !!my_variable</div><div class='input'># For instances of !! that remain unevaluated in the workflow plan,
+# make() will run these commands in tidy fashion,
+# evaluating the !! operator using the environment you provided.
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
