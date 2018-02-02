@@ -268,7 +268,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpMzbABJ/articles/.drake
+## cache /tmp/RtmpgNF6sM/articles/.drake
 ## connect 10 imports: my_variable, analysis_plan, simulate, reg1, config, whole...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
@@ -295,13 +295,13 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpMzbABJ/articles/.drake
+## cache /tmp/RtmpgNF6sM/articles/.drake
 ##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 26.7428641 1.01585296 26.325526 2.216740e-29
-## x2          -0.6163984 0.08019978 -7.685787 8.624937e-10</code></pre></div>
+## (Intercept) 29.6829823  1.1776746 25.204741 1.444388e-28
+## x2          -0.8702188  0.1000793 -8.695294 2.853255e-11</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpMzbABJ/articles/.drake
+## cache /tmp/RtmpgNF6sM/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
@@ -322,7 +322,7 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpMzbABJ/articles/.drake
+## cache /tmp/RtmpgNF6sM/articles/.drake
 ## connect 10 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan, whol...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
 ## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
