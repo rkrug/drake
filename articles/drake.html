@@ -106,7 +106,7 @@
             <h3 class="subtitle">where to begin</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-01-30</h4>
+            <h4 class="date">2018-02-02</h4>
           </div>
 
     
@@ -119,7 +119,7 @@
 <a href="#get-the-code-" class="anchor"></a>Get the code.</h1>
 <p>Write the code files to your workspace.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/drake_example.html">drake_example</a></span>(<span class="st">"basic"</span>)</code></pre></div>
-<p>The new <code>basic</code> folder now includes a file structure of a serious <code>drake</code> project, plus an <code>interactive-tutorial.R</code> to narrate the example. The code is also <a href="https://git%20hub.com/ropensci/drake/tree/master/inst/examples/basic">online here</a>.</p>
+<p>The new <code>basic</code> folder now includes a file structure of a serious <code>drake</code> project, plus an <code>interactive-tutorial.R</code> to narrate the example. The code is also <a href="https://github.com/ropensci/drake/tree/master/inst/examples/basic">online here</a>.</p>
 </div>
 <div id="the-motivation-of-the-basic-example" class="section level1">
 <h1 class="hasAnchor">
@@ -237,7 +237,7 @@ whole_plan
 )
 ##   target       command
 ## 1      a             5
-## 2      b             6
+## 2      b         5 + 1
 ## 3      d !!my_variable
 
 <span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
@@ -258,20 +258,20 @@ whole_plan
 <p>At this point, all your targets are out of date because the project is new.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Master configuration list</span>
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-##  [1] "coef_regression1_large" "coef_regression1_small"
-##  [3] "coef_regression2_large" "coef_regression2_small"
-##  [5] "large"                  "regression1_large"     
-##  [7] "regression1_small"      "regression2_large"     
-##  [9] "regression2_small"      "'report.md'"           
+##  [1] "'report.md'"            "coef_regression1_large"
+##  [3] "coef_regression1_small" "coef_regression2_large"
+##  [5] "coef_regression2_small" "large"                 
+##  [7] "regression1_large"      "regression1_small"     
+##  [9] "regression2_large"      "regression2_small"     
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp22xnkm/articles/.drake
+## cache /tmp/RtmpMzbABJ/articles/.drake
 ## connect 10 imports: my_variable, analysis_plan, simulate, reg1, config, whole...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
+## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## target large
@@ -295,20 +295,20 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/Rtmp22xnkm/articles/.drake
+## cache /tmp/RtmpMzbABJ/articles/.drake
 ##               Estimate Std. Error   t value     Pr(&gt;|t|)
-## (Intercept) 30.2250673 1.00323755  30.12753 6.248471e-32
-## x2          -0.8146152 0.07704231 -10.57361 6.703147e-14</code></pre></div>
+## (Intercept) 26.7428641 1.01585296 26.325526 2.216740e-29
+## x2          -0.6163984 0.08019978 -7.685787 8.624937e-10</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp22xnkm/articles/.drake
+## cache /tmp/RtmpMzbABJ/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
 ##   coef_regression2_small
 ## connect 10 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan, whol...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
+## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
@@ -322,10 +322,10 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp22xnkm/articles/.drake
+## cache /tmp/RtmpMzbABJ/articles/.drake
 ## connect 10 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan, whol...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regression1...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample.int, ...
+## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample.int, ...
 ## check 3 items: reg1, reg2, simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, regre...
@@ -405,7 +405,7 @@ whole_plan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run your project (build the outdated targets). — make • drake</title>
+<title>Run your project (build the outdated targets). <U+2014> make • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -161,10 +161,10 @@ A workflow plan data frame is a data frame
 with a <code>target</code> column and a <code>command</code> column.
 Targets are the objects and files that drake generates,
 and commands are the pieces of R code that produce them.
-Use the function <code><a href='drake_plan.html'>drake_plan</a>()</code> to generate workflow plan
-data frames easily, and see functions <code><a href='analyses.html'>analyses</a>()</code>,
-<code><a href='summaries.html'>summaries</a>()</code>, <code><a href='evaluate.html'>evaluate</a>()</code>,
-<code><a href='expand.html'>expand</a>()</code>, and <code><a href='gather.html'>gather</a>()</code> for
+Use the function <code><a href='drake_plan.html'>drake_plan()</a></code> to generate workflow plan
+data frames easily, and see functions <code><a href='analyses.html'>analyses()</a></code>,
+<code><a href='summaries.html'>summaries()</a></code>, <code><a href='evaluate.html'>evaluate()</a></code>,
+<code><a href='expand.html'>expand()</a></code>, and <code><a href='gather.html'>gather()</a></code> for
 easy ways to generate large workflow plan data frames.</p></td>
     </tr>
     <tr>
@@ -189,12 +189,12 @@ then reproducibly tracked as dependencies.</p></td>
     <tr>
       <th>verbose</th>
       <td><p>logical or numeric, control printing to the console.</p><dl class='dl-horizontal'>
-  <dt>0 or <code>FALSE</code>:</dt><dd><p>print nothing.</p></dd>
-  <dt>1 or <code>TRUE</code>:</dt><dd><p>print checks and targets to build.</p></dd>
-  <dt>2:</dt><dd><p>print checks, targets, to build,
-    and any potentially missing items.</p></dd>
-  <dt>3:</dt><dd><p>full verbosity: print checks, targets to build, potentially
-    missing items, and imports.</p></dd>
+<dt>0 or <code>FALSE</code>:</dt><dd><p>print nothing.</p></dd>
+<dt>1 or <code>TRUE</code>:</dt><dd><p>print checks and targets to build.</p></dd>
+<dt>2:</dt><dd><p>print checks, targets, to build,
+and any potentially missing items.</p></dd>
+<dt>3:</dt><dd><p>full verbosity: print checks, targets to build, potentially
+missing items, and imports.</p></dd>
 </dl></td>
     </tr>
     <tr>
@@ -204,12 +204,12 @@ The hook is as a wrapper around the code that drake uses
 to build a target (see the body of <code>drake:::build_in_hook()</code>).
 Hooks can control the side effects of build behavior.
 For example, to redirect output and error messages to text files,
-you might use the built-in <code><a href='silencer_hook.html'>silencer_hook</a>()</code>, as in
+you might use the built-in <code><a href='silencer_hook.html'>silencer_hook()</a></code>, as in
 <code>make(my_plan, hook = silencer_hook)</code>.
 The silencer hook is useful for distributed parallelism,
 where the calling R process does not have control over all the
-error and output streams. See also <code><a href='output_sink_hook.html'>output_sink_hook</a>()</code>
-and <code><a href='message_sink_hook.html'>message_sink_hook</a>()</code>.
+error and output streams. See also <code><a href='output_sink_hook.html'>output_sink_hook()</a></code>
+and <code><a href='message_sink_hook.html'>message_sink_hook()</a></code>.
 For your own custom hooks, treat the first argument as the code
 that builds a target, and make sure this argument is actually evaluated.
 Otherwise, the code will not run and none of your targets will build.
@@ -218,9 +218,9 @@ and <code>function(code){message("Avoiding the code")}</code> is a bad hook.</p>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>drake cache as created by <code><a href='new_cache.html'>new_cache</a>()</code>.
-See also <code><a href='get_cache.html'>get_cache</a>()</code>, <code><a href='this_cache.html'>this_cache</a>()</code>,
-and <code><a href='recover_cache.html'>recover_cache</a>()</code></p></td>
+      <td><p>drake cache as created by <code><a href='new_cache.html'>new_cache()</a></code>.
+See also <code><a href='get_cache.html'>get_cache()</a></code>, <code><a href='this_cache.html'>this_cache()</a></code>,
+and <code><a href='recover_cache.html'>recover_cache()</a></code></p></td>
     </tr>
     <tr>
       <th>fetch_cache</th>
@@ -236,7 +236,7 @@ need to know how to load the cache.</p></td>
     <tr>
       <th>parallelism</th>
       <td><p>character, type of parallelism to use.
-To list the options, call <code><a href='parallelism_choices.html'>parallelism_choices</a>()</code>.
+To list the options, call <code><a href='parallelism_choices.html'>parallelism_choices()</a></code>.
 For detailed explanations, see <code>?<a href='parallelism_choices.html'>parallelism_choices</a></code>,
 the tutorial vignettes, or the tutorial files generated by
 <code><a href='drake_example.html'>drake_example</a>("basic")</code></p></td>
@@ -244,12 +244,12 @@ the tutorial vignettes, or the tutorial files generated by
     <tr>
       <th>jobs</th>
       <td><p>number of parallel processes or jobs to run.
-See <code><a href='max_useful_jobs.html'>max_useful_jobs</a>()</code> or <code><a href='vis_drake_graph.html'>vis_drake_graph</a>()</code>
+See <code><a href='max_useful_jobs.html'>max_useful_jobs()</a></code> or <code><a href='vis_drake_graph.html'>vis_drake_graph()</a></code>
 to help figure out what the number of jobs should be.
 Windows users should not set <code>jobs &gt; 1</code> if
 <code>parallelism</code> is <code>"mclapply"</code> because
 <code>mclapply()</code> is based on forking. Windows users
-who use <code>parallelism == "Makefile"</code> will need to
+who use <code>parallelism = "Makefile"</code> will need to
 download and install Rtools.</p>
 <p>For <code>"future_lapply"</code> parallelism, <code>jobs</code>
 only applies to the imports.
@@ -259,7 +259,7 @@ argument where it exists: for example, call
 <code><a href='http://www.rdocumentation.org/packages/future/topics/plan'>future::plan(multisession(workers = 4))</a></code>,
 then call <code>make(your_plan, parallelism = "future_lapply")</code>.
 You might also try <code>options(mc.cores = jobs)</code>,
-or see <code>?future::future::.options</code>
+or see <code>future::.options</code>
 for environment variables that set the max number of jobs.</p>
 <p>If <code>parallelism</code> is <code>"Makefile"</code>,  Makefile-level parallelism is
 only used for targets in your workflow plan data frame, not imports.  To
@@ -314,7 +314,7 @@ to take advantage of multiple nodes of a supercomputer.</p></td>
 generated for distributed computing.
 Only applies when <code>parallelism</code> is <code>"Makefile"</code>.
 Defaults to the usual <code>"make"</code>
-(<code><a href='default_Makefile_command.html'>default_Makefile_command</a>()</code>),
+(<code><a href='default_Makefile_command.html'>default_Makefile_command()</a></code>),
 but it could also be
 <code>"lsmake"</code> on supporting systems, for example.
 <code>command</code> and <code>args</code> are executed via
@@ -350,7 +350,7 @@ creates a lot of little files in the cache, and it may make builds
 a tiny bit slower. So you may see gains in storage efficiency
 and speed with
 <code>make(..., log_progress = FALSE)</code>. But be warned that
-<code><a href='progress.html'>progress</a>()</code> and <code><a href='in_progress.html'>in_progress</a>()</code>
+<code><a href='progress.html'>progress()</a></code> and <code><a href='in_progress.html'>in_progress()</a></code>
 will no longer work if you do that.</p></td>
     </tr>
     <tr>
@@ -402,7 +402,7 @@ is always invisibly returned.</p></td>
       <th>graph</th>
       <td><p>An <code>igraph</code> object from the previous <code>make()</code>.
 Supplying a pre-built graph could save time.
-The graph is constructed by <code><a href='build_drake_graph.html'>build_drake_graph</a>()</code>.
+The graph is constructed by <code><a href='build_drake_graph.html'>build_drake_graph()</a></code>.
 You can also get one from <code><a href='config.html'>config</a>(my_plan)$graph</code>.
 Overrides <code>skip_imports</code>.</p></td>
     </tr>
@@ -410,8 +410,8 @@ Overrides <code>skip_imports</code>.</p></td>
       <th>trigger</th>
       <td><p>Name of the trigger to apply to all targets.
 Ignored if <code>plan</code> has a <code>trigger</code> column.
-Must be in <code><a href='triggers.html'>triggers</a>()</code>.
-See <code><a href='triggers.html'>?triggers</a></code> for explanations of the choices.</p></td>
+Must be in <code><a href='triggers.html'>triggers()</a></code>.
+See <a href='triggers.html'>triggers</a> for explanations of the choices.</p></td>
     </tr>
     <tr>
       <th>skip_imports</th>
@@ -429,7 +429,7 @@ on your workflow. Use at your own peril.</p></td>
     <tr>
       <th>config</th>
       <td><p>optional master configuration list created by
-<code><a href='drake_config.html'>drake_config</a>()</code>. Using one could cut out some
+<code><a href='drake_config.html'>drake_config()</a></code>. Using one could cut out some
 superfluous overhead. Overrides all other arguments
 if supplied</p></td>
     </tr>
@@ -467,7 +467,7 @@ for small <code>make()</code>s.</p></td>
 If <code>TRUE</code>, the default file name is used (<code>drake_cache.log</code>).
 If <code>NULL</code>, no file is written.
 If activated, this option uses
-<code><a href='drake_cache_log_file.html'>drake_cache_log_file</a>()</code> to write a flat text file
+<code><a href='drake_cache_log_file.html'>drake_cache_log_file()</a></code> to write a flat text file
 to represent the state of the cache
 (fingerprints of all the targets and imports).
 If you put the log file under version control, your commit history
@@ -481,17 +481,17 @@ this is a step in the right direction for data reproducibility.</p></td>
 
     <p>The master internal configuration list, mostly
 containing arguments to <code>make()</code> and important objects
-constructed along the way. See <code><a href='config.html'>config</a>()</code>
+constructed along the way. See <code><a href='config.html'>config()</a></code>
 for more details.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='make_with_config.html'>make_with_config</a></code>,
-<code><a href='drake_plan.html'>drake_plan</a></code>, <code><a href='drake_plan.html'>drake_plan</a></code>,
-<code><a href='vis_drake_graph.html'>vis_drake_graph</a></code>,
-<code><a href='max_useful_jobs.html'>max_useful_jobs</a></code>, <code><a href='shell_file.html'>shell_file</a></code>,
-<code><a href='default_hook.html'>default_hook</a></code>, <code><a href='silencer_hook.html'>silencer_hook</a></code>,
-<code><a href='triggers.html'>triggers</a></code></p>
+    <p><code><a href='make_with_config.html'>make_with_config()</a></code>,
+<code><a href='drake_plan.html'>drake_plan()</a></code>, <code><a href='drake_plan.html'>drake_plan()</a></code>,
+<code><a href='vis_drake_graph.html'>vis_drake_graph()</a></code>,
+<code><a href='max_useful_jobs.html'>max_useful_jobs()</a></code>, <code><a href='shell_file.html'>shell_file()</a></code>,
+<code><a href='default_hook.html'>default_hook()</a></code>, <code><a href='silencer_hook.html'>silencer_hook()</a></code>,
+<code><a href='triggers.html'>triggers()</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -557,7 +557,7 @@ for more details.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>

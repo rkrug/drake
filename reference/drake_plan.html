@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create a workflow plan data frame
-for the <code>plan</code> argument of <code><a href='make.html'>make</a></code>. — drake_plan • drake</title>
+for the <code>plan</code> argument of <code><a href='make.html'>make()</a></code>. <U+2014> drake_plan • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -127,13 +127,13 @@ for the <code>plan</code> argument of <code><a href='make.html'>make</a></code>.
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a workflow plan data frame
-for the <code>plan</code> argument of <code><a href='make.html'>make</a></code>.</h1>
+for the <code>plan</code> argument of <code><a href='make.html'>make()</a></code>.</h1>
     </div>
 
     
     <p>Turns a named collection of target/command pairs into
-a workflow plan data frame for <code><a href='make.html'>make</a>()</code> and
-<code><a href='check.html'>check</a>()</code>. You can give the commands
+a workflow plan data frame for <code><a href='make.html'>make()</a></code> and
+<code><a href='check.html'>check()</a></code>. You can give the commands
 as named expressions, or you can use the <code>list</code>
 argument to supply them as character strings.</p>
     
@@ -251,7 +251,7 @@ argument to control the quoting in <code>...</code>.</p>
   <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>d</span> <span class='kw'>=</span> <span class='st'>"!!my_variable"</span>)
 )</div><div class='output co'>#&gt;   target       command
 #&gt; 1      a             5
-#&gt; 2      b             6
+#&gt; 2      b         5 + 1
 #&gt; 3      d !!my_variable</div><div class='input'><span class='fu'>drake_plan</span>(
   <span class='kw'>a</span> <span class='kw'>=</span> !!<span class='no'>my_variable</span>,
   <span class='kw'>b</span> <span class='kw'>=</span> !!<span class='no'>my_variable</span> + <span class='fl'>1</span>,
@@ -286,7 +286,7 @@ argument to control the quoting in <code>...</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>

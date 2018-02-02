@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create the internal runtime parameter list
-used internally in <code><a href='make.html'>make</a>()</code>. — drake_config • drake</title>
+used internally in <code><a href='make.html'>make()</a></code>. <U+2014> drake_config • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -127,15 +127,15 @@ used internally in <code><a href='make.html'>make</a>()</code>. — drake_config
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create the internal runtime parameter list
-used internally in <code><a href='make.html'>make</a>()</code>.</h1>
+used internally in <code><a href='make.html'>make()</a></code>.</h1>
     </div>
 
     
     <p>This configuration list
-is also required for functions such as <code><a href='outdated.html'>outdated</a>()</code> and
-<code><a href='vis_drake_graph.html'>vis_drake_graph</a>()</code>. It is meant to be specific to
-a single call to <code><a href='make.html'>make</a>()</code>, and you should not modify
-it by hand afterwards. If you later plan to call <code><a href='make.html'>make</a>()</code>
+is also required for functions such as <code><a href='outdated.html'>outdated()</a></code> and
+<code><a href='vis_drake_graph.html'>vis_drake_graph()</a></code>. It is meant to be specific to
+a single call to <code><a href='make.html'>make()</a></code>, and you should not modify
+it by hand afterwards. If you later plan to call <code><a href='make.html'>make()</a></code>
 with different arguments (especially <code>targets</code>),
 you should refresh the config list with another call to
 <code>drake_config()</code>. For changes to the
@@ -144,7 +144,7 @@ specifically, it is important to recompute the config list
 to make sure the internal workflow network has all the targets you need.
 Modifying the <code>targets</code> element afterwards will have no effect
 and it could lead to false negative results from
-<code><a href='outdated.html'>outdated</a>()</code></p>
+<code><a href='outdated.html'>outdated()</a></code></p>
     
 
     <pre class="usage"><span class='fu'>drake_config</span>(<span class='kw'>plan</span> <span class='kw'>=</span> <span class='fu'><a href='drake_plan.html'>drake_plan</a></span>(), <span class='kw'>targets</span> <span class='kw'>=</span> <span class='kw pkg'>drake</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/drake/topics/possible_targets'>possible_targets</a></span>(<span class='no'>plan</span>),
@@ -165,97 +165,250 @@ and it could lead to false negative results from
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>plan</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>workflow plan data frame.
+A workflow plan data frame is a data frame
+with a <code>target</code> column and a <code>command</code> column.
+Targets are the objects and files that drake generates,
+and commands are the pieces of R code that produce them.
+Use the function <code><a href='drake_plan.html'>drake_plan()</a></code> to generate workflow plan
+data frames easily, and see functions <code><a href='analyses.html'>analyses()</a></code>,
+<code><a href='summaries.html'>summaries()</a></code>, <code><a href='evaluate.html'>evaluate()</a></code>,
+<code><a href='expand.html'>expand()</a></code>, and <code><a href='gather.html'>gather()</a></code> for
+easy ways to generate large workflow plan data frames.</p></td>
     </tr>
     <tr>
       <th>targets</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>character string, names of targets to build.
+Dependencies are built too. Together, the <code>plan</code> and
+<code>targets</code> comprise the workflow network
+(i.e. the <code>graph</code> argument).
+Changing either will change the network.</p></td>
     </tr>
     <tr>
       <th>envir</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>environment to use. Defaults to the current
+workspace, so you should not need to worry about this
+most of the time. A deep copy of <code>envir</code> is made,
+so you don't need to worry about your workspace being modified
+by <code>make</code>. The deep copy inherits from the global environment.
+Wherever necessary, objects and functions are imported
+from <code>envir</code> and the global environment and
+then reproducibly tracked as dependencies.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>logical or numeric, control printing to the console.</p><dl class='dl-horizontal'>
+<dt>0 or <code>FALSE</code>:</dt><dd><p>print nothing.</p></dd>
+<dt>1 or <code>TRUE</code>:</dt><dd><p>print checks and targets to build.</p></dd>
+<dt>2:</dt><dd><p>print checks, targets, to build,
+and any potentially missing items.</p></dd>
+<dt>3:</dt><dd><p>full verbosity: print checks, targets to build, potentially
+missing items, and imports.</p></dd>
+</dl></td>
     </tr>
     <tr>
       <th>hook</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>function with at least one argument.
+The hook is as a wrapper around the code that drake uses
+to build a target (see the body of <code>drake:::build_in_hook()</code>).
+Hooks can control the side effects of build behavior.
+For example, to redirect output and error messages to text files,
+you might use the built-in <code><a href='silencer_hook.html'>silencer_hook()</a></code>, as in
+<code><a href='make.html'>make(my_plan, hook = silencer_hook)</a></code>.
+The silencer hook is useful for distributed parallelism,
+where the calling R process does not have control over all the
+error and output streams. See also <code><a href='output_sink_hook.html'>output_sink_hook()</a></code>
+and <code><a href='message_sink_hook.html'>message_sink_hook()</a></code>.
+For your own custom hooks, treat the first argument as the code
+that builds a target, and make sure this argument is actually evaluated.
+Otherwise, the code will not run and none of your targets will build.
+For example, <code>function(code){force(code)}</code> is a good hook
+and <code>function(code){message("Avoiding the code")}</code> is a bad hook.</p></td>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>drake cache as created by <code><a href='new_cache.html'>new_cache()</a></code>.
+See also <code><a href='get_cache.html'>get_cache()</a></code>, <code><a href='this_cache.html'>this_cache()</a></code>,
+and <code><a href='recover_cache.html'>recover_cache()</a></code></p></td>
     </tr>
     <tr>
       <th>fetch_cache</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>character vector containing lines of code.
+The purpose of this code is to fetch the <code>storr</code> cache
+with a command like <code>storr_rds()</code> or <code>storr_dbi()</code>,
+but customized. This feature is experimental. It will turn out
+to be necessary if you are using both custom non-RDS caches
+and distributed parallelism (<code>parallelism = "future_lapply"</code>
+or <code>"Makefile"</code>) because the distributed R sessions
+need to know how to load the cache.</p></td>
     </tr>
     <tr>
       <th>parallelism</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>character, type of parallelism to use.
+To list the options, call <code><a href='parallelism_choices.html'>parallelism_choices()</a></code>.
+For detailed explanations, see <code>?<a href='parallelism_choices.html'>parallelism_choices</a></code>,
+the tutorial vignettes, or the tutorial files generated by
+<code><a href='drake_example.html'>drake_example</a>("basic")</code></p></td>
     </tr>
     <tr>
       <th>jobs</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>number of parallel processes or jobs to run.
+See <code><a href='max_useful_jobs.html'>max_useful_jobs()</a></code> or <code><a href='vis_drake_graph.html'>vis_drake_graph()</a></code>
+to help figure out what the number of jobs should be.
+Windows users should not set <code>jobs &gt; 1</code> if
+<code>parallelism</code> is <code>"mclapply"</code> because
+<code>mclapply()</code> is based on forking. Windows users
+who use <code>parallelism = "Makefile"</code> will need to
+download and install Rtools.</p>
+<p>For <code>"future_lapply"</code> parallelism, <code>jobs</code>
+only applies to the imports.
+To set the max number of jobs for <code>"future_lapply"</code>
+parallelism, set the <code>workers</code>
+argument where it exists: for example, call
+<code><a href='http://www.rdocumentation.org/packages/future/topics/plan'>future::plan(multisession(workers = 4))</a></code>,
+then call <code><a href='make.html'>make</a>(your_plan, parallelism = "future_lapply")</code>.
+You might also try <code>options(mc.cores = jobs)</code>,
+or see <code>future::.options</code>
+for environment variables that set the max number of jobs.</p>
+<p>If <code>parallelism</code> is <code>"Makefile"</code>,  Makefile-level parallelism is
+only used for targets in your workflow plan data frame, not imports.  To
+process imported objects and files, drake selects the best parallel backend
+for your system and uses the number of jobs you give to the <code>jobs</code>
+argument to <code><a href='make.html'>make()</a></code>. To use at most 2 jobs for imports and at
+most 4 jobs for targets, run
+<code><a href='make.html'>make(..., parallelism = "Makefile", jobs = 2, args = "--jobs=4")</a></code></p></td>
     </tr>
     <tr>
       <th>packages</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>character vector packages to load, in the order
+they should be loaded. Defaults to <code>rev(.packages())</code>, so you
+should not usually need to set this manually. Just call
+<code>library()</code> to load your packages before <code><a href='make.html'>make()</a></code>.
+However, sometimes packages need to be strictly forced to load
+in a certain order, especially if <code>parallelism</code> is
+<code>"Makefile"</code>. To do this, do not use <code>library()</code>
+or <code>require()</code> or <code>loadNamespace()</code> or
+<code>attachNamespace()</code> to load any libraries beforehand.
+Just list your packages in the <code>packages</code> argument in the order
+you want them to be loaded.
+If <code>parallelism</code> is <code>"mclapply"</code>,
+the necessary packages
+are loaded once before any targets are built. If <code>parallelism</code> is
+<code>"Makefile"</code>, the necessary packages are loaded once on
+initialization and then once again for each target right
+before that target is built.</p></td>
     </tr>
     <tr>
       <th>prework</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>character vector of lines of code to run
+before build time. This code can be used to
+load packages, set options, etc., although the packages in the
+<code>packages</code> argument are loaded before any prework is done.
+If <code>parallelism</code> is <code>"mclapply"</code>, the <code>prework</code>
+is run once before any targets are built. If <code>parallelism</code> is
+<code>"Makefile"</code>, the prework is run once on initialization
+and then once again for each target right before that target is built.</p></td>
     </tr>
     <tr>
       <th>prepend</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>lines to prepend to the Makefile if <code>parallelism</code>
+is <code>"Makefile"</code>. See the vignettes
+(<code><a href='https://cran.rstudio.com/web/packages/drake/vignettes/drake.html'>vignette(package = "drake")</a></code>)
+to learn how to use <code>prepend</code>
+to take advantage of multiple nodes of a supercomputer.</p></td>
     </tr>
     <tr>
       <th>command</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>character scalar, command to call the Makefile
+generated for distributed computing.
+Only applies when <code>parallelism</code> is <code>"Makefile"</code>.
+Defaults to the usual <code>"make"</code>
+(<code><a href='default_Makefile_command.html'>default_Makefile_command()</a></code>),
+but it could also be
+<code>"lsmake"</code> on supporting systems, for example.
+<code>command</code> and <code>args</code> are executed via
+<code>system2(command, args)</code> to run the Makefile.
+If <code>args</code> has something like <code>"--jobs=2"</code>, or if
+<code>jobs &gt;= 2</code> and <code>args</code> is left alone, targets
+will be distributed over independent parallel R sessions
+wherever possible.</p></td>
     </tr>
     <tr>
       <th>args</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>command line arguments to call the Makefile for
+distributed computing. For advanced users only. If set,
+<code>jobs</code> and <code>verbose</code> are overwritten as they apply to the
+Makefile.
+<code>command</code> and <code>args</code> are executed via
+<code>system2(command, args)</code> to run the Makefile.
+If <code>args</code> has something like <code>"--jobs=2"</code>, or if
+<code>jobs &gt;= 2</code> and <code>args</code> is left alone, targets
+will be distributed over independent parallel R sessions
+wherever possible.</p></td>
     </tr>
     <tr>
       <th>recipe_command</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Character scalar, command for the
+Makefile recipe for each target.</p></td>
     </tr>
     <tr>
       <th>timeout</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Seconds of overall time to allow before imposing
+a timeout on a target. Passed to <code><a href='http://www.rdocumentation.org/packages/R.utils/topics/withTimeout'>R.utils::withTimeout()</a></code>.
+Assign target-level timeout times with an optional <code>timeout</code>
+column in <code>plan</code>.</p></td>
     </tr>
     <tr>
       <th>cpu</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Seconds of cpu time to allow before imposing
+a timeout on a target. Passed to <code><a href='http://www.rdocumentation.org/packages/R.utils/topics/withTimeout'>R.utils::withTimeout()</a></code>.
+Assign target-level cpu timeout times with an optional <code>cpu</code>
+column in <code>plan</code>.</p></td>
     </tr>
     <tr>
       <th>elapsed</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Seconds of elapsed time to allow before imposing
+a timeout on a target. Passed to <code><a href='http://www.rdocumentation.org/packages/R.utils/topics/withTimeout'>R.utils::withTimeout()</a></code>.
+Assign target-level elapsed timeout times with an optional <code>elapsed</code>
+column in <code>plan</code>.</p></td>
     </tr>
     <tr>
       <th>retries</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Number of retries to execute if the target fails.
+Assign target-level retries with an optional <code>retries</code>
+column in <code>plan</code>.</p></td>
     </tr>
     <tr>
       <th>force</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Force <code><a href='make.html'>make()</a></code> to build your targets even if some
+about your setup is not quite right: for example, if you are using
+a version of drake that is not back compatible with your project's cache.</p></td>
     </tr>
     <tr>
       <th>log_progress</th>
-      <td><p>logical, whether to clear
-the cached progress of the targets readable by</p></td>
+      <td><p>logical, whether to log the progress
+of individual targets as they are being built. Progress logging
+creates a lot of little files in the cache, and it may make builds
+a tiny bit slower. So you may see gains in storage efficiency
+and speed with
+<code><a href='make.html'>make(..., log_progress = FALSE)</a></code>. But be warned that
+<code><a href='progress.html'>progress()</a></code> and <code><a href='in_progress.html'>in_progress()</a></code>
+will no longer work if you do that.</p></td>
     </tr>
     <tr>
       <th>graph</th>
-      <td><p>igraph object representing the workflow plan network.
+      <td><p>An <code>igraph</code> object from the previous <code><a href='make.html'>make()</a></code>.
+Supplying a pre-built graph could save time.
+The graph is constructed by <code><a href='build_drake_graph.html'>build_drake_graph()</a></code>.
+You can also get one from <code><a href='config.html'>config</a>(my_plan)$graph</code>.
 Overrides <code>skip_imports</code>.</p></td>
     </tr>
     <tr>
       <th>trigger</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Name of the trigger to apply to all targets.
+Ignored if <code>plan</code> has a <code>trigger</code> column.
+Must be in <code><a href='triggers.html'>triggers()</a></code>.
+See <a href='triggers.html'>triggers</a> for explanations of the choices.</p></td>
     </tr>
     <tr>
       <th>imports_only</th>
@@ -273,19 +426,49 @@ This argument is overridden if you supply your own <code>graph</code> argument.<
     <tr>
       <th>skip_safety_checks</th>
       <td><p>logical, whether to skip the safety checks
-on your workflow to save time. Use at your own peril.</p></td>
+on your workflow. Use at your own peril.</p></td>
     </tr>
     <tr>
       <th>lazy_load</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>logical.
+Should always be set to <code>FALSE</code> for <code>"parLapply"</code>
+parallelism and <code>jobs</code> greater than 1.
+For local multi-session parallelism and lazy loading, try
+<code>library(future); future::plan(multisession)</code> and then
+<code><a href='make.html'>make(..., parallelism = "future_lapply", lazy_load = TRUE)</a></code>.
+If <code>lazy_load</code> is <code>FALSE</code>,
+drake prunes the execution environment before every
+parallelizable stages, removing all superfluous targets
+and then loading any dependencies it will need
+for the targets in the current parallelizable stage.
+In other words, drake prepares the environment in advance
+for all the whole collection of targets in the stage.
+If <code>lazy_load</code> is <code>TRUE</code>, drake assigns
+promises to load any dependencies at the last minute.
+Lazy loading may be more memory efficient in some use cases, but
+it may duplicate the loading of dependencies, costing time.</p></td>
     </tr>
     <tr>
       <th>session_info</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>logical, whether to save the <code>sessionInfo()</code>
+to the cache. This behavior is recommended for serious <code><a href='make.html'>make()</a></code>s
+for the sake of reproducibility. This argument only exists to
+speed up tests. Apparently, <code>sessionInfo()</code> is a bottleneck
+for small <code><a href='make.html'>make()</a></code>s.</p></td>
     </tr>
     <tr>
       <th>cache_log_file</th>
-      <td><p>same as for <code><a href='make.html'>make</a></code></p></td>
+      <td><p>Name of the cache log file to write.
+If <code>TRUE</code>, the default file name is used (<code>drake_cache.log</code>).
+If <code>NULL</code>, no file is written.
+If activated, this option uses
+<code><a href='drake_cache_log_file.html'>drake_cache_log_file()</a></code> to write a flat text file
+to represent the state of the cache
+(fingerprints of all the targets and imports).
+If you put the log file under version control, your commit history
+will give you an easy representation of how your results change
+over time as the rest of your project changes. Hopefully,
+this is a step in the right direction for data reproducibility.</p></td>
     </tr>
     </table>
     
@@ -295,8 +478,8 @@ on your workflow to save time. Use at your own peril.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='make_with_config.html'>make_with_config</a></code>, <code><a href='make.html'>make</a></code>,
-<code><a href='drake_plan.html'>drake_plan</a></code>, <code><a href='vis_drake_graph.html'>vis_drake_graph</a></code></p>
+    <p><code><a href='make_with_config.html'>make_with_config()</a></code>, <code><a href='make.html'>make()</a></code>,
+<code><a href='drake_plan.html'>drake_plan()</a></code>, <code><a href='vis_drake_graph.html'>vis_drake_graph()</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -339,7 +522,7 @@ on your workflow to save time. Use at your own peril.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
