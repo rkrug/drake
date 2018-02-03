@@ -141,8 +141,8 @@ this function is divided into
   <span class='kw'>split_columns</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>font_size</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"layout_with_sugiyama"</span>,
   <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"LR"</span>, <span class='kw'>hover</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>navigationButtons</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"out"</span>, <span class='st'>"in"</span>, <span class='st'>"all"</span>), <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol_legend</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>make_imports</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>from_scratch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol_legend</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>full_legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>make_imports</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>from_scratch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -264,6 +264,12 @@ edges will drop from the graph.</p></td>
     <tr>
       <th>ncol_legend</th>
       <td><p>number of columns in the legend nodes</p></td>
+    </tr>
+    <tr>
+      <th>full_legend</th>
+      <td><p>logical. If <code>TRUE</code>, all the node types
+are printed in the legend. If <code>FALSE</code>, only the
+node types used are printed in the legend.</p></td>
     </tr>
     <tr>
       <th>make_imports</th>
