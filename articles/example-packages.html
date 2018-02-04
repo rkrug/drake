@@ -106,7 +106,7 @@
             <h3 class="subtitle">Refresh your project without restarting from scratch.</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-03</h4>
+            <h4 class="date">2018-02-04</h4>
           </div>
 
     
@@ -127,13 +127,13 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cranlogs)
 <span class="kw"><a href="http://www.rdocumentation.org/packages/cranlogs/topics/cran_downloads">cran_downloads</a></span>(<span class="dt">packages =</span> <span class="st">"dplyr"</span>, <span class="dt">when =</span> <span class="st">"last-week"</span>)
 ##         date count package
-## 1 2018-01-26 13326   dplyr
-## 2 2018-01-27  6908   dplyr
-## 3 2018-01-28  7072   dplyr
-## 4 2018-01-29 15785   dplyr
-## 5 2018-01-30 18337   dplyr
-## 6 2018-01-31 15040   dplyr
-## 7 2018-02-01 15121   dplyr</code></pre></div>
+## 1 2018-01-27  6908   dplyr
+## 2 2018-01-28  7072   dplyr
+## 3 2018-01-29 15785   dplyr
+## 4 2018-01-30 18337   dplyr
+## 5 2018-01-31 15040   dplyr
+## 6 2018-02-01 15121   dplyr
+## 7 2018-02-02 13155   dplyr</code></pre></div>
 <p>Above, each count is the number of times <code>dplyr</code> was downloaded from the RStudio CRAN mirror on the given day. To stay up to date with the latest download statistics, we need to refresh the data frequently. With <code>drake</code>, we can bring all our work up to date without restarting everything from scratch.</p>
 </div>
 <div id="analysis" class="section level1">
@@ -266,7 +266,7 @@ whole_plan
 ## 7     any</code></pre></div>
 <p>Now, we run the project to download the data and analyze it. The results will be summarized in the knitted report, <code>report.md</code>, but you can also read the results directly from the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmpOTvC7t/articles/.drake
+## cache /tmp/RtmpbFw46E/articles/.drake
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, ...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_...
 ## Loading required package: methods
@@ -286,29 +286,29 @@ whole_plan
 ## Used non-default triggers. Some targets may be not be up to date.
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_recent)
-## cache /tmp/RtmpOTvC7t/articles/.drake
+## cache /tmp/RtmpbFw46E/articles/.drake
 ##   package mean_downloads
-## 1 ggplot2       13808.13
-## 2   knitr       10525.70
-## 3    Rcpp       18508.47
+## 1 ggplot2       13956.63
+## 2   knitr       10602.40
+## 3    Rcpp       18723.67
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_older)
-## cache /tmp/RtmpOTvC7t/articles/.drake
+## cache /tmp/RtmpbFw46E/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14641.29
 ## 2   knitr        9068.71
 ## 3    Rcpp       14408.06
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_recent)
-## cache /tmp/RtmpOTvC7t/articles/.drake</code></pre></div>
+## cache /tmp/RtmpbFw46E/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_older)
-## cache /tmp/RtmpOTvC7t/articles/.drake</code></pre></div>
+## cache /tmp/RtmpbFw46E/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-2.png" width="672"></p>
 <p>Because we used triggers, each <code><a href="../reference/make.html">make()</a></code> rebuilds the <code>recent</code> target to get the latest download numbers for today. If the newly-downloaded data are the same as last time and nothing else changes, <code>drake</code> skips all the other targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmpOTvC7t/articles/.drake
+## cache /tmp/RtmpbFw46E/articles/.drake
 ## Unloading targets from environment:
 ##   averages_recent
 ##   plot_older

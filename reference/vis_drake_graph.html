@@ -149,8 +149,8 @@ this function is divided into
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>config</th>
-      <td><p>Master configuration list produced by both
-<code><a href='make.html'>make()</a></code> and <code><a href='drake_config.html'>drake_config()</a></code>.</p></td>
+      <td><p>a <code><a href='drake_config.html'>drake_config()</a></code> configuration list.
+You can get one as a return value from <code><a href='make.html'>make()</a></code> as well.</p></td>
     </tr>
     <tr>
       <th>file</th>
@@ -160,16 +160,17 @@ no file is saved and the graph is rendered and displayed within R.</p></td>
     </tr>
     <tr>
       <th>selfcontained</th>
-      <td><p>logical, whether to save
-the <code>file</code> as a self-contained
+      <td><p>logical, whether
+to save the <code>file</code> as a self-contained
 HTML file (with external resources base64 encoded) or a file with
 external resources placed in an adjacent directory. If <code>TRUE</code>,
 pandoc is required.</p></td>
     </tr>
     <tr>
       <th>build_times</th>
-      <td><p>logical, whether to print the <code><a href='build_times.html'>build_times()</a></code>
-in the graph.</p></td>
+      <td><p>logical, whether to show the <code><a href='build_times.html'>build_times()</a></code>
+of the targets and imports, if available.
+These are just elapsed times from <code>system.time()</code>.</p></td>
     </tr>
     <tr>
       <th>digits</th>
@@ -177,7 +178,8 @@ in the graph.</p></td>
     </tr>
     <tr>
       <th>targets_only</th>
-      <td><p>logical, whether to skip the imports and only show the
+      <td><p>logical,
+whether to skip the imports and only include the
 targets in the workflow plan.</p></td>
     </tr>
     <tr>
@@ -197,10 +199,10 @@ indicates.)</p></td>
     </tr>
     <tr>
       <th>layout</th>
-      <td><p>name of an igraph layout
-to use, such as 'layout_with_sugiyama'
-or 'layout_as_tree'. Be careful with
-'layout_as_tree': the graph is a directed
+      <td><p>name of an igraph layout to use,
+such as 'layout_with_sugiyama'
+or 'layout_as_tree'.
+Be careful with 'layout_as_tree': the graph is a directed
 acyclic graph, but not necessarily a tree.</p></td>
     </tr>
     <tr>
@@ -209,8 +211,7 @@ acyclic graph, but not necessarily a tree.</p></td>
     </tr>
     <tr>
       <th>direction</th>
-      <td><p>an argument to
-<code><a href='http://www.rdocumentation.org/packages/visNetwork/topics/visHierarchicalLayout'>visNetwork::visHierarchicalLayout()</a></code>
+      <td><p>an argument to <code><a href='http://www.rdocumentation.org/packages/visNetwork/topics/visHierarchicalLayout'>visNetwork::visHierarchicalLayout()</a></code>
 indicating the direction of the graph.
 Options include 'LR', 'RL', 'DU', and 'UD'.
 At the time of writing this, the letters must be capitalized,
@@ -229,7 +230,7 @@ change with hovering.</p></td>
     </tr>
     <tr>
       <th>from</th>
-      <td><p>Optional character vector of target/import names.
+      <td><p>Optional collection of target/import names.
 If <code>from</code> is nonempty,
 the graph will restrict itself to
 a neighborhood of <code>from</code>.
@@ -259,11 +260,12 @@ Subset of nodes to display in the graph.
 Applied after <code>from</code>, <code>mode</code>, and <code>order</code>.
 Be advised: edges are only kept for adjacent nodes in <code>subset</code>.
 If you do not select all the intermediate nodes,
-edges will drop from the graph.</p></td>
+edges will drop from the graph.=</p></td>
     </tr>
     <tr>
       <th>ncol_legend</th>
-      <td><p>number of columns in the legend nodes</p></td>
+      <td><p>number of columns in the legend nodes.
+To remove the legend entirely, set <code>ncol_legend</code> to <code>NULL</code> or <code>0</code>.</p></td>
     </tr>
     <tr>
       <th>full_legend</th>
@@ -273,11 +275,8 @@ node types used are printed in the legend.</p></td>
     </tr>
     <tr>
       <th>make_imports</th>
-      <td><p>logical, whether to import external files
-and objects from the user's workspace to determine
-which targets are up to date. If <code>FALSE</code>, the computation
-is faster, but all the relevant information is drawn from the cache
-and may be out of date.</p></td>
+      <td><p>logical, whether to make the imports first.
+Set to <code>FALSE</code> to increase speed and risk using obsolete information.</p></td>
     </tr>
     <tr>
       <th>from_scratch</th>
@@ -288,8 +287,7 @@ build progress in previous <code><a href='make.html'>make()</a></code>s.</p></td
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed to
-<code><a href='http://www.rdocumentation.org/packages/visNetwork/topics/visNetwork'>visNetwork::visNetwork()</a></code> to plot the graph.</p></td>
+      <td><p>arguments passed to <code>visNetwork()</code>.</p></td>
     </tr>
     </table>
     
