@@ -54,7 +54,7 @@
       <a href="articles/example-gsp.html">Example: gross state products</a>
     </li>
     <li>
-      <a href="articles/quickstart.html">Quickstart</a>
+      <a href="articles/example-basic.html">Basic example</a>
     </li>
     <li>
       <a href="articles/best-practices.html">General best practices for drake projects</a>
@@ -102,7 +102,7 @@
       </header><div class="row">
   <div class="contents col-md-9">
     
-<p><img src="https://cdn.rawgit.com/ropensci/drake/3bec195f/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
+<p><img src="https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Release</th>
@@ -113,7 +113,7 @@
 <tr class="odd">
 <td align="left"><a href="https://doi.org/10.21105/joss.00550"><img src="http://joss.theoj.org/papers/10.21105/joss.00550/status.svg" alt="JOSS"></a></td>
 <td align="left"><a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/licence-GPL--3-blue.svg" alt="Licence"></a></td>
-<td align="left"><a href="https://ci.appveyor.com/project/ropensci/drake"><img src="https://ci.appveyor.com/api/projects/status/4ypc9xnmqt70j94e?svg=true&branch=master" alt="AppVeyor"></a></td>
+<td align="left"><a href="https://ci.appveyor.com/project/ropensci/drake"><img src="https://ci.appveyor.com/api/projects/status/4ypc9xnmqt70j94e?svg=true&amp;branch=master" alt="AppVeyor"></a></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="https://github.com/ropensci/onboarding/issues/156"><img src="https://badges.ropensci.org/156_status.svg" alt="rOpenSci"></a></td>
@@ -128,13 +128,12 @@
 <tr class="even">
 <td align="left"><a href="https://zenodo.org/badge/latestdoi/82609103"><img src="https://zenodo.org/badge/82609103.svg" alt="Zenodo"></a></td>
 <td align="left"></td>
-<td align="left"></td>
 </tr>
 </tbody>
 </table>
 <div id="the-drake-r-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#the-drake-r-package" class="anchor"></a>The drake R package <img src="https://cdn.rawgit.com/ropensci/drake/3b8e6ac4/images/logo.svg" align="right" alt="logo" width="120" height="139" style="border: none; float: right;">
+<a href="#the-drake-r-package" class="anchor"></a>The drake R package <img src="https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/logo.svg" align="right" alt="logo" width="120" height="139" style="border: none; float: right;">
 </h1></div>
 <p>The <code>drake</code> R package is a workflow manager and computational engine for data science projects. Its primary objective is to keep results up to date with the underlying code and data. When it runs a project, <code>drake</code> detects any pre-existing output and refreshes the pieces that are outdated or missing. Not every runthrough starts from scratch, and the final answers are reproducible. With a user-friendly R-focused interface, <a href="https://ropensci.github.io/drake/">comprehensive documentation</a>, and <a href="https://github.com/ropensci/drake/blob/master/vignettes/parallelism.Rmd">extensive implicit parallel computing support</a>, <code>drake</code> surpasses the analogous functionality in similar tools such as <a href="www.gnu.org/software/make/">Make</a>, <a href="https://github.com/richfitz/remake">remake</a>, <a href="https://github.com/r-lib/memoise">memoise</a>, and <a href="https://github.com/yihui/knitr">knitr</a>.</p>
 </div>
@@ -166,7 +165,7 @@
 <span class="co"># Drake looks for data objects in your R session environment</span>
 <span class="kw">ls</span>()
 
-## [1] "my_plan"  "reg1"     "reg2"     "simulate"
+## [1] "my_plan"     "random_rows" "reg1"        "reg2"        "simulate"
 
 <span class="co"># and saved files in your file system.</span>
 <span class="kw">list.files</span>()
@@ -229,7 +228,13 @@ reg2 &lt;-<span class="st"> </span>function(d){
 <span class="co"># If nothing important changed, drake rebuilds nothing.</span>
 <span class="kw"><a href="reference/make.html">make</a></span>(my_plan)
 
-## All targets are already up to date.</code></pre></div>
+## All targets are already up to date.
+
+<span class="co"># Drake cares about nested functions too:</span>
+<span class="co"># with the exception of trivial formatting edits,</span>
+<span class="co"># changes to `random_rows()` will propagate to `simulate()`</span>
+<span class="co"># and all the downstream targets.</span>
+<span class="co"># Try it!</span></code></pre></div>
 </div>
 <div id="reproducibility-with-confidence" class="section level1">
 <h1 class="hasAnchor">
@@ -285,7 +290,7 @@ reg2 &lt;-<span class="st"> </span>function(d){
 config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_config.html">drake_config</a></span>(my_plan)
 <span class="kw"><a href="reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
 <iframe
-  src = 'https://cdn.rawgit.com/ropensci/drake/0b76e536/images/reg2.html'
+  src = 'https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/reg2.html'
   width = '100%' height = '600px' allowtransparency='true'
   style='border: none; box-shadow: none'>
   </iframe>
@@ -344,7 +349,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <li><a href="https://ropensci.github.io/drake/articles/drake.html">Get started</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/example-packages.html">Example: R package download trends</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/example-gsp.html">Example: gross state products</a></li>
-<li><a href="https://ropensci.github.io/drake/articles/quickstart.html">Quickstart</a></li>
+<li><a href="https://ropensci.github.io/drake/articles/example-basic.html">Basic example</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/best-practices.html">General best practices</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/caution.html">Cautionary notes and edge cases</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/debug.html">Debugging and testing drake projects</a></li>
@@ -353,7 +358,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <li><a href="https://ropensci.github.io/drake/articles/timing.html">Time logging</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/storage.html">Storage</a></li>
 </ul>
-<p><code>Drake</code> also has built-in example projects with code files <a href="https://github.com/ropensci/drake/tree/master/inst/examples">available here</a>. You can generate the files for a project with <code><a href="reference/drake_example.html">drake_example()</a></code> (e.g. <code><a href="reference/drake_example.html">drake_example("gsp")</a></code>), and you can list the available projects with <code><a href="reference/drake_examples.html">drake_examples()</a></code>. Here are the beginner-oriented examples to help you learn <code>drake</code>.</p>
+<p><code>Drake</code> also has built-in example projects with code files <a href="https://github.com/ropensci/drake/tree/master/inst/examples">available here</a>. You can generate the files for a project with <code><a href="reference/drake_example.html">drake_example()</a></code> (e.g. <code><a href="reference/drake_example.html">drake_example("gsp")</a></code>), and you can list the available projects with <code><a href="reference/drake_examples.html">drake_examples()</a></code>. The beginner-oriented examples are listed below. They help you learn <code>drake</code>’s main features, and they show one way to organize the files of <code>drake</code> projects.</p>
 <ul>
 <li>
 <code>basic</code>: A tiny, minimal example with the <code>mtcars</code> dataset to demonstrate how to use <code>drake</code>. Use <code><a href="reference/load_basic_example.html">load_basic_example()</a></code> to set up the project in your workspace. The <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a> is a parallel walkthrough of the same example.</li>
@@ -362,7 +367,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <li>
 <code>packages</code>: A concrete example using data on R package downloads. It demonstrates how <code>drake</code> can refresh a project based on new incoming data without restarting everything from scratch.</li>
 </ul>
-<p>For context and history, you can listen to a full-length interview about <code>drake</code> in <a href="https://www.r-podcast.org/episode/022-diving-in-to-drake-with-will-landau/">episode 22 of the R Podcast</a>.</p>
+<p>For context and history, check out <a href="https://ropensci.org/blog/2018/02/06/drake/">this post on the rOpenSci blog</a> and <a href="https://www.r-podcast.org/episode/022-diving-in-to-drake-with-will-landau/">episode 22 of the R Podcast</a>.</p>
 </div>
 <div id="help-and-troubleshooting" class="section level1">
 <h1 class="hasAnchor">
@@ -485,7 +490,7 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

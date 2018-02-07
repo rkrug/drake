@@ -54,7 +54,7 @@
       <a href="../articles/example-gsp.html">Example: gross state products</a>
     </li>
     <li>
-      <a href="../articles/quickstart.html">Quickstart</a>
+      <a href="../articles/example-basic.html">Basic example</a>
     </li>
     <li>
       <a href="../articles/best-practices.html">General best practices for drake projects</a>
@@ -106,14 +106,14 @@
             <h3 class="subtitle">where to begin</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-04</h4>
+            <h4 class="date">2018-02-07</h4>
           </div>
 
     
     
 <div class="contents">
-<p><img src="https://cdn.rawgit.com/ropensci/drake/3bec195f/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
-<p>This tutorial is a recommended starting place for learning how to use <code>drake</code>. It is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/quickstart.html">rendered online version of the quickstart vignette</a>.</p>
+<p><img src="https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
+<p>This tutorial is a recommended starting place for learning how to use <code>drake</code>. It is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/example-basic.Rmd">basic example vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/example-basic.html">rendered online version of the basic example vignette</a>.</p>
 <div id="get-the-code-" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-the-code-" class="anchor"></a>Get the code.</h1>
@@ -144,14 +144,14 @@
 
 <span class="co"># Drake looks for data objects and functions in your R session environment</span>
 <span class="kw">ls</span>()
-## [1] "my_plan"  "reg1"     "reg2"     "simulate"
+## [1] "my_plan"     "random_rows" "reg1"        "reg2"        "simulate"
 
 <span class="co"># and saved files in your file system.</span>
 <span class="kw">list.files</span>()
 ##  [1] "best-practices.html"  "best-practices.Rmd"   "caution.html"        
 ##  [4] "caution.Rmd"          "debug.html"           "debug.Rmd"           
-##  [7] "drake.Rmd"            "example-gsp.Rmd"      "example-packages.Rmd"
-## [10] "graph.Rmd"            "parallelism.Rmd"      "quickstart.Rmd"      
+##  [7] "drake.Rmd"            "example-basic.Rmd"    "example-gsp.Rmd"     
+## [10] "example-packages.Rmd" "graph.Rmd"            "parallelism.Rmd"     
 ## [13] "report.Rmd"           "storage.Rmd"          "timing.Rmd"</code></pre></div>
 <p>Your real work is outlined in a data frame of data analysis steps called “targets”. The targets depend on the imports, and <code>drake</code> will figure out how they are all connected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_plan
@@ -237,7 +237,7 @@ whole_plan
 )
 ##   target       command
 ## 1      a             5
-## 2      b         5 + 1
+## 2      b             6
 ## 3      d !!my_variable
 
 <span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
@@ -253,26 +253,27 @@ whole_plan
 <p>For instances of <code>!!</code> that remain in the workflow plan, <code><a href="../reference/make.html">make()</a></code> will run these commands in tidy fashion, evaluating the <code>!!</code> operator using the environment you provided.</p>
 <p>Using static code analysis, <code>drake</code> detects the dependencies of all your targets. The result is an interactive network diagram.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(my_plan)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/0b76e536/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>At this point, all your targets are out of date because the project is new.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Master configuration list</span>
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-##  [1] "'report.md'"            "coef_regression1_large"
-##  [3] "coef_regression1_small" "coef_regression2_large"
-##  [5] "coef_regression2_small" "large"                 
-##  [7] "regression1_large"      "regression1_small"     
-##  [9] "regression2_large"      "regression2_small"     
+##  [1] "coef_regression1_large" "coef_regression1_small"
+##  [3] "coef_regression2_large" "coef_regression2_small"
+##  [5] "large"                  "regression1_large"     
+##  [7] "regression1_small"      "regression2_large"     
+##  [9] "regression2_small"      "'report.md'"           
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpbFw46E/articles/.drake
-## connect 10 imports: my_variable, analysis_plan, simulate, reg1, config, ...
+## cache /tmp/RtmpAlqKIM/articles/.drake
+## connect 11 imports: my_variable, analysis_plan, simulate, reg1, config, ...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regres...
-## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample....
-## check 3 items: reg1, reg2, simulate
+## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample....
+## check 3 items: random_rows, reg1, reg2
+## check 1 item: simulate
 ## check 2 items: large, small
 ## target large
 ## target small
@@ -295,21 +296,22 @@ whole_plan
 ## target 'report.md'</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ##              Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) 27.504915 1.02496426 26.835000 9.676340e-30
 ## x2          -0.708536 0.08285938 -8.551066 4.617125e-11</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
 ##   coef_regression2_small
-## connect 10 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
+## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regres...
-## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample....
-## check 3 items: reg1, reg2, simulate
+## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample....
+## check 3 items: random_rows, reg1, reg2
+## check 1 item: simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, ...
 ## check 8 items: coef_regression1_large, coef_regression1_small, coef_regr...
@@ -322,11 +324,12 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpbFw46E/articles/.drake
-## connect 10 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
+## cache /tmp/RtmpAlqKIM/articles/.drake
+## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regres...
-## check 9 items: 'report.Rmd', data.frame, knit, lm, mtcars, nrow, sample....
-## check 3 items: reg1, reg2, simulate
+## check 9 items: data.frame, knit, lm, mtcars, nrow, 'report.Rmd', sample....
+## check 3 items: random_rows, reg1, reg2
+## check 1 item: simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, ...
 ## check 4 items: coef_regression1_large, coef_regression1_small, summ_regr...
@@ -351,7 +354,7 @@ whole_plan
 <a href="#learn-how-to-use-drake-" class="anchor"></a>Learn how to use <code>drake</code>.</h2>
 <ul>
 <li>
-<code>basic</code>: A tiny, minimal example with the <code>mtcars</code> dataset to demonstrate how to use <code>drake</code>. Use <code><a href="../reference/load_basic_example.html">load_basic_example()</a></code> to set up the project in your workspace. The <a href="https://github.com/ropensci/drake/blob/master/vignettes/quickstart.Rmd">quickstart vignette</a> is a parallel walkthrough of the same example.</li>
+<code>basic</code>: A tiny, minimal example with the <code>mtcars</code> dataset to demonstrate how to use <code>drake</code>. Use <code><a href="../reference/load_basic_example.html">load_basic_example()</a></code> to set up the project in your workspace. The <a href="https://github.com/ropensci/drake/blob/master/vignettes/example-basic.Rmd">basic example vignette</a> is a parallel walkthrough of the same example.</li>
 <li>
 <code>gsp</code>: A more concrete, practical example using real econometrics data. It explores the relationships between gross state product and other quantities, and it shows off <code>drake</code>’s ability to generate lots of reproducibly-tracked tasks with ease.</li>
 <li>
@@ -405,7 +408,7 @@ whole_plan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

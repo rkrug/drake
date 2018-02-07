@@ -54,7 +54,7 @@
       <a href="../articles/example-gsp.html">Example: gross state products</a>
     </li>
     <li>
-      <a href="../articles/quickstart.html">Quickstart</a>
+      <a href="../articles/example-basic.html">Basic example</a>
     </li>
     <li>
       <a href="../articles/best-practices.html">General best practices for drake projects</a>
@@ -106,7 +106,7 @@
             <h3 class="subtitle">Cautionary notes for drake</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-04</h4>
+            <h4 class="date">2018-02-07</h4>
           </div>
 
     
@@ -227,7 +227,7 @@ my_plan
 ## 1 little_b        "b"
 ## 2   letter !!little_b
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## connect 4 imports: files, datasets, rules, my_plan
 ## connect 2 targets: little_b, letter
 ## Loading required package: methods
@@ -236,7 +236,7 @@ my_plan
 ## check 1 item: letter
 ## target letter
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(letter)
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## [1] "b"</code></pre></div>
 <p>For the commands you specify the free-form <code>...</code> argument, <code><a href="../reference/drake_plan.html">drake_plan()</a></code> also supports tidy evaluation. For example, it supports quasiquotation with the <code>!!</code> argument. Use <code>tidy_evaluation = FALSE</code> or the <code>list</code> argument to suppress this behavior.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">5</span>
@@ -248,7 +248,7 @@ my_plan
 )
 ##   target       command
 ## 1      a             5
-## 2      b         5 + 1
+## 2      b             6
 ## 3      d !!my_variable
 
 <span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
@@ -268,7 +268,7 @@ my_plan
 <a href="#find-and-diagnose-your-errors-" class="anchor"></a>Find and diagnose your errors.</h2>
 <p>When <code><a href="../reference/make.html">make()</a></code> fails, use <code><a href="../reference/failed.html">failed()</a></code> and <code><a href="../reference/diagnose.html">diagnose()</a></code> to debug. Try the following out yourself.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>()
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## character(0)
 
 f &lt;-<span class="st"> </span>function(){
@@ -281,7 +281,7 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## connect 9 imports: my_variable, files, letter, datasets, f, rules, littl...
 ## connect 1 target: target
 ## check 1 item: stop
@@ -293,15 +293,15 @@ withr::<span class="kw">with_message_sink</span>(
 ## Error: Target 'target' failed to build. Use diagnose(target) to retrieve diagnostic information.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>() <span class="co"># From the last make() only</span>
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## [1] "target"
 
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>() <span class="co"># From all previous make()s</span>
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## [1] "target"
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(target)
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 
 <span class="kw">str</span>(error)
 ## List of 3
@@ -312,7 +312,7 @@ error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagn
 ##   ..$ : language f()
 ##   ..$ : language stop("unusual error")
 ##   .. ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 4 3 4 23 3 23 4 4
-##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x3fbe2e8&gt; 
+##   .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' &lt;environment: 0x3a0e818&gt; 
 ##  - attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
 
 error$calls <span class="co"># View the traceback.</span>
@@ -349,7 +349,7 @@ envir &lt;-<span class="st"> </span><span class="kw">new.env</span>(<span class=
 myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">out =</span> <span class="kw">f</span>(<span class="dv">1</span>:<span class="dv">3</span>))
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(myplan, <span class="dt">envir =</span> envir)
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## connect 2 imports: f, g
 ## connect 1 target: out
 ## check 1 item: g
@@ -359,8 +359,8 @@ myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 
 <span class="kw">ls</span>() <span class="co"># Check that your workspace did not change.</span>
 ##  [1] "bad_plan"    "datasets"    "envir"       "error"       "f"          
-##  [6] "files"       "letter"      "little_b"    "my_plan"     "my_variable"
-## [11] "myplan"      "rules"
+##  [6] "files"       "letter"      "little_b"    "myplan"      "my_plan"    
+## [11] "my_variable" "rules"
 
 <span class="kw">ls</span>(envir) <span class="co"># Check your evaluation environment.</span>
 ## [1] "f"   "g"   "out"
@@ -369,7 +369,7 @@ envir$out
 ## [1] 3 4 5
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(out)
-## cache /tmp/RtmpbFw46E/articles/.drake
+## cache /tmp/RtmpAlqKIM/articles/.drake
 ## [1] 3 4 5</code></pre></div>
 </div>
 <div id="refresh-the-drake_config-list-early-and-often-" class="section level2">
@@ -377,49 +377,10 @@ envir$out
 <a href="#refresh-the-drake_config-list-early-and-often-" class="anchor"></a>Refresh the <code><a href="../reference/drake_config.html">drake_config()</a></code> list early and often.</h2>
 <p>The master configuration list returned by <code><a href="../reference/drake_config.html">drake_config()</a></code> is important to <code>drake</code>’s internals, and you will need it for functions like <code><a href="../reference/outdated.html">outdated()</a></code> and <code><a href="../reference/vis_drake_graph.html">vis_drake_graph()</a></code>. The config list corresponds to a single call to <code><a href="../reference/make.html">make()</a></code>, and you should not modify it by hand afterwards. For example, modifying the <code>targets</code> element post-hoc will have no effect because the <code>graph</code> element will remain the same. It is best to just call <code><a href="../reference/drake_config.html">drake_config()</a></code> again.</p>
 </div>
-<div id="take-special-precautions-if-your-drake-project-is-a-package-" class="section level2">
+<div id="workflows-as-r-packages-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#take-special-precautions-if-your-drake-project-is-a-package-" class="anchor"></a>Take special precautions if your <code>drake</code> project is a package.</h2>
-<p>Some users like to structure their <code>drake</code> projects as <a href="https://cran.r-project.org/doc/manuals/R-exts.html">formal R packages</a>. The straightforward way to run such a project is to</p>
-<ol style="list-style-type: decimal">
-<li>Write all your imported functions in <code>*.R</code> files in the package’s <code>R/</code> folder.</li>
-<li>Load the package’s environment with <code><a href="http://www.rdocumentation.org/packages/devtools/topics/load_all">devtools::load_all()</a></code>.</li>
-<li>Call <code><a href="http://www.rdocumentation.org/packages/drake/topics/make">drake::make()</a></code>.</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">env &lt;-<span class="st"> </span>devtools::<span class="kw">load_all</span>(<span class="st">"yourProject"</span>)$env <span class="co"># Has all your imported functions</span>
-drake::<span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">envir =</span> env)            <span class="co"># Run the project normally.</span></code></pre></div>
-<p>However, the simple strategy above only works for <code>parLapply</code> parallelism with <code>jobs = 1</code> and <code>mcapply</code> parallelism. For other kinds of parallelism, you must turn <code>devtools::load_all("yourProject")$env</code> into an ordinary environment that does not look like a package namespace. Thanks to <a href="https://github.com/dapperjapper">Jasper Clarkberg</a>, we have the following workaround.</p>
-<ol style="list-style-type: decimal">
-<li>Clone <code>devtools::load_all("yourProject")$env</code> in order to change the <em>binding environment</em> of all your functions.</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">env &lt;-<span class="st"> </span>devtools::<span class="kw">load_all</span>(<span class="st">"yourProject"</span>)$env
-env &lt;-<span class="st"> </span><span class="kw">list2env</span>(<span class="kw">as.list</span>(env), <span class="dt">parent =</span> <span class="kw">globalenv</span>())</code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Change the <a href="http://adv-r.had.co.nz/Environments.html#function-envs"><em>enclosing environment</em></a> of your functions using an <a href="https://stackoverflow.com/questions/14464442/using-get-with-replacement-functions">unfortunate hack</a> involving <code>environment&lt;-</code>.</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (name in <span class="kw">ls</span>(env)){
-  <span class="kw">assign</span>(
-    <span class="dt">x =</span> name,
-    <span class="dt">envir =</span> env,
-    <span class="dt">value =</span> <span class="st">`</span><span class="dt">environment&lt;-</span><span class="st">`</span>(<span class="kw">get</span>(n, <span class="dt">envir =</span> env), env)
-  )
-}</code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>Make sure <code>drake</code> does not attach <code>yourProject</code> as an external package.</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">package_name &lt;-<span class="st"> "yourProject"</span> <span class="co"># devtools::as.package(".")$package # nolint</span>
-packages_to_load &lt;-<span class="st"> </span><span class="kw">setdiff</span>(<span class="kw">.packages</span>(), package_name)</code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li>Run the project with <code><a href="../reference/make.html">make()</a></code>.</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(
-  my_plan,                    <span class="co"># Prepared in advance</span>
-  <span class="dt">envir =</span> env,                <span class="co"># Environment of package "yourProject"</span>
-  <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>,   <span class="co"># Or "parLapply"</span>
-  <span class="dt">jobs =</span> <span class="dv">2</span>,
-  <span class="dt">packages =</span> packages_to_load <span class="co"># Does not include "yourProject"</span>
-)</code></pre></div>
-<p>You may need to adapt this last workaround, depending on the structure of the package, <code>yourProject</code>.</p>
+<a href="#workflows-as-r-packages-" class="anchor"></a>Workflows as R packages.</h2>
+<p>The R package structure is a great way to organize the files of your project. Writing your own package to contain your data science workflow is a good idea, but you will need to use <code><a href="../reference/expose_imports.html">expose_imports()</a></code> to run it properly with <code>drake</code>. See the <a href="https://github.com/ropensci/drake/blob/master/vignettes/best-practices.Rmd">best practices vignette</a> and <code><a href="../reference/expose_imports.html">?expose_imports</a></code> for detailed explanations. Thanks to <a href="https://github.com/dapperjapper">Jasper Clarkberg</a> for the workaround.</p>
 </div>
 <div id="the-lazy_load-flag-does-not-work-with-parlapply-parallelism-" class="section level2">
 <h2 class="hasAnchor">
@@ -469,7 +430,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(multis
 
 command &lt;-<span class="st"> "x &lt;- digest::digest('input_file.rds'); assign(</span><span class="ch">\"</span><span class="st">x</span><span class="ch">\"</span><span class="st">, 1); x"</span>
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(command)
-## [1] "'input_file.rds'" "assign"           "digest::digest"</code></pre></div>
+## [1] "assign"           "digest::digest"   "'input_file.rds'"</code></pre></div>
 <p><code>Drake</code> takes special precautions so that a target/import does not depend on itself. For example, <code><a href="../reference/deps.html">deps(f)</a></code> might return <code>"f"</code> if <code>f()</code> is a recursive function, but <code><a href="../reference/make.html">make()</a></code> just ignores this conflict and runs as expected. In other words, <code><a href="../reference/make.html">make()</a></code> automatically removes all self-referential loops in the dependency network.</p>
 </div>
 <div id="dynamic-r-markdown-knitr-reports" class="section level2">
@@ -481,21 +442,21 @@ command &lt;-<span class="st"> "x &lt;- digest::digest('input_file.rds'); assign
 <li>the <code>*.Rmd</code>/<code>*.Rnw</code> source file already exists before <code><a href="../reference/make.html">make()</a></code>.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpbFw46E/articles/.drake
-## connect 16 imports: error, envir, my_variable, files, letter, datasets, ...
+## cache /tmp/RtmpAlqKIM/articles/.drake
+## connect 17 imports: error, envir, my_variable, files, letter, datasets, ...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regres...
 my_plan[<span class="dv">1</span>, ]
 ##        target                          command
 ## 1 'report.md' knit('report.Rmd', quiet = TRUE)</code></pre></div>
 <p>Above, the <a href="http://rmarkdown.rstudio.com/lesson-1.html">R Markdown report</a> loads targets ‘small’, ‘large’, and ‘coef_regression2_small’ using code chunks marked for evaluation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/deps.html">deps</a></span>(<span class="st">"knit('report.Rmd')"</span>)
-## [1] "'report.Rmd'"           "coef_regression2_small"
-## [3] "knit"                   "large"                 
+## [1] "coef_regression2_small" "knit"                  
+## [3] "large"                  "'report.Rmd'"          
 ## [5] "small"
 
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(<span class="st">"render('report.Rmd')"</span>)
-## [1] "'report.Rmd'"           "coef_regression2_small"
-## [3] "large"                  "render"                
+## [1] "coef_regression2_small" "large"                 
+## [3] "render"                 "'report.Rmd'"          
 ## [5] "small"
 
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(<span class="st">"'report.Rmd'"</span>) <span class="co"># These are actually dependencies of 'report.md' (output)</span>
@@ -675,7 +636,7 @@ keys/config/c2VlZA (Sandy Sum's conflicted copy 2018-01-31)
       <li><a href="#find-and-diagnose-your-errors-">Find and diagnose your errors.</a></li>
       <li><a href="#your-workspace-is-modified-by-default-">Your workspace is modified by default.</a></li>
       <li><a href="#refresh-the-drake_config-list-early-and-often-">Refresh the <code><a href="--/reference/drake_config-html">drake_config()</a></code> list early and often.</a></li>
-      <li><a href="#take-special-precautions-if-your-drake-project-is-a-package-">Take special precautions if your <code>drake</code> project is a package.</a></li>
+      <li><a href="#workflows-as-r-packages-">Workflows as R packages.</a></li>
       <li><a href="#the-lazy_load-flag-does-not-work-with-parlapply-parallelism-">The <code>lazy_load</code> flag does not work with <code>"parLapply"</code> parallelism.</a></li>
       <li><a href="#timeouts-may-be-unreliable-">Timeouts may be unreliable.</a></li>
       </ul>
@@ -723,7 +684,7 @@ keys/config/c2VlZA (Sandy Sum's conflicted copy 2018-01-31)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

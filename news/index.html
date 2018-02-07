@@ -77,7 +77,7 @@
       <a href="../articles/example-gsp.html">Example: gross state products</a>
     </li>
     <li>
-      <a href="../articles/quickstart.html">Quickstart</a>
+      <a href="../articles/example-basic.html">Basic example</a>
     </li>
     <li>
       <a href="../articles/best-practices.html">General best practices for drake projects</a>
@@ -134,13 +134,17 @@
 <h1 class="hasAnchor">
 <a href="#version-5-1-0" class="anchor"></a>Version 5.1.0</h1>
 <ul>
+<li>Add a new <code><a href="../reference/expose_imports.html">expose_imports()</a></code> function to optionally force <code>drake</code> detect deeply nested functions inside specific packages.</li>
+<li>Move the “quickstart.Rmd” vignette to “example-basic.Rmd”. The so-called “quickstart” didn’t end up being very quick, and it was all about the basic example anyway.</li>
+<li>Move <code><a href="../reference/drake_build.html">drake_build()</a></code> to be an exclusively user-side function.</li>
+<li>Add a <code>replace</code> argument to <code><a href="../reference/loadd.html">loadd()</a></code> so that objects already in the user’s environment need not be replaced.</li>
 <li>When the graph cyclic, print out all the cycles.</li>
 <li>Prune self-referential loops (and duplicate edges) from the workflow graph. That way, recursive functions are allowed.</li>
 <li>Add a <code>seed</code> argument to <code><a href="../reference/make.html">make()</a></code>, <code><a href="../reference/drake_config.html">drake_config()</a></code>, and <code><a href="../reference/load_basic_example.html">load_basic_example()</a></code>. Also hard-code a default seed of <code>0</code>. That way, the pseudo-randomness in projects should be reproducible across R sessions.</li>
 <li>Cache the pseudo-random seed at the time the project is created and use that seed to build targets until the cache is destroyed.</li>
 <li>Add a new <code>drake_read_seed()</code> function to read the seed from the cache. Its examples illustrate what <code>drake</code> is doing to try to ensure reproducible random numbers.</li>
 <li>Evaluate the quasiquotation operator <code>!!</code> for the <code>...</code> argument to <code><a href="../reference/drake_plan.html">drake_plan()</a></code>. Suppress this behavior using <code>tidy_evaluation = FALSE</code> or by passing in commands passed through the <code>list</code> argument.</li>
-<li>Preprocess workflow plan commands with <code><a href="http://www.rdocumentation.org/packages/rlang/topics/quotation">rlang::expr()</a></code> before evaluating them. That means you can use the quasiquotation operator <code>!!</code> in your commands, and <code><a href="../reference/make.html">make()</a></code> will evaluate them according to the tidy evaluation paradigm.</li>
+<li>Preprocess workflow plan commands with <code><a href="http://www.rdocumentation.org/packages/rlang/topics/expr">rlang::expr()</a></code> before evaluating them. That means you can use the quasiquotation operator <code>!!</code> in your commands, and <code><a href="../reference/make.html">make()</a></code> will evaluate them according to the tidy evaluation paradigm.</li>
 <li>Restructure <code><a href="../reference/drake_example.html">drake_example("basic")</a></code>, <code><a href="../reference/drake_example.html">drake_example("gsp")</a></code>, and <code><a href="../reference/drake_example.html">drake_example("packages")</a></code> to demonstrate how to set up the files for serious <code>drake</code> projects. More guidance was needed in light of <a href="https://github.com/ropensci/drake/issues/193">this issue</a>.</li>
 <li>Improve the examples of <code><a href="../reference/drake_plan.html">drake_plan()</a></code> in the help file (<code><a href="../reference/drake_plan.html">?drake_plan</a></code>).</li>
 <li>Warn if double quotes appear in target names.</li>
@@ -329,7 +333,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
