@@ -200,7 +200,7 @@ bad_plan
 <p>For a serious project, you should use <code>drake</code>’s <code><a href="../reference/make.html">make()</a></code> function outside <code>knitr</code>. In other words, you should treat R Markdown reports and other <code>knitr</code> documents as targets and imports, not as a way to run <code><a href="../reference/make.html">make()</a></code>. Viewed as targets, <code>drake</code> makes special exceptions for R Markdown reports and other <a href="https://github.com/yihui/knitr">knitr</a> reports such as <code>*.Rmd</code> and <code>*.Rnw</code> files. Not every <code>drake</code> project needs them, but it is good practice to use them to summarize the final results of a project once all the other targets have already been built. The basic example, for instance, has an R Markdown report. <code>report.Rmd</code> is knitted to build <code>report.md</code>, which summarizes the final results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load all the functions and the workflow plan data frame, my_plan.</span>
 <span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpAlqKIM/articles/.drake
+## cache /tmp/RtmpHsj4d7/articles/.drake
 ## connect 8 imports: tmp, simulate, reg1, my_plan, reg2, bad_plan, random_...
 ## connect 15 targets: 'report.md', small, large, regression1_small, regres...</code></pre></div>
 <p>To see where <code>report.md</code> will be built, look to the right of the workflow graph.</p>
@@ -228,7 +228,7 @@ bad_plan
 <h3 class="hasAnchor">
 <a href="#the-problem" class="anchor"></a>The problem</h3>
 <p>For <code>drake</code>, there is one problem: nested functions. <code>Drake</code> always looks for imported functions nested in other imported functions, but only in your environment. When it sees a function from a package, it does not look in its body for other imports.</p>
-<p>To see this, consider the <code><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest()</a></code> function from the <a href="https://github.com/eddelbuettel/digest"><code>digest</code> package</a>. <a href="https://github.com/eddelbuettel/digest"><code>Digest</code> package</a> is a utility for computing hashes, not a data science workflow, but I will use it to demonstrate how <code>drake</code> treats imports from pacakges.</p>
+<p>To see this, consider the <code><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest()</a></code> function from the <a href="https://github.com/eddelbuettel/digest"><code>digest</code> package</a>. <a href="https://github.com/eddelbuettel/digest"><code>Digest</code> package</a> is a utility for computing hashes, not a data science workflow, but I will use it to demonstrate how <code>drake</code> treats imports from packages.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(digest)
 g &lt;-<span class="st"> </span>function(x){
   <span class="kw"><a href="http://www.rdocumentation.org/packages/digest/topics/digest">digest</a></span>(x)
