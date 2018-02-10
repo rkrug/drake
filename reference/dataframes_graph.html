@@ -136,7 +136,7 @@ you can plot your own custom <code>visNetwork</code> graph.</p>
     
 
     <pre class="usage"><span class='fu'>dataframes_graph</span>(<span class='no'>config</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"out"</span>, <span class='st'>"in"</span>, <span class='st'>"all"</span>),
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>build_times</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>build_times</span> <span class='kw'>=</span> <span class='st'>"build"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>targets_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>split_columns</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>font_size</span> <span class='kw'>=</span> <span class='fl'>20</span>,
   <span class='kw'>from_scratch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>make_imports</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -184,9 +184,15 @@ edges will drop from the graph.</p></td>
     </tr>
     <tr>
       <th>build_times</th>
-      <td><p>logical, whether to show the <code><a href='build_times.html'>build_times()</a></code>
-of the targets and imports, if available.
-These are just elapsed times from <code>system.time()</code>.</p></td>
+      <td><p>character string or logical.
+If character, the choices are
+1. <code>"build"</code>: runtime of the command plus the time
+it take to store the target or import.
+2. <code>"command"</code>: just the runtime of the command.
+3. <code>"none"</code>: no build times.
+If logical, <code>build_times</code> selects whether to show the
+times from `build_times(..., type = "build")`` or use
+no build times at all. See <code><a href='build_times.html'>build_times()</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>digits</th>

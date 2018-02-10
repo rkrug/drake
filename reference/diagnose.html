@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the last stored error log of a target
-that failed to build, or list the targets with error logs. — diagnose • drake</title>
+<title>Get diagnostic metadata on a target. — diagnose • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -126,19 +125,13 @@ that failed to build, or list the targets with error logs. — diagnose • drak
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the last stored error log of a target
-that failed to build, or list the targets with error logs.</h1>
+    <h1>Get diagnostic metadata on a target.</h1>
     </div>
 
     
-    <p>The specified target could be a
-completely failed target or a target
-that failed initially, retried, then succeeded.
-If no target is given, then <code>diagnose()</code> simply
-lists the targets for which a error is retrievable.
-Together, functions <code><a href='failed.html'>failed()</a></code> and
-<code>diagnose()</code> should eliminate the strict need
-for ordinary error messages printed to the console.</p>
+    <p>Diagnostics include errors, warnings,
+messages, runtimes, and other context from when a
+target was build or an import was processed.</p>
     
 
     <pre class="usage"><span class='fu'>diagnose</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>character_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(),
@@ -214,7 +207,7 @@ of class <code>"error"</code>.</p>
 <span class='co'># Drake keeps all the error logs.</span>
 <span class='fu'>diagnose</span>()
 <span class='co'># Get the error log, an object of class "error".</span>
-<span class='no'>error</span> <span class='kw'>&lt;-</span> <span class='fu'>diagnose</span>(<span class='no'>my_target</span>)
+<span class='no'>error</span> <span class='kw'>&lt;-</span> <span class='fu'>diagnose</span>(<span class='no'>my_target</span>)$<span class='no'>error</span> <span class='co'># See also warnings and messages.</span>
 <span class='fu'>str</span>(<span class='no'>error</span>) <span class='co'># See what's inside the error log.</span>
 <span class='no'>error</span>$<span class='no'>calls</span> <span class='co'># View the traceback. (See the traceback() function).</span>
 })
