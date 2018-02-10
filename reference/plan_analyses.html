@@ -178,19 +178,23 @@ to make the datasets.</p></td>
 <span class='co'># Evaluate the wildcards to create the part of the workflow plan</span>
 <span class='co'># encoding the analyses of the datasets.</span>
 <span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>plan_analyses</span>(<span class='no'>methods</span>, <span class='kw'>datasets</span> <span class='kw'>=</span> <span class='no'>datasets</span>)
-<span class='no'>ans</span></div><div class='output co'>#&gt;              target     command
+<span class='no'>ans</span></div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   target            command    
+#&gt;   &lt;chr&gt;             &lt;chr&gt;      
 #&gt; 1 regression1_small reg1(small)
 #&gt; 2 regression1_large reg1(large)
 #&gt; 3 regression2_small reg2(small)
 #&gt; 4 regression2_large reg2(large)</div><div class='input'><span class='co'># For the final workflow plan, row bind the pieces together.</span>
 <span class='no'>my_plan</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>datasets</span>, <span class='no'>ans</span>)
-<span class='no'>my_plan</span></div><div class='output co'>#&gt;              target      command
-#&gt; 1             small  simulate(5)
-#&gt; 2             large simulate(50)
-#&gt; 3 regression1_small  reg1(small)
-#&gt; 4 regression1_large  reg1(large)
-#&gt; 5 regression2_small  reg2(small)
-#&gt; 6 regression2_large  reg2(large)</div></pre>
+<span class='no'>my_plan</span></div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   target            command     
+#&gt;   &lt;chr&gt;             &lt;chr&gt;       
+#&gt; 1 small             simulate(5) 
+#&gt; 2 large             simulate(50)
+#&gt; 3 regression1_small reg1(small) 
+#&gt; 4 regression1_large reg1(large) 
+#&gt; 5 regression2_small reg2(small) 
+#&gt; 6 regression2_large reg2(large) </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

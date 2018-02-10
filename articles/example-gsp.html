@@ -256,9 +256,11 @@ rmspe_plan &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
 )
 
 <span class="kw">head</span>(output_plan)
-##        target                                                  command
-## 1 'rmspe.pdf' ggsave(filename = "rmspe.pdf", plot = plot_rmspe(rmspe))
-## 2 'report.md'                         knit("report.Rmd", quiet = TRUE)</code></pre></div>
+## # A tibble: 2 x 2
+##   target      command                                                     
+##   &lt;chr&gt;       &lt;chr&gt;                                                       
+## 1 'rmspe.pdf' "ggsave(filename = \"rmspe.pdf\", plot = plot_rmspe(rmspe))"
+## 2 'report.md' "knit(\"report.Rmd\", quiet = TRUE)"</code></pre></div>
 <p>At this point, we can gather together the whole workflow plan.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_plan &lt;-<span class="st"> </span><span class="kw">rbind</span>(model_plan, rmspe_plan, rmspe_results_plan, output_plan)</code></pre></div>
 <p>Before we run the project, we need to define the <code>plot_rmspe()</code> function.</p>
@@ -280,10 +282,10 @@ path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span cla
 <a href="#results" class="anchor"></a>Results</h1>
 <p>Here are the root mean squared prediction errors of all the models.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readd.html">readd</a></span>(rmspe)
-## cache /tmp/RtmpGhMpM8/articles/.drake
+## cache /tmp/Rtmpgyct1V/articles/.drake
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(plot_rmspe)
-## cache /tmp/RtmpGhMpM8/articles/.drake
+## cache /tmp/Rtmpgyct1V/articles/.drake
 
 <span class="kw">library</span>(ggplot2)
 <span class="kw">plot_rmspe</span>(<span class="dt">rmspe =</span> results)</code></pre></div>

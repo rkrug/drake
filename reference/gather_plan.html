@@ -169,18 +169,24 @@ prespecified targets into one additional target downstream.</p>
   <span class='kw'>small</span> <span class='kw'>=</span> <span class='fu'>simulate</span>(<span class='fl'>5</span>),
   <span class='kw'>large</span> <span class='kw'>=</span> <span class='fu'>simulate</span>(<span class='fl'>50</span>))
 <span class='co'># Create a new target that brings the datasets together.</span>
-<span class='fu'>gather_plan</span>(<span class='no'>datasets</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"my_datasets"</span>)</div><div class='output co'>#&gt;        target                            command
+<span class='fu'>gather_plan</span>(<span class='no'>datasets</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"my_datasets"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt;   target      command                           
+#&gt;   &lt;chr&gt;       &lt;chr&gt;                             
 #&gt; 1 my_datasets list(small = small, large = large)</div><div class='input'><span class='co'># This time, the new target just appends the rows of 'small' and 'large'</span>
 <span class='co'># into a single matrix or data frame.</span>
 <span class='no'>gathered</span> <span class='kw'>&lt;-</span> <span class='fu'>gather_plan</span>(
   <span class='no'>datasets</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"aggregated_data"</span>, <span class='kw'>gather</span> <span class='kw'>=</span> <span class='st'>"rbind"</span>
 )
-<span class='no'>gathered</span></div><div class='output co'>#&gt;            target                             command
+<span class='no'>gathered</span></div><div class='output co'>#&gt; # A tibble: 1 x 2
+#&gt;   target          command                            
+#&gt;   &lt;chr&gt;           &lt;chr&gt;                              
 #&gt; 1 aggregated_data rbind(small = small, large = large)</div><div class='input'><span class='co'># For the complete workflow plan, row bind the pieces together.</span>
 <span class='no'>my_plan</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>datasets</span>, <span class='no'>gathered</span>)
-<span class='no'>my_plan</span></div><div class='output co'>#&gt;            target                             command
-#&gt; 1           small                         simulate(5)
-#&gt; 2           large                        simulate(50)
+<span class='no'>my_plan</span></div><div class='output co'>#&gt; # A tibble: 3 x 2
+#&gt;   target          command                            
+#&gt;   &lt;chr&gt;           &lt;chr&gt;                              
+#&gt; 1 small           simulate(5)                        
+#&gt; 2 large           simulate(50)                       
 #&gt; 3 aggregated_data rbind(small = small, large = large)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

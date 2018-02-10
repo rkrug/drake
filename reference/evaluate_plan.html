@@ -208,31 +208,39 @@ as names and vectors of possible values as list elements.</p>
 <span class='co'># that encodes the analyses of the datasets.</span>
 <span class='co'># Create one analysis for each combination of dataset and method.</span>
 <span class='fu'>evaluate_plan</span>(<span class='no'>methods</span>, <span class='kw'>wildcard</span> <span class='kw'>=</span> <span class='st'>"dataset__"</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>datasets</span>$<span class='no'>target</span>)</div><div class='output co'>#&gt;              target     command
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>datasets</span>$<span class='no'>target</span>)</div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   target            command    
+#&gt;   &lt;chr&gt;             &lt;chr&gt;      
 #&gt; 1 regression1_small reg1(small)
 #&gt; 2 regression1_large reg1(large)
 #&gt; 3 regression2_small reg2(small)
 #&gt; 4 regression2_large reg2(large)</div><div class='input'><span class='co'># Only choose some combinations of dataset and analysis method.</span>
 <span class='no'>ans</span> <span class='kw'>&lt;-</span> <span class='fu'>evaluate_plan</span>(<span class='no'>methods</span>, <span class='kw'>wildcard</span> <span class='kw'>=</span> <span class='st'>"dataset__"</span>,
   <span class='kw'>values</span> <span class='kw'>=</span> <span class='no'>datasets</span>$<span class='no'>target</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>ans</span></div><div class='output co'>#&gt;        target     command
+<span class='no'>ans</span></div><div class='output co'>#&gt; # A tibble: 2 x 2
+#&gt;   target      command    
+#&gt;   &lt;chr&gt;       &lt;chr&gt;      
 #&gt; 1 regression1 reg1(small)
 #&gt; 2 regression2 reg2(large)</div><div class='input'><span class='co'># For the complete workflow plan, row bind the pieces together.</span>
 <span class='no'>my_plan</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>datasets</span>, <span class='no'>ans</span>)
-<span class='no'>my_plan</span></div><div class='output co'>#&gt;        target      command
-#&gt; 1       small  simulate(5)
-#&gt; 2       large simulate(50)
-#&gt; 3 regression1  reg1(small)
-#&gt; 4 regression2  reg2(large)</div><div class='input'><span class='co'># Workflow plans can have multiple wildcards.</span>
+<span class='no'>my_plan</span></div><div class='output co'>#&gt; # A tibble: 4 x 2
+#&gt;   target      command     
+#&gt;   &lt;chr&gt;       &lt;chr&gt;       
+#&gt; 1 small       simulate(5) 
+#&gt; 2 large       simulate(50)
+#&gt; 3 regression1 reg1(small) 
+#&gt; 4 regression2 reg2(large) </div><div class='input'><span class='co'># Workflow plans can have multiple wildcards.</span>
 <span class='co'># Each combination of wildcard values will be used</span>
 <span class='co'># Except when expand is FALSE.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='drake_plan.html'>drake_plan</a></span>(<span class='kw'>draws</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>Mean</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='no'>Sd</span>))
-<span class='fu'>evaluate_plan</span>(<span class='no'>x</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>Mean</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>Sd</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>10</span>)))</div><div class='output co'>#&gt;       target                  command
-#&gt; 1  draws_1_1  rnorm(mean = 1, sd = 1)
+<span class='fu'>evaluate_plan</span>(<span class='no'>x</span>, <span class='kw'>rules</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>Mean</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>Sd</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>10</span>)))</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   target     command                 
+#&gt;   &lt;chr&gt;      &lt;chr&gt;                   
+#&gt; 1 draws_1_1  rnorm(mean = 1, sd = 1) 
 #&gt; 2 draws_1_10 rnorm(mean = 1, sd = 10)
-#&gt; 3  draws_2_1  rnorm(mean = 2, sd = 1)
+#&gt; 3 draws_2_1  rnorm(mean = 2, sd = 1) 
 #&gt; 4 draws_2_10 rnorm(mean = 2, sd = 10)
-#&gt; 5  draws_3_1  rnorm(mean = 3, sd = 1)
+#&gt; 5 draws_3_1  rnorm(mean = 3, sd = 1) 
 #&gt; 6 draws_3_10 rnorm(mean = 3, sd = 10)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

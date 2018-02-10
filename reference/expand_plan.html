@@ -162,10 +162,12 @@ the names of the new targets.</p></td>
   <span class='kw'>large</span> <span class='kw'>=</span> <span class='fu'>simulate</span>(<span class='fl'>50</span>))
 <span class='co'># Create replicates. If you want repeat targets,</span>
 <span class='co'># this is convenient.</span>
-<span class='fu'>expand_plan</span>(<span class='no'>datasets</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rep1"</span>, <span class='st'>"rep2"</span>, <span class='st'>"rep3"</span>))</div><div class='output co'>#&gt;       target      command
-#&gt; 1 small_rep1  simulate(5)
-#&gt; 2 small_rep2  simulate(5)
-#&gt; 3 small_rep3  simulate(5)
+<span class='fu'>expand_plan</span>(<span class='no'>datasets</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"rep1"</span>, <span class='st'>"rep2"</span>, <span class='st'>"rep3"</span>))</div><div class='output co'>#&gt; # A tibble: 6 x 2
+#&gt;   target     command     
+#&gt;   &lt;chr&gt;      &lt;chr&gt;       
+#&gt; 1 small_rep1 simulate(5) 
+#&gt; 2 small_rep2 simulate(5) 
+#&gt; 3 small_rep3 simulate(5) 
 #&gt; 4 large_rep1 simulate(50)
 #&gt; 5 large_rep2 simulate(50)
 #&gt; 6 large_rep3 simulate(50)</div></pre>
