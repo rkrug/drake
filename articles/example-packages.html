@@ -106,7 +106,7 @@
             <h3 class="subtitle">Refresh your project without restarting from scratch.</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-09</h4>
+            <h4 class="date">2018-02-10</h4>
           </div>
 
     
@@ -251,7 +251,7 @@ whole_plan
 ## 7 'report.md'     knit('report.Rmd', quiet = TRUE)                 any</code></pre></div>
 <p>Now, we run the project to download the data and analyze it. The results will be summarized in the knitted report, <code>report.md</code>, but you can also read the results directly from the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/Rtmpgyct1V/articles/.drake
+## cache /tmp/Rtmpcu1RMI/articles/.drake
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, ...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_...
 ## Loading required package: methods
@@ -271,29 +271,29 @@ whole_plan
 ## Used non-default triggers. Some targets may be not be up to date.
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_recent)
-## cache /tmp/Rtmpgyct1V/articles/.drake
+## cache /tmp/Rtmpcu1RMI/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14995.97
 ## 2   knitr       11346.60
 ## 3    Rcpp       20513.93
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_older)
-## cache /tmp/Rtmpgyct1V/articles/.drake
+## cache /tmp/Rtmpcu1RMI/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14641.29
 ## 2   knitr        9068.71
 ## 3    Rcpp       14408.06
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_recent)
-## cache /tmp/Rtmpgyct1V/articles/.drake</code></pre></div>
+## cache /tmp/Rtmpcu1RMI/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_older)
-## cache /tmp/Rtmpgyct1V/articles/.drake</code></pre></div>
+## cache /tmp/Rtmpcu1RMI/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-2.png" width="672"></p>
 <p>Because we used triggers, each <code><a href="../reference/make.html">make()</a></code> rebuilds the <code>recent</code> target to get the latest download numbers for today. If the newly-downloaded data are the same as last time and nothing else changes, <code>drake</code> skips all the other targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/Rtmpgyct1V/articles/.drake
+## cache /tmp/Rtmpcu1RMI/articles/.drake
 ## Unloading targets from environment:
 ##   averages_recent
 ##   plot_older
@@ -312,7 +312,7 @@ whole_plan
 <p>To visualize the build behavior, plot the dependency network. Target <code>recent</code> and everything depending on it is always out of date because of the <code>"always"</code> trigger. If you rerun the project tomorrow, the <code>recent</code> dataset will have shifted one day forward, so <code><a href="../reference/make.html">make()</a></code> will refresh <code>averages_recent</code>, <code>plot_recent</code>, and <code>'report.md'</code>. Targets <code>averages_older</code> and <code>plot_older</code> should be unaffected, so <code>drake</code> will skip them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(whole_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/packages.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/301ec7c3/images/packages.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 </div>
 </div>
