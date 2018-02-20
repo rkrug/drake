@@ -106,7 +106,7 @@
             <h3 class="subtitle">Refresh your project without restarting from scratch.</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-10</h4>
+            <h4 class="date">2018-02-19</h4>
           </div>
 
     
@@ -127,13 +127,13 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cranlogs)
 <span class="kw"><a href="http://www.rdocumentation.org/packages/cranlogs/topics/cran_downloads">cran_downloads</a></span>(<span class="dt">packages =</span> <span class="st">"dplyr"</span>, <span class="dt">when =</span> <span class="st">"last-week"</span>)
 ##         date count package
-## 1 2018-02-02 13155   dplyr
-## 2 2018-02-03  6652   dplyr
-## 3 2018-02-04  6533   dplyr
-## 4 2018-02-05 14499   dplyr
-## 5 2018-02-06 15186   dplyr
-## 6 2018-02-07 14365   dplyr
-## 7 2018-02-08 14762   dplyr</code></pre></div>
+## 1 2018-02-12 13660   dplyr
+## 2 2018-02-13 14237   dplyr
+## 3 2018-02-14 13576   dplyr
+## 4 2018-02-15 13429   dplyr
+## 5 2018-02-16 12109   dplyr
+## 6 2018-02-17  5756   dplyr
+## 7 2018-02-18  6030   dplyr</code></pre></div>
 <p>Above, each count is the number of times <code>dplyr</code> was downloaded from the RStudio CRAN mirror on the given day. To stay up to date with the latest download statistics, we need to refresh the data frequently. With <code>drake</code>, we can bring all our work up to date without restarting everything from scratch.</p>
 </div>
 <div id="analysis" class="section level1">
@@ -207,16 +207,16 @@ output_plan
 ## 4 plot_older      make_my_plot(older)</code></pre></div>
 <p>We plan to weave the results together in a dynamic knitr report.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">report_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
-  <span class="dt">report.md =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit">knit</a></span>(<span class="st">"report.Rmd"</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>),
-  <span class="dt">file_targets =</span> <span class="ot">TRUE</span>
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit">knit</a></span>(<span class="kw"><a href="../reference/knitr_input.html">knitr_input</a></span>(<span class="st">"report.Rmd"</span>), <span class="kw"><a href="../reference/file_output.html">file_output</a></span>(<span class="st">"report.md"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
 )
 
 report_plan
 ## # A tibble: 1 x 2
-##   target      command                         
-##   &lt;chr&gt;       &lt;chr&gt;                           
-## 1 'report.md' knit('report.Rmd', quiet = TRUE)</code></pre></div>
-<p>And we complete the workflow plan data frame by concatenating the results together. <code>Drake</code> analyzes the plan to figure out the dependency network, so row order does not matter.</p>
+##   target          command                                                 
+##   &lt;chr&gt;           &lt;chr&gt;                                                   
+## 1 "\"report.md\"" "knit(knitr_input(\"report.Rmd\"), file_output(\"report…</code></pre></div>
+<p>Because of the mention of <code><a href="../reference/knitr_input.html">knitr_input()</a></code> above, <code><a href="../reference/make.html">make()</a></code> will look dependencies inside <code>report.Rmd</code> (targets mentioned with <code><a href="../reference/loadd.html">loadd()</a></code> or <code><a href="../reference/readd.html">readd()</a></code> in active code chunks). That way, whenever a dependency changes, <code>drake</code> will rebuild <code>report.md</code> when you call <code><a href="../reference/make.html">make()</a></code>. For that to happen, we need <code>report.Rmd</code> to exist before the call to <code><a href="../reference/make.html">make()</a></code>. For this example, you can find <a href="https://github.com/ropensci/drake/blob/master/inst/examples/packages/report.Rmd">report.Rmd here</a>.</p>
+<p>Now, we complete the workflow plan data frame by concatenating the results together. <code>Drake</code> analyzes the plan to figure out the dependency network, so row order does not matter.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_plan &lt;-<span class="st"> </span><span class="kw">rbind</span>(
   data_plan,
   output_plan,
@@ -233,7 +233,7 @@ whole_plan
 ## 4 averages_older  make_my_table(older)                                    
 ## 5 plot_recent     make_my_plot(recent)                                    
 ## 6 plot_older      make_my_plot(older)                                     
-## 7 'report.md'     knit('report.Rmd', quiet = TRUE)</code></pre></div>
+## 7 "\"report.md\"" "knit(knitr_input(\"report.Rmd\"), file_output(\"report…</code></pre></div>
 <p>The latest download data needs to be refreshed every day, so we use triggers to force <code>recent</code> to always build. For more on triggers, see the <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd">vignette on debugging and testing</a>. Instead of triggers, we could have just made <code>recent</code> a global variable like <code>package_list</code> instead of a formal target in <code>whole_plan</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_plan$trigger &lt;-<span class="st"> "any"</span> <span class="co"># default trigger</span>
 whole_plan$trigger[whole_plan$target ==<span class="st"> "recent"</span>] &lt;-<span class="st"> "always"</span>
@@ -248,14 +248,14 @@ whole_plan
 ## 4 averages_older  make_my_table(older)                             any    
 ## 5 plot_recent     make_my_plot(recent)                             any    
 ## 6 plot_older      make_my_plot(older)                              any    
-## 7 'report.md'     knit('report.Rmd', quiet = TRUE)                 any</code></pre></div>
+## 7 "\"report.md\"" "knit(knitr_input(\"report.Rmd\"), file_output(… any</code></pre></div>
 <p>Now, we run the project to download the data and analyze it. The results will be summarized in the knitted report, <code>report.md</code>, but you can also read the results directly from the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/Rtmpcu1RMI/articles/.drake
+## cache /tmp/RtmptMp029/articles/.drake
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, ...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_...
 ## Loading required package: methods
-## check 13 items: aes, count, cran_downloads, data.frame, date, ddply, geo...
+## check 10 items: aes, cran_downloads, data.frame, ddply, geom_line, ggplo...
 ## check 2 items: make_my_plot, make_my_table
 ## check 2 items: older, recent
 ## target older
@@ -265,35 +265,35 @@ whole_plan
 ## target averages_recent
 ## target plot_older
 ## target plot_recent
-## check 1 item: 'report.md'
+## check 1 item: "report.md"
 ## unload 2 items: recent, older
-## target 'report.md'
+## target "report.md"
 ## Used non-default triggers. Some targets may be not be up to date.
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_recent)
-## cache /tmp/Rtmpcu1RMI/articles/.drake
+## cache /tmp/RtmptMp029/articles/.drake
 ##   package mean_downloads
-## 1 ggplot2       14995.97
-## 2   knitr       11346.60
-## 3    Rcpp       20513.93
+## 1 ggplot2       13693.07
+## 2   knitr       10258.73
+## 3    Rcpp       19506.17
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_older)
-## cache /tmp/Rtmpcu1RMI/articles/.drake
+## cache /tmp/RtmptMp029/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14641.29
 ## 2   knitr        9068.71
 ## 3    Rcpp       14408.06
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_recent)
-## cache /tmp/Rtmpcu1RMI/articles/.drake</code></pre></div>
+## cache /tmp/RtmptMp029/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_older)
-## cache /tmp/Rtmpcu1RMI/articles/.drake</code></pre></div>
+## cache /tmp/RtmptMp029/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-2.png" width="672"></p>
 <p>Because we used triggers, each <code><a href="../reference/make.html">make()</a></code> rebuilds the <code>recent</code> target to get the latest download numbers for today. If the newly-downloaded data are the same as last time and nothing else changes, <code>drake</code> skips all the other targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/Rtmpcu1RMI/articles/.drake
+## cache /tmp/RtmptMp029/articles/.drake
 ## Unloading targets from environment:
 ##   averages_recent
 ##   plot_older
@@ -301,18 +301,18 @@ whole_plan
 ##   averages_older
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, ...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_...
-## check 13 items: aes, count, cran_downloads, data.frame, date, ddply, geo...
+## check 10 items: aes, cran_downloads, data.frame, ddply, geom_line, ggplo...
 ## check 2 items: make_my_plot, make_my_table
 ## check 2 items: older, recent
 ## check 2 items: averages_older, plot_older
 ## target recent: trigger "always"
 ## check 2 items: averages_recent, plot_recent
-## check 1 item: 'report.md'
+## check 1 item: "report.md"
 ## Used non-default triggers. Some targets may be not be up to date.</code></pre></div>
-<p>To visualize the build behavior, plot the dependency network. Target <code>recent</code> and everything depending on it is always out of date because of the <code>"always"</code> trigger. If you rerun the project tomorrow, the <code>recent</code> dataset will have shifted one day forward, so <code><a href="../reference/make.html">make()</a></code> will refresh <code>averages_recent</code>, <code>plot_recent</code>, and <code>'report.md'</code>. Targets <code>averages_older</code> and <code>plot_older</code> should be unaffected, so <code>drake</code> will skip them.</p>
+<p>To visualize the build behavior, plot the dependency network. Target <code>recent</code> and everything depending on it is always out of date because of the <code>"always"</code> trigger. If you rerun the project tomorrow, the <code>recent</code> dataset will have shifted one day forward, so <code><a href="../reference/make.html">make()</a></code> will refresh <code>averages_recent</code>, <code>plot_recent</code>, and <code>report.md</code>. Targets <code>averages_older</code> and <code>plot_older</code> should be unaffected, so <code>drake</code> will skip them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(whole_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/301ec7c3/images/packages.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/packages.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 </div>
 </div>

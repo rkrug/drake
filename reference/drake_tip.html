@@ -140,10 +140,9 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>drake_tip</span>() <span class='co'># Show a tip about using drake.</span></div><div class='output co'>#&gt; In drake &gt;= 4.4.0, you can select subgraphs of the workflow graph:\n     e.g. vis_drake_graph(..., from = some_targets, mode = "out", order = 2).\n     See the new 'graph' vignette for more. 
-#&gt;       "In drake &gt;= 4.4.0, you can select subgraphs of the workflow graph: e.g.\nvis_drake_graph(..., from = some_targets, mode = \"out\", order = 2).\nSee the new 'graph' vignette for more." </div><div class='input'><span class='fu'>message</span>(<span class='fu'>drake_tip</span>()) <span class='co'># Print out a tip as a message.</span></div><div class='output co'>#&gt; <span class='message'>Check out the "future_lapply" backends. Example: load_basic_example();</span>
-#&gt; <span class='message'>future::plan(future::multisession); make(my_plan, parallelism =</span>
-#&gt; <span class='message'>"future_lapply")</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>drake_tip</span>() <span class='co'># Show a tip about using drake.</span></div><div class='output co'>#&gt; Check out the "future_lapply" backends. Example:\n    load_basic_example();\n    future::plan(future::multisession);\n    make(my_plan, parallelism = "future_lapply") 
+#&gt;        "Check out the \"future_lapply\" backends. Example: load_basic_example();\nfuture::plan(future::multisession); make(my_plan, parallelism =\n\"future_lapply\")" </div><div class='input'><span class='fu'>message</span>(<span class='fu'>drake_tip</span>()) <span class='co'># Print out a tip as a message.</span></div><div class='output co'>#&gt; <span class='message'>See the vignettes at https://cran.r-project.org/package=drake/vignettes</span>
+#&gt; <span class='message'>for in-depth tutorials and other thorough documentation.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

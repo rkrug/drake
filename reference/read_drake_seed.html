@@ -147,19 +147,20 @@ even under randomness.</p>
       <th>path</th>
       <td><p>Root directory of the drake project,
 or if <code>search</code> is <code>TRUE</code>, either the
-project root or a subdirectory of the project.</p></td>
+project root or a subdirectory of the project.
+Ignored if a <code>cache</code> is supplied.</p></td>
     </tr>
     <tr>
       <th>search</th>
       <td><p>logical. If <code>TRUE</code>, search parent directories
 to find the nearest drake cache. Otherwise, look in the
-current working directory only.</p></td>
+current working directory only.
+Ignored if a <code>cache</code> is supplied.</p></td>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>optional drake cache. See code<a href='new_cache.html'>new_cache</a>().
-If <code>cache</code> is supplied,
-the <code>path</code> and <code>search</code> arguments are ignored.</p></td>
+      <td><p>drake cache. See <code><a href='new_cache.html'>new_cache()</a></code>.
+If supplied, <code>path</code> and <code>search</code> are ignored.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -169,7 +170,7 @@ the <code>path</code> and <code>search</code> arguments are ignored.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A workflow plan data frame.</p>
+    <p>An integer vector.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -183,7 +184,7 @@ the <code>path</code> and <code>search</code> arguments are ignored.</p></td>
   <span class='kw'>target2</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='no'>target1</span>)
 )
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>runif</span>(<span class='fl'>1</span>) <span class='co'># Needed to get a .Random.seed, but not for drake.</span>
-<span class='kw pkg'>digest</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/digest/topics/digest'>digest</a></span>(<span class='no'>.Random.seed</span>) <span class='co'># Fingerprint of the current R session's seed.</span></div><div class='output co'>#&gt; [1] "e70b1b84cb2a5ebda1cec4ba617c1511"</div><div class='input'><span class='fu'><a href='make.html'>make</a></span>(<span class='no'>my_plan</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='no'>cache</span>) <span class='co'># Run the project, build the targets.</span></div><div class='output co'>#&gt; <span class='message'>connect 3 imports: tmp, cache, my_plan</span></div><div class='output co'>#&gt; <span class='message'>connect 2 targets: target1, target2</span></div><div class='output co'>#&gt; <span class='message'>check 2 items: rnorm, sqrt</span></div><div class='output co'>#&gt; <span class='message'>check 1 item: target1</span></div><div class='output co'>#&gt; <span class='message'>target target1</span></div><div class='output co'>#&gt; <span class='message'>check 1 item: target2</span></div><div class='output co'>#&gt; <span class='message'>target target2</span></div><div class='input'><span class='kw pkg'>digest</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/digest/topics/digest'>digest</a></span>(<span class='no'>.Random.seed</span>) <span class='co'># Your session's seed did not change.</span></div><div class='output co'>#&gt; [1] "e70b1b84cb2a5ebda1cec4ba617c1511"</div><div class='input'><span class='co'># Drake uses a hard-coded seed if you do not supply one.</span>
+<span class='kw pkg'>digest</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/digest/topics/digest'>digest</a></span>(<span class='no'>.Random.seed</span>) <span class='co'># Fingerprint of the current R session's seed.</span></div><div class='output co'>#&gt; [1] "5b720f218bf72fb5ac8f351100af5c60"</div><div class='input'><span class='fu'><a href='make.html'>make</a></span>(<span class='no'>my_plan</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='no'>cache</span>) <span class='co'># Run the project, build the targets.</span></div><div class='output co'>#&gt; <span class='message'>connect 3 imports: tmp, cache, my_plan</span></div><div class='output co'>#&gt; <span class='message'>connect 2 targets: target1, target2</span></div><div class='output co'>#&gt; <span class='message'>check 2 items: rnorm, sqrt</span></div><div class='output co'>#&gt; <span class='message'>check 1 item: target1</span></div><div class='output co'>#&gt; <span class='message'>target target1</span></div><div class='output co'>#&gt; <span class='message'>check 1 item: target2</span></div><div class='output co'>#&gt; <span class='message'>target target2</span></div><div class='input'><span class='kw pkg'>digest</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/digest/topics/digest'>digest</a></span>(<span class='no'>.Random.seed</span>) <span class='co'># Your session's seed did not change.</span></div><div class='output co'>#&gt; [1] "5b720f218bf72fb5ac8f351100af5c60"</div><div class='input'><span class='co'># Drake uses a hard-coded seed if you do not supply one.</span>
 <span class='fu'>read_drake_seed</span>(<span class='kw'>cache</span> <span class='kw'>=</span> <span class='no'>cache</span>)</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='fu'><a href='readd.html'>readd</a></span>(<span class='no'>target2</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='no'>cache</span>) <span class='co'># Randomly-generated target data.</span></div><div class='output co'>#&gt; [1] 33.8988</div><div class='input'><span class='fu'><a href='clean.html'>clean</a></span>(<span class='no'>target2</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='no'>cache</span>) <span class='co'># Oops, I removed the data!</span>
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>runif</span>(<span class='fl'>1</span>) <span class='co'># Maybe the R session's seed also changed.</span>
 <span class='fu'><a href='make.html'>make</a></span>(<span class='no'>my_plan</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='no'>cache</span>) <span class='co'># Rebuild target2.</span></div><div class='output co'>#&gt; <span class='message'>Unloading targets from environment:</span>

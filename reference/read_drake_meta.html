@@ -147,19 +147,20 @@ to get metadata. If <code>NULL</code>, all metadata is collected.</p></td>
       <th>path</th>
       <td><p>Root directory of the drake project,
 or if <code>search</code> is <code>TRUE</code>, either the
-project root or a subdirectory of the project.</p></td>
+project root or a subdirectory of the project.
+Ignored if a <code>cache</code> is supplied.</p></td>
     </tr>
     <tr>
       <th>search</th>
       <td><p>logical. If <code>TRUE</code>, search parent directories
 to find the nearest drake cache. Otherwise, look in the
-current working directory only.</p></td>
+current working directory only.
+Ignored if a <code>cache</code> is supplied.</p></td>
     </tr>
     <tr>
       <th>cache</th>
-      <td><p>optional drake cache. See code<a href='new_cache.html'>new_cache</a>().
-If <code>cache</code> is supplied,
-the <code>path</code> and <code>search</code> arguments are ignored.</p></td>
+      <td><p>drake cache. See <code><a href='new_cache.html'>new_cache()</a></code>.
+If supplied, <code>path</code> and <code>search</code> are ignored.</p></td>
     </tr>
     <tr>
       <th>verbose</th>

@@ -106,7 +106,7 @@
             <h3 class="subtitle">Generate lots of tasks with ease.</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-10</h4>
+            <h4 class="date">2018-02-19</h4>
           </div>
 
     
@@ -249,18 +249,29 @@ rmspe_plan &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
 )</code></pre></div>
 <p>At the end, let’s generate a pdf plot of the RMSPE scores and a <a href="https://yihui.name/knitr/">knitr</a> report.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
-  <span class="dt">rmspe.pdf =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggsave">ggsave</a></span>(<span class="dt">filename =</span> <span class="st">"rmspe.pdf"</span>, <span class="dt">plot =</span> <span class="kw">plot_rmspe</span>(rmspe)),
-  <span class="dt">report.md =</span> <span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit">knit</a></span>(<span class="st">"report.Rmd"</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>),
-  <span class="dt">file_targets =</span> <span class="ot">TRUE</span>,
-  <span class="dt">strings_in_dots =</span> <span class="st">"literals"</span>
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggsave">ggsave</a></span>(
+    <span class="dt">filename =</span> <span class="kw"><a href="../reference/file_output.html">file_output</a></span>(<span class="st">"rmspe.pdf"</span>),
+    <span class="dt">plot =</span> <span class="kw">plot_rmspe</span>(rmspe)
+  ),
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/knitr/topics/knit">knit</a></span>(<span class="kw"><a href="../reference/knitr_input.html">knitr_input</a></span>(<span class="st">"report.Rmd"</span>), <span class="kw"><a href="../reference/file_output.html">file_output</a></span>(<span class="st">"report.md"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
 )
+## Warning: knitr/rmarkdown report 'report.Rmd' does not exist and cannot be
+## inspected for dependencies.
+
+## Warning: knitr/rmarkdown report 'report.Rmd' does not exist and cannot be
+## inspected for dependencies.
 
 <span class="kw">head</span>(output_plan)
 ## # A tibble: 2 x 2
-##   target      command                                                     
-##   &lt;chr&gt;       &lt;chr&gt;                                                       
-## 1 'rmspe.pdf' "ggsave(filename = \"rmspe.pdf\", plot = plot_rmspe(rmspe))"
-## 2 'report.md' "knit(\"report.Rmd\", quiet = TRUE)"</code></pre></div>
+##   target          command                                                 
+##   &lt;chr&gt;           &lt;chr&gt;                                                   
+## 1 "\"rmspe.pdf\"" "ggsave(filename = file_output(\"rmspe.pdf\"), plot = p…
+## 2 "\"report.md\"" "knit(knitr_input(\"report.Rmd\"), file_output(\"report…</code></pre></div>
+<p>Because of the mention of <code><a href="../reference/knitr_input.html">knitr_input()</a></code> above, <code><a href="../reference/make.html">make()</a></code> will look dependencies inside <code>report.Rmd</code> (targets mentioned with <code><a href="../reference/loadd.html">loadd()</a></code> or <code><a href="../reference/readd.html">readd()</a></code> in active code chunks). That way, whenever a dependency changes, <code>drake</code> will rebuild <code>report.md</code> when you call <code><a href="../reference/make.html">make()</a></code>. For that to happen, we need <code>report.Rmd</code> to exist before the call to <code><a href="../reference/make.html">make()</a></code>. For this example, you can find <a href="https://github.com/ropensci/drake/blob/master/inst/examples/gsp/report.Rmd">report.Rmd here</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">local &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">"examples"</span>, <span class="st">"gsp"</span>, <span class="st">"report.Rmd"</span>)
+path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">path =</span> local, <span class="dt">package =</span> <span class="st">"drake"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)
+<span class="kw">file.copy</span>(<span class="dt">from =</span> path, <span class="dt">to =</span> <span class="st">"report.Rmd"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+## [1] TRUE</code></pre></div>
 <p>At this point, we can gather together the whole workflow plan.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_plan &lt;-<span class="st"> </span><span class="kw">rbind</span>(model_plan, rmspe_plan, rmspe_results_plan, output_plan)</code></pre></div>
 <p>Before we run the project, we need to define the <code>plot_rmspe()</code> function.</p>
@@ -268,11 +279,6 @@ rmspe_plan &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<spa
   <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(rmspe) +
 <span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_histogram">geom_histogram</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> rmspe), <span class="dt">bins =</span> <span class="dv">30</span>)
 }</code></pre></div>
-<p>We also need the <a href="https://github.com/ropensci/drake/blob/master/inst/examples/gsp/report.Rmd">report.Rmd file</a> for this example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">local &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">"examples"</span>, <span class="st">"gsp"</span>, <span class="st">"report.Rmd"</span>)
-path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">path =</span> local, <span class="dt">package =</span> <span class="st">"drake"</span>, <span class="dt">mustWork =</span> <span class="ot">TRUE</span>)
-<span class="kw">file.copy</span>(<span class="dt">from =</span> path, <span class="dt">to =</span> <span class="st">"report.Rmd"</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
-## [1] TRUE</code></pre></div>
 <p>Now, we can run the project</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 ## Saving 7 x 5 in image</code></pre></div>
@@ -282,10 +288,10 @@ path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span cla
 <a href="#results" class="anchor"></a>Results</h1>
 <p>Here are the root mean squared prediction errors of all the models.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readd.html">readd</a></span>(rmspe)
-## cache /tmp/Rtmpcu1RMI/articles/.drake
+## cache /tmp/RtmptMp029/articles/.drake
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(plot_rmspe)
-## cache /tmp/Rtmpcu1RMI/articles/.drake
+## cache /tmp/RtmptMp029/articles/.drake
 
 <span class="kw">library</span>(ggplot2)
 <span class="kw">plot_rmspe</span>(<span class="dt">rmspe =</span> results)</code></pre></div>

@@ -109,7 +109,7 @@
       <h1>General best practices for drake projects</h1>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-10</h4>
+            <h4 class="date">2018-02-19</h4>
           </div>
 
     
@@ -142,7 +142,7 @@
 <span class="kw">source</span>(<span class="st">"my_functions.R"</span>)</code></pre></div>
 <p>Then, set up your workflow plan data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">good_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
-  <span class="dt">my_data =</span> <span class="kw">get_data</span>(<span class="st">'data.csv'</span>), <span class="co"># External files need to be in commands explicitly. # nolint</span>
+  <span class="dt">my_data =</span> <span class="kw">get_data</span>(<span class="kw"><a href="../reference/file_input.html">file_input</a></span>(<span class="st">"data.csv"</span>)), <span class="co"># External files need to be in commands explicitly. # nolint</span>
   <span class="dt">my_analysis =</span> <span class="kw">analyze_data</span>(my_data),
   <span class="dt">my_summaries =</span> <span class="kw">summarize_results</span>(my_data, my_analysis)
 )
@@ -151,13 +151,13 @@ good_plan
 ## # A tibble: 3 x 2
 ##   target       command                                
 ##   &lt;chr&gt;        &lt;chr&gt;                                  
-## 1 my_data      get_data('data.csv')                   
+## 1 my_data      get_data(file_input('data.csv'))       
 ## 2 my_analysis  analyze_data(my_data)                  
 ## 3 my_summaries summarize_results(my_data, my_analysis)</code></pre></div>
 <p><code>Drake</code> knows that <code>my_analysis</code> depends on <code>my_data</code> because <code>my_data</code> is an argument to <code>analyze_data()</code>, which is part of the command for <code>my_analysis</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(good_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/301ec7c3/images/good-commands.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/good-commands.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>Now, you can call <code><a href="../reference/make.html">make()</a></code> to build the targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(good_plan)</code></pre></div>
@@ -174,22 +174,22 @@ good_plan
 </ul>
 <p>If you migrate to <code>drake</code>, you may be tempted to set up a workflow plan like this.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bad_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
-  <span class="dt">my_data =</span> <span class="kw">source</span>(<span class="st">'get_data.R'</span>),           <span class="co"># nolint</span>
-  <span class="dt">my_analysis =</span> <span class="kw">source</span>(<span class="st">'analyze_data.R'</span>),   <span class="co"># nolint</span>
-  <span class="dt">my_summaries =</span> <span class="kw">source</span>(<span class="st">'summarize_data.R'</span>) <span class="co"># nolint</span>
+  <span class="dt">my_data =</span> <span class="kw">source</span>(<span class="kw"><a href="../reference/file_input.html">file_input</a></span>(<span class="st">"get_data.R"</span>)),
+  <span class="dt">my_analysis =</span> <span class="kw">source</span>(<span class="kw"><a href="../reference/file_input.html">file_input</a></span>(<span class="st">"analyze_data.R"</span>)),
+  <span class="dt">my_summaries =</span> <span class="kw">source</span>(<span class="kw"><a href="../reference/file_input.html">file_input</a></span>(<span class="st">"summarize_data.R"</span>))
 )
 
 bad_plan
 ## # A tibble: 3 x 2
-##   target       command                   
-##   &lt;chr&gt;        &lt;chr&gt;                     
-## 1 my_data      source('get_data.R')      
-## 2 my_analysis  source('analyze_data.R')  
-## 3 my_summaries source('summarize_data.R')</code></pre></div>
+##   target       command                               
+##   &lt;chr&gt;        &lt;chr&gt;                                 
+## 1 my_data      source(file_input('get_data.R'))      
+## 2 my_analysis  source(file_input('analyze_data.R'))  
+## 3 my_summaries source(file_input('summarize_data.R'))</code></pre></div>
 <p>But now, the dependency structure of your work is broken. Your R script files are dependencies, but since <code>my_data</code> is not mentioned in a function or command, <code>drake</code> does not know that <code>my_analysis</code> depends on it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(bad_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/301ec7c3/images/bad-commands.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/bad-commands.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>Dangers:</p>
 <ol style="list-style-type: decimal">
@@ -198,7 +198,7 @@ bad_plan
 <code>Drake</code> is oblivious to <code>data.csv</code> since it is not explicitly mentioned in a workflow plan command. So when <code>data.csv</code> changes, <code><a href="../reference/make.html">make(bad_plan)</a></code> will not rebuild <code>my_data</code>.</li>
 <li>
 <code>my_analysis</code> will not update when <code>my_data</code> changes.</li>
-<li>The return value of <code>source()</code> is formatted counter-intuitively. If <code>source('get_data.R')</code> is the command for <code>my_data</code>, then <code>my_data</code> will always be a list with elements <code>"value"</code> and <code>"visible"</code>. In other words, <code>source('get_data.R')$value</code> is really what you would want.</li>
+<li>The return value of <code>source()</code> is formatted counter-intuitively. If <code>source(file_input("get_data.R"))</code> is the command for <code>my_data</code>, then <code>my_data</code> will always be a list with elements <code>"value"</code> and <code>"visible"</code>. In other words, <code>source(file_input("get_data.R"))$value</code> is really what you would want.</li>
 </ol>
 <p>In addition, this <code>source()</code>-based approach is simply inconvenient. <code>Drake</code> rebuilds <code>my_data</code> every time <code>get_data.R</code> changes, even when those changes are just extra comments or blank lines. On the other hand, in the previous plan that uses <code>my_data = get_data()</code>, <code>drake</code> does not trigger rebuilds when comments or whitespace in <code>get_data()</code> are modified. <code>Drake</code> is R-focused, not file-focused. If you embrace this viewpoint, your work will be easier.</p>
 </div>
@@ -208,13 +208,13 @@ bad_plan
 <p>For a serious project, you should use <code>drake</code>’s <code><a href="../reference/make.html">make()</a></code> function outside <code>knitr</code>. In other words, you should treat R Markdown reports and other <code>knitr</code> documents as targets and imports, not as a way to run <code><a href="../reference/make.html">make()</a></code>. Viewed as targets, <code>drake</code> makes special exceptions for R Markdown reports and other <a href="https://github.com/yihui/knitr">knitr</a> reports such as <code>*.Rmd</code> and <code>*.Rnw</code> files. Not every <code>drake</code> project needs them, but it is good practice to use them to summarize the final results of a project once all the other targets have already been built. The basic example, for instance, has an R Markdown report. <code>report.Rmd</code> is knitted to build <code>report.md</code>, which summarizes the final results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load all the functions and the workflow plan data frame, my_plan.</span>
 <span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/Rtmpcu1RMI/articles/.drake
+## cache /tmp/RtmptMp029/articles/.drake
 ## connect 8 imports: tmp, simulate, reg1, my_plan, reg2, bad_plan, random_...
-## connect 15 targets: 'report.md', small, large, regression1_small, regres...</code></pre></div>
+## connect 15 targets: "report.md", small, large, regression1_small, regres...</code></pre></div>
 <p>To see where <code>report.md</code> will be built, look to the right of the workflow graph.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/301ec7c3/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p><code>Drake</code> treats <a href="https://github.com/yihui/knitr">knitr</a> report as a special cases. Whenever <code>drake</code> sees <code>knit()</code> or <code>render()</code> (<a href="https://github.com/rstudio/rmarkdown">rmarkdown</a>) mentioned in a command, it dives into the source file to look for dependencies. Consider <code>report.Rmd</code>, which you can view <a href="https://github.com/ropensci/drake/blob/master/inst/examples/basic/report.Rmd">here</a>. When <code>drake</code> sees <code><a href="../reference/readd.html">readd(small)</a></code> in an active code chunk, it knows <a href="https://github.com/ropensci/drake/blob/master/inst/examples/basic/report.Rmd">report.Rmd</a> depends on the target called <code>small</code>, and it draws the appropriate arrow in the workflow graph above. And if <code>small</code> ever changes, <code><a href="../reference/make.html">make(my_plan)</a></code> will re-process <a href="https://github.com/ropensci/drake/blob/master/inst/examples/basic/report.Rmd">report.Rmd</a> to produce the target file <code>report.md</code>.</p>
 <p><a href="https://github.com/yihui/knitr">knitr</a> reports are the only kind of file that <code>drake</code> analyzes for dependencies. It does not give R scripts the same special treatment.</p>
@@ -250,15 +250,15 @@ plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_
 <span class="kw"><a href="../reference/tracked.html">tracked</a></span>(plan)
 ## connect 11 imports: tmp, f, g, simulate, reg1, my_plan, reg2, bad_plan, ...
 ## connect 1 target: x
-## [1] "x"      "f"      "g"      "digest"
+## [1] "g"      "digest" "f"      "x"
 
 <span class="co"># But the `digest()` function has dependencies too.</span>
 <span class="co"># Because `drake` knows `digest()` is from a package,</span>
 <span class="co"># it ignores these dependencies by default.</span>
 <span class="kw">head</span>(<span class="kw"><a href="../reference/deps.html">deps</a></span>(digest), <span class="dv">10</span>)
 ##  [1] "any"             "as.integer"      "as.raw"         
-##  [4] "base::serialize" "c"               ".Call"          
-##  [7] "digest_impl"     "file.access"     "file.exists"    
+##  [4] "base::serialize" ".Call"           "digest_impl"    
+##  [7] ".errorhandler"   "file.access"     "file.exists"    
 ## [10] "file.info"</code></pre></div>
 </div>
 <div id="the-solution" class="section level3">
@@ -268,25 +268,25 @@ plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/expose_imports.html">expose_imports</a></span>(digest)
 ## &lt;environment: R_GlobalEnv&gt;
 new_objects &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tracked.html">tracked</a></span>(plan)
-## connect 48 imports: sha1.anova, reg1, sha1.integer, reg2, AESencryptECB,...
+## connect 50 imports: sha1.anova, reg1, sha1.integer, reg2, AESencryptECB,...
 ## connect 1 target: x
 <span class="kw">head</span>(new_objects, <span class="dv">10</span>)
-##  [1] "x"               "digest"          "f"              
-##  [4] "g"               "digest_impl"     "as.integer"     
-##  [7] "warning"         "as.raw"          "any"            
-## [10] "base::serialize"
+##  [1] "digest"          "warning"         "as.raw"         
+##  [4] "any"             "as.integer"      "base::serialize"
+##  [7] ".Call"           "digest_impl"     ".errorhandler"  
+## [10] "file.access"
 <span class="kw">length</span>(new_objects)
-## [1] 33
+## [1] 32
 
 <span class="co"># Now when you call `make()`, `drake` will dive into `digest`</span>
 <span class="co"># to import dependencies.</span>
 
 cache &lt;-<span class="st"> </span>storr::<span class="kw">storr_environment</span>() <span class="co"># just for examples</span>
 <span class="kw"><a href="../reference/make.html">make</a></span>(plan, <span class="dt">cache =</span> cache)
-## connect 50 imports: sha1.anova, reg1, sha1.integer, reg2, AESencryptECB,...
+## connect 52 imports: sha1.anova, reg1, sha1.integer, reg2, AESencryptECB,...
 ## connect 1 target: x
 ## Loading required package: methods
-## check 29 items: any, as.integer, as.raw, base::serialize, c, .Call, dige...
+## check 28 items: any, as.integer, as.raw, base::serialize, .Call, digest_...
 ## check 1 item: digest
 ## check 1 item: g
 ## check 1 item: f
@@ -294,11 +294,11 @@ cache &lt;-<span class="st"> </span>storr::<span class="kw">storr_environment</s
 ## target x
 <span class="kw">head</span>(<span class="kw"><a href="../reference/cached.html">cached</a></span>(<span class="dt">cache =</span> cache), <span class="dv">10</span>)
 ##  [1] "any"             "as.integer"      "as.raw"         
-##  [4] "base::serialize" "c"               "digest"         
-##  [7] "digest_impl"     "f"               "file.access"    
-## [10] "file.exists"
+##  [4] "base::serialize" "digest"          "digest_impl"    
+##  [7] "f"               "file.access"     "file.exists"    
+## [10] "file.info"
 <span class="kw">length</span>(<span class="kw"><a href="../reference/cached.html">cached</a></span>(<span class="dt">cache =</span> cache))
-## [1] 31</code></pre></div>
+## [1] 30</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
@@ -382,8 +382,8 @@ rules_grid &lt;-<span class="st"> </span>tibble::<span class="kw">tibble</span>(
     <span class="dt">expand =</span> <span class="ot">FALSE</span>
   ) %&gt;%
 <span class="st">  </span>DT::<span class="kw">datatable</span>()</code></pre></div>
-<div id="htmlwidget-4e591de1fb2810ffa1f3" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4e591de1fb2810ffa1f3">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40"],["credits_schoolA","credits_schoolA","credits_schoolA","credits_schoolA","credits_schoolB","credits_schoolB","credits_schoolC","credits_schoolC","credits_schoolC","credits_schoolC","students_schoolA","students_schoolA","students_schoolA","students_schoolA","students_schoolB","students_schoolB","students_schoolC","students_schoolC","students_schoolC","students_schoolC","grads_schoolA","grads_schoolA","grads_schoolA","grads_schoolA","grads_schoolB","grads_schoolB","grads_schoolC","grads_schoolC","grads_schoolC","grads_schoolC","public_funds_schoolA","public_funds_schoolA","public_funds_schoolA","public_funds_schoolA","public_funds_schoolB","public_funds_schoolB","public_funds_schoolC","public_funds_schoolC","public_funds_schoolC","public_funds_schoolC"],["check_credit_hours(\"schoolA\", \"public\", \"2012\")","check_credit_hours(\"schoolA\", \"public\", \"2013\")","check_credit_hours(\"schoolA\", \"public\", \"2014\")","check_credit_hours(\"schoolA\", \"public\", \"2015\")","check_credit_hours(\"schoolB\", \"public\", \"2014\")","check_credit_hours(\"schoolB\", \"public\", \"2015\")","check_credit_hours(\"schoolC\", \"private\", \"2012\")","check_credit_hours(\"schoolC\", \"private\", \"2013\")","check_credit_hours(\"schoolC\", \"private\", \"2014\")","check_credit_hours(\"schoolC\", \"private\", \"2015\")","check_students(\"schoolA\", \"public\", \"2012\")","check_students(\"schoolA\", \"public\", \"2013\")","check_students(\"schoolA\", \"public\", \"2014\")","check_students(\"schoolA\", \"public\", \"2015\")","check_students(\"schoolB\", \"public\", \"2014\")","check_students(\"schoolB\", \"public\", \"2015\")","check_students(\"schoolC\", \"private\", \"2012\")","check_students(\"schoolC\", \"private\", \"2013\")","check_students(\"schoolC\", \"private\", \"2014\")","check_students(\"schoolC\", \"private\", \"2015\")","check_graduations(\"schoolA\", \"public\", \"2012\")","check_graduations(\"schoolA\", \"public\", \"2013\")","check_graduations(\"schoolA\", \"public\", \"2014\")","check_graduations(\"schoolA\", \"public\", \"2015\")","check_graduations(\"schoolB\", \"public\", \"2014\")","check_graduations(\"schoolB\", \"public\", \"2015\")","check_graduations(\"schoolC\", \"private\", \"2012\")","check_graduations(\"schoolC\", \"private\", \"2013\")","check_graduations(\"schoolC\", \"private\", \"2014\")","check_graduations(\"schoolC\", \"private\", \"2015\")","check_public_funding(\"schoolA\", \"public\", \"2012\")","check_public_funding(\"schoolA\", \"public\", \"2013\")","check_public_funding(\"schoolA\", \"public\", \"2014\")","check_public_funding(\"schoolA\", \"public\", \"2015\")","check_public_funding(\"schoolB\", \"public\", \"2014\")","check_public_funding(\"schoolB\", \"public\", \"2015\")","check_public_funding(\"schoolC\", \"private\", \"2012\")","check_public_funding(\"schoolC\", \"private\", \"2013\")","check_public_funding(\"schoolC\", \"private\", \"2014\")","check_public_funding(\"schoolC\", \"private\", \"2015\")"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>target<\/th>\n      <th>command<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Thanks to <a href="https://github.com/AlexAxthelm">Alex Axthelm</a> for this example in <a href="https://github.com/ropensci/drake/issues/235">issue 235</a>.</p>
+<div id="htmlwidget-32e69644e4cc46fddb6c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-32e69644e4cc46fddb6c">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40"],["credits_schoolA","credits_schoolA","credits_schoolA","credits_schoolA","credits_schoolB","credits_schoolB","credits_schoolC","credits_schoolC","credits_schoolC","credits_schoolC","students_schoolA","students_schoolA","students_schoolA","students_schoolA","students_schoolB","students_schoolB","students_schoolC","students_schoolC","students_schoolC","students_schoolC","grads_schoolA","grads_schoolA","grads_schoolA","grads_schoolA","grads_schoolB","grads_schoolB","grads_schoolC","grads_schoolC","grads_schoolC","grads_schoolC","public_funds_schoolA","public_funds_schoolA","public_funds_schoolA","public_funds_schoolA","public_funds_schoolB","public_funds_schoolB","public_funds_schoolC","public_funds_schoolC","public_funds_schoolC","public_funds_schoolC"],["check_credit_hours(\"schoolA\", \"public\", \"2012\")","check_credit_hours(\"schoolA\", \"public\", \"2013\")","check_credit_hours(\"schoolA\", \"public\", \"2014\")","check_credit_hours(\"schoolA\", \"public\", \"2015\")","check_credit_hours(\"schoolB\", \"public\", \"2014\")","check_credit_hours(\"schoolB\", \"public\", \"2015\")","check_credit_hours(\"schoolC\", \"private\", \"2012\")","check_credit_hours(\"schoolC\", \"private\", \"2013\")","check_credit_hours(\"schoolC\", \"private\", \"2014\")","check_credit_hours(\"schoolC\", \"private\", \"2015\")","check_students(\"schoolA\", \"public\", \"2012\")","check_students(\"schoolA\", \"public\", \"2013\")","check_students(\"schoolA\", \"public\", \"2014\")","check_students(\"schoolA\", \"public\", \"2015\")","check_students(\"schoolB\", \"public\", \"2014\")","check_students(\"schoolB\", \"public\", \"2015\")","check_students(\"schoolC\", \"private\", \"2012\")","check_students(\"schoolC\", \"private\", \"2013\")","check_students(\"schoolC\", \"private\", \"2014\")","check_students(\"schoolC\", \"private\", \"2015\")","check_graduations(\"schoolA\", \"public\", \"2012\")","check_graduations(\"schoolA\", \"public\", \"2013\")","check_graduations(\"schoolA\", \"public\", \"2014\")","check_graduations(\"schoolA\", \"public\", \"2015\")","check_graduations(\"schoolB\", \"public\", \"2014\")","check_graduations(\"schoolB\", \"public\", \"2015\")","check_graduations(\"schoolC\", \"private\", \"2012\")","check_graduations(\"schoolC\", \"private\", \"2013\")","check_graduations(\"schoolC\", \"private\", \"2014\")","check_graduations(\"schoolC\", \"private\", \"2015\")","check_public_funding(\"schoolA\", \"public\", \"2012\")","check_public_funding(\"schoolA\", \"public\", \"2013\")","check_public_funding(\"schoolA\", \"public\", \"2014\")","check_public_funding(\"schoolA\", \"public\", \"2015\")","check_public_funding(\"schoolB\", \"public\", \"2014\")","check_public_funding(\"schoolB\", \"public\", \"2015\")","check_public_funding(\"schoolC\", \"private\", \"2012\")","check_public_funding(\"schoolC\", \"private\", \"2013\")","check_public_funding(\"schoolC\", \"private\", \"2014\")","check_public_funding(\"schoolC\", \"private\", \"2015\")"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>target<\/th>\n      <th>command<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><p>Thanks to <a href="https://github.com/AlexAxthelm">Alex Axthelm</a> for this example in <a href="https://github.com/ropensci/drake/issues/235">issue 235</a>.</p>
 </div>
 </div>
   </div>

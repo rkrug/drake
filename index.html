@@ -102,7 +102,7 @@
       </header><div class="row">
   <div class="contents col-md-9">
     
-<p><img src="https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
+<p><img src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Release</th>
@@ -133,7 +133,7 @@
 </table>
 <div id="the-drake-r-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#the-drake-r-package" class="anchor"></a>The drake R package <img src="https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/logo.svg" align="right" alt="logo" width="120" height="139" style="border: none; float: right;">
+<a href="#the-drake-r-package" class="anchor"></a>The drake R package <img src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/logo.svg" align="right" alt="logo" width="120" height="139" style="border: none; float: right;">
 </h1></div>
 <p>The <code>drake</code> R package is a workflow manager and computational engine for data science projects. Its primary objective is to keep results up to date with the underlying code and data. When it runs a project, <code>drake</code> detects any pre-existing output and refreshes the pieces that are outdated or missing. Not every runthrough starts from scratch, and the final answers are reproducible. With a user-friendly R-focused interface, <a href="https://ropensci.github.io/drake/">comprehensive documentation</a>, and <a href="https://github.com/ropensci/drake/blob/master/vignettes/parallelism.Rmd">extensive implicit parallel computing support</a>, <code>drake</code> surpasses the analogous functionality in similar tools such as <a href="www.gnu.org/software/make/">Make</a>, <a href="https://github.com/richfitz/remake">remake</a>, <a href="https://github.com/r-lib/memoise">memoise</a>, and <a href="https://github.com/yihui/knitr">knitr</a>.</p>
 </div>
@@ -172,19 +172,23 @@
 
 ## [1] "report.Rmd"
 
-<span class="co"># The real work is outlined step by step in the `my_plan` data frame.</span>
+<span class="co"># The real work is outlined step-by-step in the `my_plan` data frame.</span>
 <span class="co"># The steps are called "targets", and they depend on the imports.</span>
+<span class="co"># File targets have the names in `file_output()`, and the non-file</span>
+<span class="co"># targets have the names in the `target` column of the data frame.</span>
 <span class="co"># Drake's `make()` function runs the commands to build the targets</span>
 <span class="co"># in the correct order.</span>
 <span class="kw">head</span>(my_plan)
 
-##              target                          command
-## 1       'report.md' knit('report.Rmd', quiet = TRUE)
-## 2             small                      simulate(5)
-## 3             large                     simulate(50)
-## 4 regression1_small                      reg1(small)
-## 5 regression1_large                      reg1(large)
-## 6 regression2_small                      reg2(small)
+## # A tibble: 6 x 2
+##   target            command                                                                      
+##   &lt;chr&gt;             &lt;chr&gt;                                                                        
+## 1 ""                "knit(knitr_input(\"report.Rmd\"), file_output(\"report.md\"), quiet = TRUE)"
+## 2 small             simulate(48)                                                                 
+## 3 large             simulate(64)                                                                 
+## 4 regression1_small reg1(small)                                                                  
+## 5 regression1_large reg1(large)                                                                  
+## 6 regression2_small reg2(small)  
 
 <span class="co"># First round: drake builds all 15 targets.</span>
 <span class="kw"><a href="reference/make.html">make</a></span>(my_plan) 
@@ -203,7 +207,7 @@
 ## target summ_regression1_small
 ## target summ_regression2_large
 ## target summ_regression2_small
-## target 'report.md'
+## target "report.md"
 
 <span class="co"># If you change the reg2() function,</span>
 <span class="co"># all the regression2 targets are out of date,</span>
@@ -223,7 +227,7 @@ reg2 &lt;-<span class="st"> </span>function(d){
 ## target coef_regression2_small
 ## target summ_regression2_large
 ## target summ_regression2_small
-## target 'report.md'
+## target "report.md"
 
 <span class="co"># If nothing important changed, drake rebuilds nothing.</span>
 <span class="kw"><a href="reference/make.html">make</a></span>(my_plan)
@@ -290,7 +294,7 @@ reg2 &lt;-<span class="st"> </span>function(d){
 config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_config.html">drake_config</a></span>(my_plan)
 <span class="kw"><a href="reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
 <iframe
-  src = 'https://cdn.rawgit.com/ropensci/drake/951c3fe7/images/reg2.html'
+  src = 'https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/reg2.html'
   width = '100%' height = '600px' allowtransparency='true'
   style='border: none; box-shadow: none'>
   </iframe>
@@ -372,12 +376,20 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <div id="help-and-troubleshooting" class="section level1">
 <h1 class="hasAnchor">
 <a href="#help-and-troubleshooting" class="anchor"></a>Help and troubleshooting</h1>
-<p>Please refer to <a href="https://github.com/ropensci/drake/blob/master/TROUBLESHOOTING.md">TROUBLESHOOTING.md</a> on the <a href="https://github.com/ropensci/drake">GitHub page</a> for instructions.</p>
+<p>The following resources document many known issues and challenges.</p>
+<ul>
+<li>Frequently-asked questions: <a href="https://github.com/ropensci/drake/wiki/Frequently-Asked-Questions">wiki</a> and <a href="https://github.com/ropensci/drake/issues?q=is%3Aissue+is%3Aopen+label%3A%22Frequently+Asked+Question%22">issues</a>.</li>
+<li><a href="https://ropensci.github.io/drake/articles/caution.html">Cautionary notes and edge cases</a></li>
+<li><a href="https://ropensci.github.io/drake/articles/debug.html">Debugging and testing drake projects</a></li>
+<li>
+<a href="https://github.com/ropensci/drake/issues">Other known issues</a> (please search both open and closed ones).</li>
+</ul>
+<p>If you are still having trouble, please submit a <a href="https://github.com/ropensci/drake/issues/new">new issue</a> with a bug report or feature request, along with a minimal reproducible example where appropriate.</p>
 </div>
 <div id="contributing" class="section level1">
 <h1 class="hasAnchor">
 <a href="#contributing" class="anchor"></a>Contributing</h1>
-<p>Bug reports, suggestions, and code are welcome. Please see <a href="https://github.com/ropensci/drake/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>. Maintainers and contributors must follow this repository’s <a href="https://github.com/ropensci/drake/blob/master/CONDUCT.md">code of conduct</a>.</p>
+<p>Bug reports, suggestions, and especially code contributions are welcome. Please see <a href="https://github.com/ropensci/drake/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>. Maintainers and contributors must follow this repository’s <a href="https://github.com/ropensci/drake/blob/master/CONDUCT.md">code of conduct</a>.</p>
 </div>
 <div id="similar-work" class="section level1">
 <h1 class="hasAnchor">
