@@ -131,7 +131,16 @@
     
     <p>Diagnostics include errors, warnings,
 messages, runtimes, and other context from when a
-target was build or an import was processed.</p>
+target was built or an import was processed.
+If your target's last build succeeded,
+then <code>diagnose(your_target)</code> has the most current information
+from that build.
+But if your target failed, then only
+<code>diagnose(your_target)$error</code>,
+<code>diagnose(your_target)$warnings</code>,
+and <code>diagnose(your_target)$messages</code> correspond to the failure,
+and all the other metadata correspond to the last build that completed
+without an error.</p>
     
 
     <pre class="usage"><span class='fu'>diagnose</span>(<span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>character_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(),

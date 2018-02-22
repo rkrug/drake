@@ -160,7 +160,7 @@ and it could lead to false negative results from
   <span class='kw'>log_progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>graph</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trigger</span> <span class='kw'>=</span> <span class='kw pkg'>drake</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/drake/topics/default_trigger'>default_trigger</a></span>(),
   <span class='kw'>imports_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip_imports</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip_safety_checks</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>lazy_load</span> <span class='kw'>=</span> <span class='st'>"eager"</span>, <span class='kw'>session_info</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cache_log_file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>caching</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"worker"</span>, <span class='st'>"master"</span>), <span class='kw'>keep_going</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -495,6 +495,15 @@ Thus, the <code>seed</code> argument must either be <code>NULL</code> or the sam
 seed from the project's cache (usually the <code>.drake/</code> folder).
 To reset the random number generator seed for a project,
 use <code><a href='clean.html'>clean(destroy = TRUE)</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>caching</th>
+      <td><p>character string, only applies to <code>"future"</code> parallelism.</p></td>
+    </tr>
+    <tr>
+      <th>keep_going</th>
+      <td><p>logical, whether to still keep running <code><a href='make.html'>make()</a></code>
+if targets fail.</p></td>
     </tr>
     </table>
     

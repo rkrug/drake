@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return the default file path of the drake/storr cache. — default_cache_path • drake</title>
+<title>Declare the <code>knitr</code>/<code>rmarkdown</code> source files
+of a workflow plan command. — knitr_in • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -125,28 +126,69 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return the default file path of the drake/storr cache.</h1>
+    <h1>Declare the <code>knitr</code>/<code>rmarkdown</code> source files
+of a workflow plan command.</h1>
     </div>
 
     
-    <p>Applies to file system caches only.</p>
+    <p>Use this function to help write the commands
+in your workflow plan data frame. See the examples
+for a full explanation.</p>
     
 
-    <pre class="usage"><span class='fu'>default_cache_path</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>knitr_in</span>(<span class='no'>...</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Character strings. File paths of <code>knitr</code>/<code>rmarkdown</code>
+source files suplied to a command in your workflow plan data frame.</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Default file path of the drake/storr cache.</p>
+    <p>A character vector of declared input file paths.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>file_in file_out</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>default_cache_path</span>()</div><div class='output co'>#&gt; [1] "/tmp/RtmpXoreGK/reference/.drake"</div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'><a href='test_with_dir.html'>test_with_dir</a></span>(<span class='st'>"Contain side effects"</span>, {
+<span class='co'># `knitr_in()` is like `file_in()`</span>
+<span class='co'># except that it analyzes active code chunks in your `knitr`</span>
+<span class='co'># source file and detects non-file dependencies.</span>
+<span class='co'># That way, updates to the right dependencies trigger rebuilds</span>
+<span class='co'># in your report.</span>
+<span class='co'># The basic example (`drake_example("basic")`)</span>
+<span class='co'># already has a demonstration</span>
+<span class='fu'><a href='load_basic_example.html'>load_basic_example</a></span>()
+<span class='no'>config</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='make.html'>make</a></span>(<span class='no'>my_plan</span>)
+<span class='fu'><a href='vis_drake_graph.html'>vis_drake_graph</a></span>(<span class='no'>config</span>)
+<span class='co'># Now how did drake magically know that</span>
+<span class='co'># `small`, `large`, and `coef_regression2_small` were</span>
+<span class='co'># dependencies of the output file `report.md`?</span>
+<span class='co'># because the command in the workflow plan had</span>
+<span class='co'># `knitr_in("report.Rmd")` in it, so drake knew</span>
+<span class='co'># to analyze the active code chunks. There, it spotted</span>
+<span class='co'># where `small`, `large`, and `coef_regression2_small`</span>
+<span class='co'># were read from the cache using calls to `loadd()` and `readd()`.</span>
+})
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

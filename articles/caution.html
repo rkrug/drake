@@ -106,7 +106,7 @@
             <h3 class="subtitle">Cautionary notes for drake</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-19</h4>
+            <h4 class="date">2018-02-22</h4>
           </div>
 
     
@@ -182,7 +182,7 @@ my_plan
 ## 1 little_b "\"b\""   
 ## 2 letter   !!little_b
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## connect 1 import: my_plan
 ## connect 2 targets: little_b, letter
 ## Loading required package: methods
@@ -191,7 +191,7 @@ my_plan
 ## check 1 item: letter
 ## target letter
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(letter)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## [1] "b"</code></pre></div>
 <p>For the commands you specify the free-form <code>...</code> argument, <code><a href="../reference/drake_plan.html">drake_plan()</a></code> also supports tidy evaluation. For example, it supports quasiquotation with the <code>!!</code> argument. Use <code>tidy_evaluation = FALSE</code> or the <code>list</code> argument to suppress this behavior.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">5</span>
@@ -228,7 +228,7 @@ my_plan
 <p>When <code><a href="../reference/make.html">make()</a></code> fails, use <code><a href="../reference/failed.html">failed()</a></code> and <code><a href="../reference/diagnose.html">diagnose()</a></code> to debug. Try the following out yourself.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Targets with available diagnostic metadata, incluing errors, warnings, etc.</span>
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>()
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## [1] "letter"   "little_b"
 
 f &lt;-<span class="st"> </span>function(){
@@ -241,7 +241,7 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## connect 6 imports: my_variable, letter, f, little_b, my_plan, bad_plan
 ## connect 1 target: target
 ## check 1 item: stop
@@ -253,11 +253,11 @@ withr::<span class="kw">with_message_sink</span>(
 ## Warning: No message sink to remove.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>() <span class="co"># From the last make() only</span>
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## [1] "target"
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(target)$error <span class="co"># See also warnings and messages.</span>
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 
 error$message
 ## [1] "unusual error"
@@ -318,7 +318,7 @@ envir &lt;-<span class="st"> </span><span class="kw">new.env</span>(<span class=
 myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">out =</span> <span class="kw">f</span>(<span class="dv">1</span>:<span class="dv">3</span>))
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(myplan, <span class="dt">envir =</span> envir)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## connect 2 imports: f, g
 ## connect 1 target: out
 ## check 1 item: g
@@ -337,7 +337,7 @@ envir$out
 ## [1] 3 4 5
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(out)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## [1] 3 4 5</code></pre></div>
 </div>
 <div id="refresh-the-drake_config-list-early-and-often-" class="section level2">
@@ -395,7 +395,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(multis
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(f)
 ## [1] "digest::digest"  "file_dependency" "get"             "globalenv"
 
-command &lt;-<span class="st"> "x &lt;- digest::digest(file_input(</span><span class="ch">\"</span><span class="st">input_file.rds</span><span class="ch">\"</span><span class="st">)); assign(</span><span class="ch">\"</span><span class="st">x</span><span class="ch">\"</span><span class="st">, 1); x"</span>
+command &lt;-<span class="st"> "x &lt;- digest::digest(file_in(</span><span class="ch">\"</span><span class="st">input_file.rds</span><span class="ch">\"</span><span class="st">)); assign(</span><span class="ch">\"</span><span class="st">x</span><span class="ch">\"</span><span class="st">, 1); x"</span>
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(command)
 ## [1] "assign"             "digest::digest"     "\"input_file.rds\""</code></pre></div>
 <p><code>Drake</code> takes special precautions so that a target/import does not depend on itself. For example, <code><a href="../reference/deps.html">deps(f)</a></code> might return <code>"f"</code> if <code>f()</code> is a recursive function, but <code><a href="../reference/make.html">make()</a></code> just ignores this conflict and runs as expected. In other words, <code><a href="../reference/make.html">make()</a></code> automatically removes all self-referential loops in the dependency network.</p>
@@ -403,29 +403,29 @@ command &lt;-<span class="st"> "x &lt;- digest::digest(file_input(</span><span c
 <div id="dependencies-of-knitr-reports" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dependencies-of-knitr-reports" class="anchor"></a>Dependencies of <code>knitr</code> reports</h2>
-<p>If you have <code>knitr</code> reports, you can use <code>knitr_report()</code> in your commands so that your reports are refreshed every time one of their dependencies changes. See <code><a href="../reference/drake_example.html">drake_example("basic")</a></code> and the <code>?knitr_input()</code> help file examples for demonstrations. Dependencies are detected if you call <code><a href="../reference/loadd.html">loadd()</a></code> or <code><a href="../reference/readd.html">readd()</a></code> in your code chunks. But beware: an empty call to <code><a href="../reference/loadd.html">loadd()</a></code> does not account for any dependencies even though it loads all the available targets into your R session.</p>
+<p>If you have <code>knitr</code> reports, you can use <code>knitr_report()</code> in your commands so that your reports are refreshed every time one of their dependencies changes. See <code><a href="../reference/drake_example.html">drake_example("basic")</a></code> and the <code>?knitr_in()</code> help file examples for demonstrations. Dependencies are detected if you call <code><a href="../reference/loadd.html">loadd()</a></code> or <code><a href="../reference/readd.html">readd()</a></code> in your code chunks. But beware: an empty call to <code><a href="../reference/loadd.html">loadd()</a></code> does not account for any dependencies even though it loads all the available targets into your R session.</p>
 </div>
 <div id="knitr-inputs-and-file-outputs-in-imported-functions-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#knitr-inputs-and-file-outputs-in-imported-functions-" class="anchor"></a>Knitr inputs and file outputs in imported functions.</h2>
-<p>Similarly, <code><a href="../reference/file_output.html">file_output()</a></code> in a command tells <code>drake</code> that the result of a command is an output file. Clearly, this is inapproariate for imported functions, but <code>drake</code> will look anyway. Do not try to use <code><a href="../reference/file_output.html">file_output()</a></code> or <code><a href="../reference/knitr_input.html">knitr_input()</a></code> inside your custom imported functions. <code>Drake</code> only pays attention to them in proper commands in your workflow plan data frame. However, <code><a href="../reference/file_input.html">file_input()</a></code> is perfectly fine if your imported function needs a file in order to run. Here are some examples.</p>
+<p>Similarly, <code><a href="../reference/file_out.html">file_out()</a></code> in a command tells <code>drake</code> that the result of a command is an output file. Clearly, this is inapproariate for imported functions, but <code>drake</code> will look anyway. Do not try to use <code><a href="../reference/file_out.html">file_out()</a></code> or <code><a href="../reference/knitr_in.html">knitr_in()</a></code> inside your custom imported functions. <code>Drake</code> only pays attention to them in proper commands in your workflow plan data frame. However, <code><a href="../reference/file_in.html">file_in()</a></code> is perfectly fine if your imported function needs a file in order to run. Here are some examples.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># toally_fine() will depend on the imported data.csv file.</span>
 <span class="co"># But make sure data.csv is an imported file and not a file target.</span>
 totally_okay &lt;-<span class="st"> </span>function(x, y, z){
-  <span class="kw">read.csv</span>(<span class="kw"><a href="../reference/file_input.html">file_input</a></span>(<span class="st">"data.csv"</span>))
+  <span class="kw">read.csv</span>(<span class="kw"><a href="../reference/file_in.html">file_in</a></span>(<span class="st">"data.csv"</span>))
 }
 
-<span class="co"># file_output() is for file targets, so `drake` will ignore it.</span>
+<span class="co"># file_out() is for file targets, so `drake` will ignore it.</span>
 avoid_this &lt;-<span class="st"> </span>function(x, y, z){
-  <span class="kw">read.csv</span>(<span class="kw"><a href="../reference/file_output.html">file_output</a></span>(<span class="st">"data.csv"</span>))
+  <span class="kw">read.csv</span>(<span class="kw"><a href="../reference/file_out.html">file_out</a></span>(<span class="st">"data.csv"</span>))
 }
 
-<span class="co"># knitr_input() is for knitr files with dependencies</span>
+<span class="co"># knitr_in() is for knitr files with dependencies</span>
 <span class="co"># in their active code chunks (explicitly referenced with loadd() and readd().</span>
-<span class="co"># Drake just treats knitr_input() as an ordinary file input in this case.</span>
-<span class="co"># You should really be using file_input() instead.</span>
+<span class="co"># Drake just treats knitr_in() as an ordinary file input in this case.</span>
+<span class="co"># You should really be using file_in() instead.</span>
 avoid_this &lt;-<span class="st"> </span>function(x, y, z){
-  <span class="kw">read.csv</span>(<span class="kw"><a href="../reference/knitr_input.html">knitr_input</a></span>(<span class="st">"report.Rmd"</span>))
+  <span class="kw">read.csv</span>(<span class="kw"><a href="../reference/knitr_in.html">knitr_in</a></span>(<span class="st">"report.Rmd"</span>))
 }</code></pre></div>
 </div>
 <div id="functions-produced-by-vectorize" class="section level2">
@@ -449,7 +449,7 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
 <div id="directories-folders-are-not-reproducibly-tracked-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#directories-folders-are-not-reproducibly-tracked-" class="anchor"></a>Directories (folders) are not reproducibly tracked.</h2>
-<p>In your workflow plan, you can use <code><a href="../reference/file_input.html">file_input()</a></code>, <code><a href="../reference/file_output.html">file_output()</a></code>, and <code><a href="../reference/knitr_input.html">knitr_input()</a></code> to assert that some targets/imports are external files. However, entire directories (i.e. folders) cannot be reproducibly tracked this way. Please see <a href="https://github.com/ropensci/drake/issues/12">issue 12</a> for a discussion.</p>
+<p>In your workflow plan, you can use <code><a href="../reference/file_in.html">file_in()</a></code>, <code><a href="../reference/file_out.html">file_out()</a></code>, and <code><a href="../reference/knitr_in.html">knitr_in()</a></code> to assert that some targets/imports are external files. However, entire directories (i.e. folders) cannot be reproducibly tracked this way. Please see <a href="https://github.com/ropensci/drake/issues/12">issue 12</a> for a discussion.</p>
 </div>
 <div id="packages-are-not-tracked-as-dependencies-" class="section level2">
 <h2 class="hasAnchor">
@@ -555,7 +555,7 @@ keys/config/c2VlZA (Sandy Sum's conflicted copy 2018-01-31)
 <div id="cache-customization-is-limited" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cache-customization-is-limited" class="anchor"></a>Cache customization is limited</h2>
-<p>The <a href="https://github.com/ropensci/drake/blob/master/vignettes/storage.Rmd">storage vignette</a> describes how storage works in <code>drake</code>. As explained near the end of that vignette, you can plug custom <a href="https://github.com/richfitz/storr">storr</a> caches into <code><a href="../reference/make.html">make()</a></code>. However, non-RDS caches such as <code>storr_dbi()</code> may not work with parallel computing. In addition, please do not try to change the short hash algorithm of an existing cache.</p>
+<p>The <a href="https://github.com/ropensci/drake/blob/master/vignettes/storage.Rmd">storage vignette</a> describes how storage works in <code>drake</code>. As explained near the end of that vignette, you can plug custom <a href="https://github.com/richfitz/storr">storr</a> caches into <code><a href="../reference/make.html">make()</a></code>. However, non-RDS caches such as <code>storr_dbi()</code> may not work with most forms of parallel computing. The <code><a href="http://www.rdocumentation.org/packages/storr/topics/storr_dbi">storr::storr_dbi()</a></code> cache and many others are not threadsafe. Either use no parallel computing at all or set <code>parallelism = "future"</code> with <code>caching = "master"</code>. The <code>"future"</code> backend is currently experimental, but it allows the master process to do all the caching in order to avoid race conditions.</p>
 </div>
 <div id="runtime-predictions" class="section level2">
 <h2 class="hasAnchor">

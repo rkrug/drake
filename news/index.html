@@ -134,17 +134,18 @@
 <h1 class="hasAnchor">
 <a href="#version-5-1-0" class="anchor"></a>Version 5.1.0</h1>
 <ul>
+<li>Implement <code>dplyr</code>-style <code>tidyselect</code> functionality in <code><a href="../reference/loadd.html">loadd()</a></code>, <code><a href="../reference/clean.html">clean()</a></code>, and <code><a href="../reference/build_times.html">build_times()</a></code>. For <code><a href="../reference/build_times.html">build_times()</a></code>, there is an API change: for <code>tidyselect</code> to work, we needed to insert a new <code>...</code> argument as the first argument of <code><a href="../reference/build_times.html">build_times()</a></code>.</li>
 <li>Deprecate the single-quoting API for files. Users should now use
 <ul>
 <li>
-<code><a href="../reference/file_input.html">file_input()</a></code> for file inputs to commands or imported functions (for imported functions, the input file needs to be an imported file, not a target).</li>
+<code><a href="../reference/file_in.html">file_in()</a></code> for file inputs to commands or imported functions (for imported functions, the input file needs to be an imported file, not a target).</li>
 <li>
-<code><a href="../reference/file_output.html">file_output()</a></code> for output file targets (ignored if used in imported functions).</li>
+<code><a href="../reference/file_out.html">file_out()</a></code> for output file targets (ignored if used in imported functions).</li>
 <li>
-<code><a href="../reference/knitr_input.html">knitr_input()</a></code> for <code>knitr</code>/<code>rmarkdown</code> reports. This tells <code>drake</code> to look inside the source file for target dependencies in code chunks (explicitly referenced with <code><a href="../reference/loadd.html">loadd()</a></code> and <code><a href="../reference/readd.html">readd()</a></code>). Treated as a <code><a href="../reference/file_input.html">file_input()</a></code> if used in imported functions.</li>
+<code><a href="../reference/knitr_in.html">knitr_in()</a></code> for <code>knitr</code>/<code>rmarkdown</code> reports. This tells <code>drake</code> to look inside the source file for target dependencies in code chunks (explicitly referenced with <code><a href="../reference/loadd.html">loadd()</a></code> and <code><a href="../reference/readd.html">readd()</a></code>). Treated as a <code><a href="../reference/file_in.html">file_in()</a></code> if used in imported functions.</li>
 </ul>
 </li>
-<li>Change <code><a href="../reference/drake_plan.html">drake_plan()</a></code> so that it automatically fills in any target names that the user does not supply. Also, any <code>file_outputs()</code> become the target names automatically (double-quoted internally).</li>
+<li>Change <code><a href="../reference/drake_plan.html">drake_plan()</a></code> so that it automatically fills in any target names that the user does not supply. Also, any <code><a href="../reference/file_out.html">file_out()</a></code>s become the target names automatically (double-quoted internally).</li>
 <li>Make <code><a href="../reference/read_drake_plan.html">read_drake_plan()</a></code> (rather than an empty <code><a href="../reference/drake_plan.html">drake_plan()</a></code>) the default <code>plan</code> argument in all functions that accept a <code>plan</code>.</li>
 <li>Add support for active bindings: <code><a href="../reference/loadd.html">loadd(..., lazy = "bind")</a></code>. That way, when you have a target loaded in one R session and hit <code><a href="../reference/make.html">make()</a></code> in another R session, the target in your first session will automatically update.</li>
 <li>Use tibbles for workflow plan data frames and the output of <code><a href="../reference/dataframes_graph.html">dataframes_graph()</a></code>.</li>

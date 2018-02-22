@@ -106,7 +106,7 @@
             <h3 class="subtitle">where to begin</h3>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-19</h4>
+            <h4 class="date">2018-02-22</h4>
           </div>
 
     
@@ -159,7 +159,7 @@
 ## # A tibble: 15 x 2
 ##    target                 command                                         
 ##    &lt;chr&gt;                  &lt;chr&gt;                                           
-##  1 ""                     "knit(knitr_input(\"report.Rmd\"), file_output(…
+##  1 ""                     "knit(knitr_in(\"report.Rmd\"), file_out(\"repo…
 ##  2 small                  simulate(48)                                    
 ##  3 large                  simulate(64)                                    
 ##  4 regression1_small      reg1(small)                                     
@@ -267,10 +267,10 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## connect 11 imports: my_variable, analysis_plan, simulate, reg1, config, ...
-## connect 15 targets: "report.md", small, large, regression1_small, regres...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, "report.Rmd", sample....
+## connect 15 targets: file "report.md", small, large, regression1_small, r...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
@@ -290,31 +290,31 @@ whole_plan
 ## target summ_regression1_small
 ## target summ_regression2_large
 ## target summ_regression2_small
-## check 1 item: "report.md"
+## check 1 item: file "report.md"
 ## unload 11 items: regression1_small, regression1_large, regression2_small...
-## target "report.md"</code></pre></div>
+## target file "report.md"</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ##              Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) 27.504915 1.02496426 26.835000 9.676340e-30
 ## x2          -0.708536 0.08285938 -8.551066 4.617125e-11</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
 ##   coef_regression2_small
 ## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
-## connect 15 targets: "report.md", small, large, regression1_small, regres...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, "report.Rmd", sample....
+## connect 15 targets: file "report.md", small, large, regression1_small, r...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
 ## check 4 items: regression1_large, regression1_small, regression2_large, ...
 ## check 8 items: coef_regression1_large, coef_regression1_small, coef_regr...
-## check 1 item: "report.md"
+## check 1 item: file "report.md"
 ## All targets are already up to date.</code></pre></div>
 <p>But a nontrivial change in <code>reg2()</code> triggers updates to all the affected downstream targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg2 &lt;-<span class="st"> </span>function(d){
@@ -323,10 +323,10 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmptMp029/articles/.drake
+## cache /tmp/RtmpXoreGK/articles/.drake
 ## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
-## connect 15 targets: "report.md", small, large, regression1_small, regres...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, "report.Rmd", sample....
+## connect 15 targets: file "report.md", small, large, regression1_small, r...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
@@ -340,9 +340,9 @@ whole_plan
 ## target coef_regression2_small
 ## target summ_regression2_large
 ## target summ_regression2_small
-## check 1 item: "report.md"
+## check 1 item: file "report.md"
 ## unload 5 items: regression2_small, regression2_large, summ_regression2_s...
-## target "report.md"</code></pre></div>
+## target file "report.md"</code></pre></div>
 </div>
 <div id="built-in-example-projects" class="section level1">
 <h1 class="hasAnchor">

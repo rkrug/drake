@@ -174,7 +174,7 @@
 
 <span class="co"># The real work is outlined step-by-step in the `my_plan` data frame.</span>
 <span class="co"># The steps are called "targets", and they depend on the imports.</span>
-<span class="co"># File targets have the names in `file_output()`, and the non-file</span>
+<span class="co"># File targets have the names in `file_out()`, and the non-file</span>
 <span class="co"># targets have the names in the `target` column of the data frame.</span>
 <span class="co"># Drake's `make()` function runs the commands to build the targets</span>
 <span class="co"># in the correct order.</span>
@@ -183,7 +183,7 @@
 ## # A tibble: 6 x 2
 ##   target            command                                                                      
 ##   &lt;chr&gt;             &lt;chr&gt;                                                                        
-## 1 ""                "knit(knitr_input(\"report.Rmd\"), file_output(\"report.md\"), quiet = TRUE)"
+## 1 ""                "knit(knitr_in(\"report.Rmd\"), file_out(\"report.md\"), quiet = TRUE)"
 ## 2 small             simulate(48)                                                                 
 ## 3 large             simulate(64)                                                                 
 ## 4 regression1_small reg1(small)                                                                  
@@ -378,7 +378,8 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <a href="#help-and-troubleshooting" class="anchor"></a>Help and troubleshooting</h1>
 <p>The following resources document many known issues and challenges.</p>
 <ul>
-<li>Frequently-asked questions: <a href="https://github.com/ropensci/drake/wiki/Frequently-Asked-Questions">wiki</a> and <a href="https://github.com/ropensci/drake/issues?q=is%3Aissue+is%3Aopen+label%3A%22Frequently+Asked+Question%22">issues</a>.</li>
+<li>
+<a href="https://github.com/ropensci/drake/issues?q=is%3Aissue+is%3Aopen+label%3A%22Frequently+Asked+Question%22">Frequently-asked questions</a>.</li>
 <li><a href="https://ropensci.github.io/drake/articles/caution.html">Cautionary notes and edge cases</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/debug.html">Debugging and testing drake projects</a></li>
 <li>

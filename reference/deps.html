@@ -185,13 +185,12 @@ network.</p>
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span> + <span class='no'>some_object</span>,
   <span class='kw'>my_target</span> <span class='kw'>=</span> <span class='no'>x</span> + <span class='fu'>readRDS</span>(<span class='st'>'tracked_input_file.rds'</span>),
   <span class='kw'>return_value</span> <span class='kw'>=</span> <span class='fu'>f</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='fu'>g</span>(<span class='no'>z</span> + <span class='no'>w</span>))
-)
-<span class='co'># Get the dependencies of workflow plan commands.</span>
+)</div><div class='output co'>#&gt; <span class='warning'>Warning: Converting double-quotes to single-quotes because the `strings_in_dots` argument is missing. Use the file_in(), file_out(), and knitr_in() functions to work with files in your commands, and pass `strings_in_dots = "literals"` to remove this warning.</span></div><div class='input'><span class='co'># Get the dependencies of workflow plan commands.</span>
 <span class='co'># Here, the dependencies could be R functions/objects from your workspace</span>
 <span class='co'># or packages, imported files, or other targets in the workflow plan.</span>
 <span class='fu'>deps</span>(<span class='no'>my_plan</span>$<span class='no'>command</span>[<span class='fl'>1</span>])</div><div class='output co'>#&gt; [1] "some_object"</div><div class='input'><span class='fu'>deps</span>(<span class='no'>my_plan</span>$<span class='no'>command</span>[<span class='fl'>2</span>])</div><div class='output co'>#&gt; <span class='warning'>Warning: Files in a command declared with single-quotes:</span>
 #&gt; <span class='warning'>  tracked_input_file.rds</span>
-#&gt; <span class='warning'>The way to declare files in drake is changing. Use file_input(), file_output(), and knitr_input() in your commands. See `?drake_plan` for examples.</span></div><div class='output co'>#&gt; [1] "readRDS"                    "\"tracked_input_file.rds\""
+#&gt; <span class='warning'>The way to declare files in drake is deprecated. Use file_in(), file_out(), and knitr_in() in your commands. See `?drake_plan` for examples.</span></div><div class='output co'>#&gt; [1] "readRDS"                    "\"tracked_input_file.rds\""
 #&gt; [3] "x"                         </div><div class='input'><span class='fu'>deps</span>(<span class='no'>my_plan</span>$<span class='no'>command</span>[<span class='fl'>3</span>])</div><div class='output co'>#&gt; [1] "f" "g" "w" "x" "y" "z"</div><span class='co'># NOT RUN {</span>
 <span class='fu'><a href='test_with_dir.html'>test_with_dir</a></span>(<span class='st'>"Quarantine side effects."</span>, {
 <span class='fu'><a href='load_basic_example.html'>load_basic_example</a></span>() <span class='co'># Get the code with drake_example("basic").</span>

@@ -148,9 +148,9 @@ imported_only is <code>TRUE</code>).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>targets to load from the cache, as names (unquoted)
-or character strings (quoted). Similar to <code>...</code> in
-<code>remove(...)</code>.</p></td>
+      <td><p>targets to load from the cache: as names (symbols),
+character strings, or <code>dplyr</code>-style <code>tidyselect</code>
+commands such as <code><a href='http://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>starts_with()</a></code>.</p></td>
     </tr>
     <tr>
       <th>list</th>
@@ -265,13 +265,20 @@ will not be replaced.</p></td>
 <span class='co'># For many targets, you can parallelize loadd()</span>
 <span class='co'># using the 'jobs' argument.</span>
 <span class='fu'>loadd</span>(<span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"small"</span>, <span class='st'>"large"</span>), <span class='kw'>jobs</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='fu'>ls</span>()
+<span class='co'># How about tidyselect?</span>
+<span class='fu'>loadd</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/tidyselect/topics/select_helpers'>starts_with</a></span>(<span class='st'>"summ"</span>))
+<span class='fu'>ls</span>()
 <span class='co'># Load the dependencies of the target, coef_regression2_small</span>
 <span class='fu'>loadd</span>(<span class='no'>coef_regression2_small</span>, <span class='kw'>deps</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>ls</span>()
 <span class='co'># Load all the imported objects/functions.</span>
 <span class='fu'>loadd</span>(<span class='kw'>imported_only</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>ls</span>()
 <span class='co'># Load everything, including built targets.</span>
 <span class='co'># Be sure your computer has enough memory.</span>
 <span class='fu'>loadd</span>()
+<span class='fu'>ls</span>()
 })
 <span class='co'># }</span></pre>
   </div>

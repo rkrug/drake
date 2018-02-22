@@ -156,8 +156,8 @@ with names as targets.</p></td>
     </tr>
     <tr>
       <th>file_targets</th>
-      <td><p>deprecated argument. See <code><a href='file_output.html'>file_output()</a></code>,
-<code><a href='file_input.html'>file_input()</a></code>, and <code><a href='knitr_input.html'>knitr_input()</a></code> for the new way to work
+      <td><p>deprecated argument. See <code><a href='file_out.html'>file_out()</a></code>,
+<code><a href='file_in.html'>file_in()</a></code>, and <code><a href='knitr_in.html'>knitr_in()</a></code> for the current way to work
 with files.
 In the past, this argument was a logical to indicate whether the
 target names should be single-quoted to denote files. But the newer
@@ -165,12 +165,11 @@ interface is much better.</p></td>
     </tr>
     <tr>
       <th>strings_in_dots</th>
-      <td><p>deprecated argument. See <code><a href='file_output.html'>file_output()</a></code>,
-<code><a href='file_input.html'>file_input()</a></code>, and <code><a href='knitr_input.html'>knitr_input()</a></code> for the new way to work
-with files.
-In the past, this argument was a logical to indicate whether the
-target names should be single-quoted to denote files. But the newer
-interface is much better.</p>
+      <td><p>deprecated argument for handling strings in
+commands specified in the <code>...</code> argument. Defaults to <code>NULL</code> for backward
+compatibility. New code should use <code><a href='file_out.html'>file_out()</a></code>, <code><a href='file_in.html'>file_in()</a></code>, and
+<code><a href='knitr_in.html'>knitr_in()</a></code> to specify file names and set this argument to <code>"literals"</code>,
+which will at some point become the only accepted value.</p>
 <p>In the past, this argument was a character scalar denoting
 how to treat quoted character strings in the commands
 specified through <code>...</code>.
@@ -204,8 +203,8 @@ with a <code>target</code> column and a <code>command</code> column.
 Targets are the objects and files that drake generates,
 and commands are the pieces of R code that produce them.</p>
 <p>To use custom files in your workflow plan,
-use the <code><a href='file_input.html'>file_input()</a></code>, <code><a href='knitr_input.html'>knitr_input()</a></code>, and
-<code><a href='file_output.html'>file_output()</a></code> functions in your commands.
+use the <code><a href='file_in.html'>file_in()</a></code>, <code><a href='knitr_in.html'>knitr_in()</a></code>, and
+<code><a href='file_out.html'>file_out()</a></code> functions in your commands.
 the examples in this help file provide some guidance.</p>
     
 
@@ -213,8 +212,9 @@ the examples in this help file provide some guidance.</p>
     <pre class="examples"><div class='input'><span class='fu'><a href='test_with_dir.html'>test_with_dir</a></span>(<span class='st'>"Contain side effects"</span>, {
 <span class='co'># Create workflow plan data frames.</span>
 <span class='no'>mtcars_plan</span> <span class='kw'>&lt;-</span> <span class='fu'>drake_plan</span>(
-  <span class='fu'>write.csv</span>(<span class='no'>mtcars</span>[, <span class='fu'>c</span>(<span class='st'>"mpg"</span>, <span class='st'>"cyl"</span>)], <span class='fu'><a href='file_output.html'>file_output</a></span>(<span class='st'>"mtcars.csv"</span>)),
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>read.csv</span>(<span class='fu'><a href='file_input.html'>file_input</a></span>(<span class='st'>"mtcars.csv"</span>))
+  <span class='fu'>write.csv</span>(<span class='no'>mtcars</span>[, <span class='fu'>c</span>(<span class='st'>"mpg"</span>, <span class='st'>"cyl"</span>)], <span class='fu'><a href='file_out.html'>file_out</a></span>(<span class='st'>"mtcars.csv"</span>)),
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>read.csv</span>(<span class='fu'><a href='file_in.html'>file_in</a></span>(<span class='st'>"mtcars.csv"</span>)),
+  <span class='kw'>strings_in_dots</span> <span class='kw'>=</span> <span class='st'>"literals"</span>
 )
 <span class='no'>mtcars_plan</span>
 <span class='fu'><a href='make.html'>make</a></span>(<span class='no'>mtcars_plan</span>) <span class='co'># Makes `mtcars.csv` and then `value`</span>
@@ -222,7 +222,7 @@ the examples in this help file provide some guidance.</p>
 <span class='co'># You can use knitr inputs too. See the top command below.</span>
 <span class='fu'><a href='load_basic_example.html'>load_basic_example</a></span>()
 <span class='fu'>head</span>(<span class='no'>my_plan</span>)
-<span class='co'># The `knitr_input("report.Rmd")` tells `drake` to dive into the active</span>
+<span class='co'># The `knitr_in("report.Rmd")` tells `drake` to dive into the active</span>
 <span class='co'># code chunks to find dependencies.</span>
 <span class='co'># There, `drake` sees that `small`, `large`, and `coef_regression2_small`</span>
 <span class='co'># are loaded in with calls to `loadd()` and `readd()`.</span>

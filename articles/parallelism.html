@@ -105,7 +105,7 @@
       <h1>High-performance computing with drake</h1>
                         <h4 class="author">William Michael Landau</h4>
             
-            <h4 class="date">2018-02-19</h4>
+            <h4 class="date">2018-02-22</h4>
           </div>
 
     
@@ -214,10 +214,11 @@ reg2 &lt;-<span class="st"> </span>function(d){
 <a href="#parallel-backends" class="anchor"></a>Parallel backends</h1>
 <p><code>Drake</code> has multiple parallel backends, i.e. separate mechanisms for achieving parallelism. Some are low-overhead and limited, others are high-overhead and scalable. Just set the <code>parallelism</code> argument of <code>Make</code> to choose a backend. The best choice usually depends on your project’s intended scale and stage of deployment.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/parallelism_choices.html">parallelism_choices</a></span>()
-## [1] "parLapply"     "mclapply"      "Makefile"      "future_lapply"
+## [1] "mclapply"      "parLapply"     "future"        "future_lapply"
+## [5] "Makefile"
 
 <span class="kw"><a href="../reference/parallelism_choices.html">parallelism_choices</a></span>(<span class="dt">distributed_only =</span> <span class="ot">TRUE</span>)
-## [1] "Makefile"      "future_lapply"</code></pre></div>
+## [1] "future"        "future_lapply" "Makefile"</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?parallelism_choices  <span class="co"># Read an explanation of each backend.</span>
 <span class="kw"><a href="../reference/default_parallelism.html">default_parallelism</a></span>() <span class="co"># "parLapply" on Windows, "mclapply" everywhere else</span>
 ## [1] "mclapply"</code></pre></div>
@@ -303,6 +304,26 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 <span class="kw"><a href="../reference/drake_batchtools_tmpl_file.html">drake_batchtools_tmpl_file</a></span>(<span class="st">"slurm"</span>) <span class="co"># Writes batchtools.slurm.tmpl</span></code></pre></div>
 <p>Be sure to heed the previously-mentioned cautionary note about deploying too many jobs at once. In <code>"future_lapply"</code> parallelism, the <code>jobs</code> argument applies to the imports, but not the targets. Functions passed to <code><a href="http://www.rdocumentation.org/packages/future/topics/plan">future::plan()</a></code> such as <code>mulitisession()</code> and <code><a href="http://www.rdocumentation.org/packages/future.batchtools/topics/batchtools_template">batchtools_slurm()</a></code> usually have a <code>workers</code> arguments for this purpose. Depending on the <code>future</code> backend you select with <code><a href="http://www.rdocumentation.org/packages/future/topics/plan">future::plan()</a></code>, you might also make use of one of the other environment variables listed in <code><a href="http://www.rdocumentation.org/packages/future/topics/future.options">?future::future.options</a></code>.</p>
 </div>
+<div id="future" class="section level2">
+<h2 class="hasAnchor">
+<a href="#future" class="anchor"></a>future</h2>
+<p>The <code>future</code> backend is experimental and needs more real-world testing. It is similar to <code>future_lapply</code> except that individual futures are launched and managed using a manual job scheduler. Jobs are submitted as soon as workers become available, which overcomes an inefficiency of the usual staged parallelism. And with the optional <code>evaluator</code> column of the workflow plan data frame, you can use different computing resources for different targets. (See the <code>evaluator</code> argument of <code><a href="http://www.rdocumentation.org/packages/future/topics/future">future()</a></code>.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(future)
+<span class="kw">library</span>(drake)
+<span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>()
+remote &lt;-<span class="st"> </span>future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(multisession)
+local &lt;-<span class="st"> </span>future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(multicore)
+evaluator &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="co"># Make the targets with the multisession future backend...</span>
+for (i in <span class="kw">seq_len</span>(<span class="kw">nrow</span>(my_plan))){
+  evaluator &lt;-<span class="st"> </span><span class="kw">c</span>(evaluator, remote)
+}
+<span class="co"># ...except for the R Markdown report.</span>
+evaluator[[<span class="dv">1</span>]] &lt;-<span class="st"> </span>local
+my_plan$evaluator &lt;-<span class="st"> </span>evaluator
+<span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"future"</span>, <span class="dt">jobs =</span> <span class="dv">8</span>)</code></pre></div>
+<p>In addition, you can set the <code>caching</code> argument to control when the values of the targets are cached: <code>"worker"</code> for the individual workers (default) and <code>"master"</code> for the master process. If you let the workers do the caching, you can take advantage of parallelism when targets are stored. On the other hand, <code>"master"</code> is a better option if workers do not have cache access or you are using a custom cache that is not threadsafe (e.g. <code><a href="http://www.rdocumentation.org/packages/storr/topics/storr_dbi">storr::storr_dbi()</a></code>.</p>
+</div>
 <div id="makefile" class="section level2">
 <h2 class="hasAnchor">
 <a href="#makefile" class="anchor"></a>Makefile</h2>
@@ -339,7 +360,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 <p>But be warned: that particular recipe fails on Windows.</p>
 <p>Use the <code><a href="../reference/Makefile_recipe.html">Makefile_recipe()</a></code> function to show and tweak <code>Makefile</code> recipes in advance.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>()
-## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmptMp029/articles/.drake")'
+## Rscript -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpXoreGK/articles/.drake")'
 
 <span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(
   <span class="dt">recipe_command =</span> <span class="st">"R -e 'R_RECIPE' -q"</span>,
@@ -349,7 +370,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(
 ## R -e 'drake::mk(target = "this_target", cache_path = "custom_cache")' -q</code></pre></div>
 <p>If <code>recipe_command</code> contains no mention of <code>R_RECIPE</code>, then <code>R_RECIPE</code> is single-quoted and appended automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Makefile_recipe.html">Makefile_recipe</a></span>(<span class="dt">recipe_command =</span> <span class="st">"R -q -e"</span>)
-## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmptMp029/articles/.drake")'</code></pre></div>
+## R -q -e 'drake::mk(target = "your_target", cache_path = "/tmp/RtmpXoreGK/articles/.drake")'</code></pre></div>
 <p>Try each of the following and look at the generated <code>Makefile</code> after each call to <code><a href="../reference/make.html">make()</a></code>. To see the recipes printed to the console, run <code><a href="../reference/clean.html">clean()</a></code> between each <code><a href="../reference/make.html">make()</a></code> and leave <code>verbose</code> equal to <code>TRUE</code> (default).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>)
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"Makefile"</span>, <span class="dt">jobs =</span> <span class="dv">4</span>,
@@ -455,6 +476,7 @@ echo "module load R; $*" | qsub -sync y -cwd -j y
 <li><a href="#mclapply">mclapply</a></li>
       <li><a href="#parlapply">parLapply</a></li>
       <li><a href="#future_lapply">future_lapply</a></li>
+      <li><a href="#future">future</a></li>
       <li><a href="#makefile">Makefile</a></li>
       </ul>
 </li>
