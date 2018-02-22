@@ -112,7 +112,7 @@
     
     
 <div class="contents">
-<p><img src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
+<p><img src="https://cdn.rawgit.com/ropensci/drake/ddefa828/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
 <p>This tutorial is a recommended starting place for learning how to use <code>drake</code>. It is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/example-basic.Rmd">basic example vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/example-basic.html">rendered online version of the basic example vignette</a>.</p>
 <div id="get-the-code-" class="section level1">
 <h1 class="hasAnchor">
@@ -252,7 +252,7 @@ whole_plan
 <p>For instances of <code>!!</code> that remain in the workflow plan, <code><a href="../reference/make.html">make()</a></code> will run these commands in tidy fashion, evaluating the <code>!!</code> operator using the environment you provided.</p>
 <p>Using static code analysis, <code>drake</code> detects the dependencies of all your targets. The result is an interactive network diagram.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(my_plan)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/e87f05ad/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/ddefa828/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>At this point, all your targets are out of date because the project is new.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Master configuration list</span>
@@ -267,7 +267,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## connect 11 imports: my_variable, analysis_plan, simulate, reg1, config, ...
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
@@ -295,13 +295,13 @@ whole_plan
 ## target file "report.md"</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ##              Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) 27.504915 1.02496426 26.835000 9.676340e-30
 ## x2          -0.708536 0.08285938 -8.551066 4.617125e-11</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
@@ -323,7 +323,7 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...

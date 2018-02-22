@@ -182,7 +182,7 @@ my_plan
 ## 1 little_b "\"b\""   
 ## 2 letter   !!little_b
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## connect 1 import: my_plan
 ## connect 2 targets: little_b, letter
 ## Loading required package: methods
@@ -191,7 +191,7 @@ my_plan
 ## check 1 item: letter
 ## target letter
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(letter)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## [1] "b"</code></pre></div>
 <p>For the commands you specify the free-form <code>...</code> argument, <code><a href="../reference/drake_plan.html">drake_plan()</a></code> also supports tidy evaluation. For example, it supports quasiquotation with the <code>!!</code> argument. Use <code>tidy_evaluation = FALSE</code> or the <code>list</code> argument to suppress this behavior.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">5</span>
@@ -228,7 +228,7 @@ my_plan
 <p>When <code><a href="../reference/make.html">make()</a></code> fails, use <code><a href="../reference/failed.html">failed()</a></code> and <code><a href="../reference/diagnose.html">diagnose()</a></code> to debug. Try the following out yourself.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Targets with available diagnostic metadata, incluing errors, warnings, etc.</span>
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>()
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## [1] "letter"   "little_b"
 
 f &lt;-<span class="st"> </span>function(){
@@ -241,7 +241,7 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## connect 6 imports: my_variable, letter, f, little_b, my_plan, bad_plan
 ## connect 1 target: target
 ## check 1 item: stop
@@ -253,11 +253,11 @@ withr::<span class="kw">with_message_sink</span>(
 ## Warning: No message sink to remove.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>() <span class="co"># From the last make() only</span>
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## [1] "target"
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(target)$error <span class="co"># See also warnings and messages.</span>
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 
 error$message
 ## [1] "unusual error"
@@ -318,7 +318,7 @@ envir &lt;-<span class="st"> </span><span class="kw">new.env</span>(<span class=
 myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">out =</span> <span class="kw">f</span>(<span class="dv">1</span>:<span class="dv">3</span>))
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(myplan, <span class="dt">envir =</span> envir)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## connect 2 imports: f, g
 ## connect 1 target: out
 ## check 1 item: g
@@ -337,7 +337,7 @@ envir$out
 ## [1] 3 4 5
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(out)
-## cache /tmp/RtmpXoreGK/articles/.drake
+## cache /tmp/RtmpExwafh/articles/.drake
 ## [1] 3 4 5</code></pre></div>
 </div>
 <div id="refresh-the-drake_config-list-early-and-often-" class="section level2">
