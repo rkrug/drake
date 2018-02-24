@@ -40,6 +40,9 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/faq.html">FAQ</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -104,16 +107,16 @@
     <div class="page-header toc-ignore">
       <h1>drake</h1>
             <h3 class="subtitle">where to begin</h3>
-                        <h4 class="author">William Michael Landau</h4>
+                        <h4 class="author">Will Landau</h4>
             
-            <h4 class="date">2018-02-22</h4>
+            <h4 class="date">2018-02-24</h4>
           </div>
 
     
     
 <div class="contents">
 <p><img src="https://cdn.rawgit.com/ropensci/drake/ddefa828/images/infographic.svg" alt="infographic" align="center" style="border: none; float: center;"></p>
-<p>This tutorial is a recommended starting place for learning how to use <code>drake</code>. It is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/example-basic.Rmd">basic example vignette</a>. For more information, see the <a href="https://ropensci.github.io/drake/">documentation website</a>, which includes the <a href="https://ropensci.github.io/drake/articles/example-basic.html">rendered online version of the basic example vignette</a>.</p>
+<p>This tutorial is a recommended starting place for learning how to use <code>drake</code>. It is the abridged version of the <a href="https://github.com/ropensci/drake/blob/master/vignettes/example-basic.Rmd">basic example vignette</a>. See <a href="https://github.com/ropensci/drake/blob/master/README.md#documentation">this section of the README</a> for a high-level overview of the available documentation.</p>
 <div id="get-the-code-" class="section level1">
 <h1 class="hasAnchor">
 <a href="#get-the-code-" class="anchor"></a>Get the code.</h1>
@@ -151,9 +154,9 @@
 ##  [1] "best-practices_files" "best-practices.html"  "best-practices.Rmd"  
 ##  [4] "caution.html"         "caution.Rmd"          "debug.html"          
 ##  [7] "debug.Rmd"            "drake.Rmd"            "example-basic.Rmd"   
-## [10] "example-gsp.Rmd"      "example-packages.Rmd" "graph.Rmd"           
-## [13] "parallelism.Rmd"      "report.Rmd"           "storage.Rmd"         
-## [16] "timing.Rmd"</code></pre></div>
+## [10] "example-gsp.Rmd"      "example-packages.Rmd" "faq.Rmd"             
+## [13] "graph.Rmd"            "parallelism.Rmd"      "report.Rmd"          
+## [16] "storage.Rmd"          "timing.Rmd"</code></pre></div>
 <p>Your real work is outlined in a data frame of data analysis steps called “targets”. The targets depend on the imports, and <code>drake</code> will figure out how they are all connected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_plan
 ## # A tibble: 15 x 2
@@ -189,8 +192,8 @@ dataset_plan
 
 analysis_methods &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
   <span class="dt">regression =</span> <span class="kw">regNUMBER</span>(dataset__) <span class="co"># nolint</span>
-) %&gt;%
-<span class="st">  </span><span class="kw"><a href="../reference/evaluate_plan.html">evaluate_plan</a></span>(<span class="dt">wildcard =</span> <span class="st">"NUMBER"</span>, <span class="dt">values =</span> <span class="dv">1</span>:<span class="dv">2</span>)
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="../reference/evaluate_plan.html">evaluate_plan</a></span>(<span class="dt">wildcard =</span> <span class="st">"NUMBER"</span>, <span class="dt">values =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)
 analysis_methods
 ## # A tibble: 2 x 2
 ##   target       command        
@@ -226,8 +229,8 @@ whole_plan
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">5</span>
 
 <span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
-  <span class="dt">a =</span> !!my_variable,
-  <span class="dt">b =</span> !!my_variable +<span class="st"> </span><span class="dv">1</span>,
+  <span class="dt">a =</span> <span class="op">!!</span>my_variable,
+  <span class="dt">b =</span> <span class="op">!!</span>my_variable <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,
   <span class="dt">list =</span> <span class="kw">c</span>(<span class="dt">d =</span> <span class="st">"!!my_variable"</span>)
 )
 ## # A tibble: 3 x 2
@@ -238,8 +241,8 @@ whole_plan
 ## 3 d      !!my_variable
 
 <span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
-  <span class="dt">a =</span> !!my_variable,
-  <span class="dt">b =</span> !!my_variable +<span class="st"> </span><span class="dv">1</span>,
+  <span class="dt">a =</span> <span class="op">!!</span>my_variable,
+  <span class="dt">b =</span> <span class="op">!!</span>my_variable <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,
   <span class="dt">list =</span> <span class="kw">c</span>(<span class="dt">d =</span> <span class="st">"!!my_variable"</span>),
   <span class="dt">tidy_evaluation =</span> <span class="ot">FALSE</span>
 )
@@ -267,7 +270,7 @@ whole_plan
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpkcitkO/articles/.drake
+## cache /tmp/RtmpMUHFVs/articles/.drake
 ## connect 11 imports: my_variable, analysis_plan, simulate, reg1, config, ...
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
@@ -295,13 +298,13 @@ whole_plan
 ## target file "report.md"</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/RtmpkcitkO/articles/.drake
+## cache /tmp/RtmpMUHFVs/articles/.drake
 ##              Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) 27.504915 1.02496426 26.835000 9.676340e-30
 ## x2          -0.708536 0.08285938 -8.551066 4.617125e-11</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpkcitkO/articles/.drake
+## cache /tmp/RtmpMUHFVs/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
@@ -317,13 +320,13 @@ whole_plan
 ## check 1 item: file "report.md"
 ## All targets are already up to date.</code></pre></div>
 <p>But a nontrivial change in <code>reg2()</code> triggers updates to all the affected downstream targets.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg2 &lt;-<span class="st"> </span>function(d){
-  d$x3 &lt;-<span class="st"> </span>d$x ^<span class="st"> </span><span class="dv">3</span>
-  <span class="kw">lm</span>(y ~<span class="st"> </span>x3, <span class="dt">data =</span> d)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reg2 &lt;-<span class="st"> </span><span class="cf">function</span>(d){
+  d<span class="op">$</span>x3 &lt;-<span class="st"> </span>d<span class="op">$</span>x <span class="op">^</span><span class="st"> </span><span class="dv">3</span>
+  <span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data =</span> d)
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpkcitkO/articles/.drake
+## cache /tmp/RtmpMUHFVs/articles/.drake
 ## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 ## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...

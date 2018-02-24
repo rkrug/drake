@@ -63,6 +63,9 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/faq.html">FAQ</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -134,8 +137,10 @@
 <h1 class="hasAnchor">
 <a href="#version-5-1-0" class="anchor"></a>Version 5.1.0</h1>
 <ul>
+<li>Add a <code>.gitignore</code> file containing <code>"*"</code> to the default <code>.drake/</code> cache folder every time <code><a href="../reference/new_cache.html">new_cache()</a></code> is called. This means the cache will not be automatically committed to git. Users need to remove <code>.gitignore</code> file to allow unforced commits, and then subsequent <code><a href="../reference/make.html">make()</a></code>s on the same cache will respect the user’s wishes and not add another <code>.gitignore</code>. this only works for the default cache. Not supported for manual <code>storr</code>s.</li>
+<li>Add a new experimental <code>"future"</code> backend with a manual scheduler.</li>
 <li>Implement <code>dplyr</code>-style <code>tidyselect</code> functionality in <code><a href="../reference/loadd.html">loadd()</a></code>, <code><a href="../reference/clean.html">clean()</a></code>, and <code><a href="../reference/build_times.html">build_times()</a></code>. For <code><a href="../reference/build_times.html">build_times()</a></code>, there is an API change: for <code>tidyselect</code> to work, we needed to insert a new <code>...</code> argument as the first argument of <code><a href="../reference/build_times.html">build_times()</a></code>.</li>
-<li>Deprecate the single-quoting API for files. Users should now use
+<li>Deprecate the single-quoting API for files. Users should now use formal API functions in their commands:
 <ul>
 <li>
 <code><a href="../reference/file_in.html">file_in()</a></code> for file inputs to commands or imported functions (for imported functions, the input file needs to be an imported file, not a target).</li>

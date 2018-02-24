@@ -64,6 +64,9 @@ all the package's nested functions. — expose_imports • drake</title>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/faq.html">FAQ</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -188,7 +191,8 @@ for the idea that makes this function work.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='test_with_dir.html'>test_with_dir</a></span>(<span class='st'>"contain this example's side effects"</span>, {
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'><a href='test_with_dir.html'>test_with_dir</a></span>(<span class='st'>"contain this example's side effects"</span>, {
 <span class='co'># Suppose you have a workflow that uses the `digest()` function,</span>
 <span class='co'># which computes the hash of an object.</span>
 
@@ -238,7 +242,8 @@ for the idea that makes this function work.</p>
   <span class='kw pkg'>digest</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/digest/topics/digest'>digest</a></span>(<span class='no'>x</span>) <span class='co'># Was previously just digest()</span>
 }
 <span class='fu'><a href='tracked.html'>tracked</a></span>(<span class='no'>plan</span>)
-})</div></pre>
+})
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

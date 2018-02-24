@@ -9,6 +9,7 @@ articles:
   example-basic: example-basic.html
   example-gsp: example-gsp.html
   example-packages: example-packages.html
+  faq: faq.html
   graph: graph.html
   parallelism: parallelism.html
   storage: storage.html

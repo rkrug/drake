@@ -40,6 +40,9 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="articles/faq.html">FAQ</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -128,6 +131,7 @@
 <tr class="even">
 <td align="left"><a href="https://zenodo.org/badge/latestdoi/82609103"><img src="https://zenodo.org/badge/82609103.svg" alt="Zenodo"></a></td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -212,9 +216,9 @@
 <span class="co"># If you change the reg2() function,</span>
 <span class="co"># all the regression2 targets are out of date,</span>
 <span class="co"># which in turn affects 'report.md'.</span>
-reg2 &lt;-<span class="st"> </span>function(d){    
-  d$x4 &lt;-<span class="st"> </span>d$x ^<span class="st"> </span><span class="dv">4</span>
-  <span class="kw">lm</span>(y ~<span class="st"> </span>x4, <span class="dt">data =</span> d)
+reg2 &lt;-<span class="st"> </span><span class="cf">function</span>(d){    
+  d<span class="op">$</span>x4 &lt;-<span class="st"> </span>d<span class="op">$</span>x <span class="op">^</span><span class="st"> </span><span class="dv">4</span>
+  <span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x4, <span class="dt">data =</span> d)
 }
 
 <span class="co"># Second round: drake only rebuilds the targets</span>
@@ -281,23 +285,23 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <span class="co"># Scale up to a supercomputer.</span>
 <span class="kw"><a href="reference/drake_batchtools_tmpl_file.html">drake_batchtools_tmpl_file</a></span>(<span class="st">"slurm"</span>) <span class="co"># https://slurm.schedmd.com/</span>
 <span class="kw">library</span>(future.batchtools)
-future::<span class="kw"><a href="reference/plan.html">plan</a></span>(batchtools_slurm, <span class="dt">template =</span> <span class="st">"batchtools.slurm.tmpl"</span>, <span class="dt">workers =</span> <span class="dv">100</span>)
+future<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/future/topics/plan">plan</a></span>(batchtools_slurm, <span class="dt">template =</span> <span class="st">"batchtools.slurm.tmpl"</span>, <span class="dt">workers =</span> <span class="dv">100</span>)
 <span class="kw"><a href="reference/make.html">make</a></span>(my_plan, <span class="dt">parallelism =</span> <span class="st">"future_lapply"</span>)</code></pre></div>
 <p>The network graph allows <code>drake</code> to wait for dependencies.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Change some code.</span>
-reg2 &lt;-<span class="st"> </span>function(d){    
-  d$x3 &lt;-<span class="st"> </span>d$x ^<span class="st"> </span><span class="dv">3</span>
-  <span class="kw">lm</span>(y ~<span class="st"> </span>x3, <span class="dt">data =</span> d)
+reg2 &lt;-<span class="st"> </span><span class="cf">function</span>(d){    
+  d<span class="op">$</span>x3 &lt;-<span class="st"> </span>d<span class="op">$</span>x <span class="op">^</span><span class="st"> </span><span class="dv">3</span>
+  <span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x3, <span class="dt">data =</span> d)
 }
 
 <span class="co"># Plot an interactive graph.</span>
 config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_config.html">drake_config</a></span>(my_plan)
 <span class="kw"><a href="reference/vis_drake_graph.html">vis_drake_graph</a></span>(config)</code></pre></div>
 <iframe
-  src = 'https://cdn.rawgit.com/ropensci/drake/ddefa828/images/reg2.html'
-  width = '100%' height = '600px' allowtransparency='true'
-  style='border: none; box-shadow: none'>
-  </iframe>
+    src = 'https://cdn.rawgit.com/ropensci/drake/ddefa828/images/reg2.html'
+    width = '100%' height = '600px' allowtransparency='true'
+    style='border: none; box-shadow: none'>
+    </iframe>
 <p>Within each column above, the nodes are conditionally independent given their dependencies. Each <code><a href="reference/make.html">make()</a></code> walks through the columns from left to right and applies parallel processing within each column. If any nodes are already up to date, <code>drake</code> looks downstream to maximize the number of outdated targets in a parallelizable stage. To show the parallelizable stages of the next <code><a href="reference/make.html">make()</a></code> programmatically, use the <code><a href="reference/parallel_stages.html">parallel_stages()</a></code> function.</p>
 </div>
 <div id="installation" class="section level1">
@@ -325,7 +329,16 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <div id="documentation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#documentation" class="anchor"></a>Documentation</h1>
-<p><code>Drake</code> has a <a href="https://ropensci.github.io/drake/">documentation website</a>. The <a href="https://ropensci.github.io/drake/reference/index.html">reference section</a> lists all the available functions. Here are the most important ones.</p>
+<p><code>Drake</code> has a <a href="https://ropensci.github.io/drake/">documentation website</a> with many resources.</p>
+<div id="frequently-asked-questions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#frequently-asked-questions" class="anchor"></a>Frequently asked questions</h2>
+<p>The <a href="https://ropensci.github.io/drake/articles/faq.html">FAQ page</a> is an index of links to <a href="https://github.com/ropensci/drake/issues?q=is%3Aissue+is%3Aopen+label%3A%22frequently+asked+question%22">appropriately-labeled issues on GitHub</a>. To contribute, please <a href="https://github.com/ropensci/drake/issues/new">submit a new issue</a> and ask that it be labeled as a frequently asked question.</p>
+</div>
+<div id="function-reference" class="section level2">
+<h2 class="hasAnchor">
+<a href="#function-reference" class="anchor"></a>Function reference</h2>
+<p>The <a href="https://ropensci.github.io/drake/reference/index.html">reference section</a> lists all the available functions. Here are the most important ones.</p>
 <ul>
 <li>
 <code><a href="reference/drake_plan.html">drake_plan()</a></code>: create a workflow data frame (like <code>my_plan</code>).</li>
@@ -348,6 +361,10 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <li>
 <code><a href="reference/diagnose.html">diagnose()</a></code>: return the full context of a build, including errors, warnings, and messages.</li>
 </ul>
+</div>
+<div id="tuturials" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tuturials" class="anchor"></a>Tuturials</h2>
 <p>The articles below are tutorials taken from the <a href="https://github.com/ropensci/drake/tree/master/vignettes">package vignettes</a>.</p>
 <ul>
 <li><a href="https://ropensci.github.io/drake/articles/drake.html">Get started</a></li>
@@ -362,6 +379,10 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <li><a href="https://ropensci.github.io/drake/articles/timing.html">Time logging</a></li>
 <li><a href="https://ropensci.github.io/drake/articles/storage.html">Storage</a></li>
 </ul>
+</div>
+<div id="examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h2>
 <p><code>Drake</code> also has built-in example projects with code files <a href="https://github.com/ropensci/drake/tree/master/inst/examples">available here</a>. You can generate the files for a project with <code><a href="reference/drake_example.html">drake_example()</a></code> (e.g. <code><a href="reference/drake_example.html">drake_example("gsp")</a></code>), and you can list the available projects with <code><a href="reference/drake_examples.html">drake_examples()</a></code>. The beginner-oriented examples are listed below. They help you learn <code>drake</code>’s main features, and they show one way to organize the files of <code>drake</code> projects.</p>
 <ul>
 <li>
@@ -371,7 +392,12 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="reference/drake_c
 <li>
 <code>packages</code>: A concrete example using data on R package downloads. It demonstrates how <code>drake</code> can refresh a project based on new incoming data without restarting everything from scratch.</li>
 </ul>
+</div>
+<div id="context-and-history" class="section level2">
+<h2 class="hasAnchor">
+<a href="#context-and-history" class="anchor"></a>Context and history</h2>
 <p>For context and history, check out <a href="https://ropensci.org/blog/2018/02/06/drake/">this post on the rOpenSci blog</a> and <a href="https://www.r-podcast.org/episode/022-diving-in-to-drake-with-will-landau/">episode 22 of the R Podcast</a>.</p>
+</div>
 </div>
 <div id="help-and-troubleshooting" class="section level1">
 <h1 class="hasAnchor">

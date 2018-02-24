@@ -64,6 +64,9 @@ behind <code><a href='vis_drake_graph.html'>vis_drake_graph()</a></code>. — da
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../articles/faq.html">FAQ</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -138,7 +141,7 @@ you can plot your own custom <code>visNetwork</code> graph.</p>
     <pre class="usage"><span class='fu'>dataframes_graph</span>(<span class='no'>config</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"out"</span>, <span class='st'>"in"</span>, <span class='st'>"all"</span>),
   <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>build_times</span> <span class='kw'>=</span> <span class='st'>"build"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
   <span class='kw'>targets_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>split_columns</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>font_size</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>from_scratch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>make_imports</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>from_scratch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>make_imports</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>full_legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -230,6 +233,12 @@ build progress in previous <code><a href='make.html'>make()</a></code>s.</p></td
       <th>make_imports</th>
       <td><p>logical, whether to make the imports first.
 Set to <code>FALSE</code> to increase speed and risk using obsolete information.</p></td>
+    </tr>
+    <tr>
+      <th>full_legend</th>
+      <td><p>logical. If <code>TRUE</code>, all the node types
+are printed in the legend. If <code>FALSE</code>, only the
+node types used are printed in the legend.</p></td>
     </tr>
     </table>
     
