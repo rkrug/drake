@@ -184,14 +184,14 @@ output_types
 ## 1 averages make_my_table(dataset__)
 ## 2 plot     make_my_plot(dataset__)</code></pre></div>
 <p>We need to define functions to summarize and plot the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_my_table &lt;-<span class="st"> </span><span class="cf">function</span>(downloads){
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/plyr/topics/ddply">ddply</a></span>(downloads, <span class="st">"package"</span>, <span class="cf">function</span>(package_downloads){
-    <span class="kw">data.frame</span>(<span class="dt">mean_downloads =</span> <span class="kw">mean</span>(package_downloads<span class="op">$</span>count))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_my_table &lt;-<span class="st"> </span>function(downloads){
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/plyr/topics/ddply">ddply</a></span>(downloads, <span class="st">"package"</span>, function(package_downloads){
+    <span class="kw">data.frame</span>(<span class="dt">mean_downloads =</span> <span class="kw">mean</span>(package_downloads$count))
   })
 }
 
-make_my_plot &lt;-<span class="st"> </span><span class="cf">function</span>(downloads){
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(downloads) <span class="op">+</span>
+make_my_plot &lt;-<span class="st"> </span>function(downloads){
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(downloads) +
 <span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/geom_path">geom_line</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count, <span class="dt">group =</span> package, <span class="dt">color =</span> package))
 }</code></pre></div>
 <p>Below, the targets <code>recent</code> and <code>older</code> each take turns substituting the <code>dataset__</code> wildcard. Thus, <code>output_plan</code> has four rows.</p>
@@ -238,8 +238,8 @@ whole_plan
 ## 6 plot_older      make_my_plot(older)                                     
 ## 7 "\"report.md\"" "knit(knitr_in(\"report.Rmd\"), file_out(\"report.md\")…</code></pre></div>
 <p>The latest download data needs to be refreshed every day, so we use triggers to force <code>recent</code> to always build. For more on triggers, see the <a href="https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd">vignette on debugging and testing</a>. Instead of triggers, we could have just made <code>recent</code> a global variable like <code>package_list</code> instead of a formal target in <code>whole_plan</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_plan<span class="op">$</span>trigger &lt;-<span class="st"> "any"</span> <span class="co"># default trigger</span>
-whole_plan<span class="op">$</span>trigger[whole_plan<span class="op">$</span>target <span class="op">==</span><span class="st"> "recent"</span>] &lt;-<span class="st"> "always"</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whole_plan$trigger &lt;-<span class="st"> "any"</span> <span class="co"># default trigger</span>
+whole_plan$trigger[whole_plan$target ==<span class="st"> "recent"</span>] &lt;-<span class="st"> "always"</span>
 
 whole_plan
 ## # A tibble: 7 x 3
@@ -254,9 +254,10 @@ whole_plan
 ## 7 "\"report.md\"" "knit(knitr_in(\"report.Rmd\"), file_out(\"repo… any</code></pre></div>
 <p>Now, we run the project to download the data and analyze it. The results will be summarized in the knitted report, <code>report.md</code>, but you can also read the results directly from the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmpMUHFVs/articles/.drake
+## cache /tmp/Rtmp7HeoFN/articles/.drake
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, ...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_...
+## Loading required package: methods
 ## check 10 items: aes, cran_downloads, data.frame, ddply, geom_line, ggplo...
 ## check 2 items: make_my_plot, make_my_table
 ## check 2 items: older, recent
@@ -273,29 +274,29 @@ whole_plan
 ## Used non-default triggers. Some targets may be not be up to date.
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_recent)
-## cache /tmp/RtmpMUHFVs/articles/.drake
+## cache /tmp/Rtmp7HeoFN/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14322.87
 ## 2   knitr       10906.63
 ## 3    Rcpp       19749.80
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_older)
-## cache /tmp/RtmpMUHFVs/articles/.drake
+## cache /tmp/Rtmp7HeoFN/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14641.29
 ## 2   knitr        9068.71
 ## 3    Rcpp       14408.06
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_recent)
-## cache /tmp/RtmpMUHFVs/articles/.drake</code></pre></div>
+## cache /tmp/Rtmp7HeoFN/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_older)
-## cache /tmp/RtmpMUHFVs/articles/.drake</code></pre></div>
+## cache /tmp/Rtmp7HeoFN/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-2.png" width="672"></p>
 <p>Because we used triggers, each <code><a href="../reference/make.html">make()</a></code> rebuilds the <code>recent</code> target to get the latest download numbers for today. If the newly-downloaded data are the same as last time and nothing else changes, <code>drake</code> skips all the other targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/RtmpMUHFVs/articles/.drake
+## cache /tmp/Rtmp7HeoFN/articles/.drake
 ## Unloading targets from environment:
 ##   averages_recent
 ##   plot_older
