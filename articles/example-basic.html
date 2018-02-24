@@ -243,12 +243,21 @@ report_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(pa
 ## [6] "simulate"</code></pre></div>
 <p>and saved files from your file system.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>()
-##  [1] "best-practices_files" "best-practices.html"  "best-practices.Rmd"  
-##  [4] "caution.html"         "caution.Rmd"          "debug.html"          
-##  [7] "debug.Rmd"            "drake.html"           "drake.Rmd"           
-## [10] "example-basic.Rmd"    "example-gsp.Rmd"      "example-packages.Rmd"
-## [13] "faq.Rmd"              "graph.Rmd"            "parallelism.Rmd"     
-## [16] "report.Rmd"           "storage.Rmd"          "timing.Rmd"</code></pre></div>
+##  [1] "best-practices_files"   "best-practices.html"   
+##  [3] "best-practices.Rmd"     "caution.html"          
+##  [5] "caution.Rmd"            "debug.html"            
+##  [7] "debug.Rmd"              "drake.html"            
+##  [9] "drake.Rmd"              "example-basic.html"    
+## [11] "example-basic.Rmd"      "example-gsp_files"     
+## [13] "example-gsp.html"       "example-gsp.Rmd"       
+## [15] "example-packages_files" "example-packages.html" 
+## [17] "example-packages.Rmd"   "faq.html"              
+## [19] "faq.Rmd"                "graph.html"            
+## [21] "graph.Rmd"              "index.html"            
+## [23] "parallelism.html"       "parallelism.Rmd"       
+## [25] "report.Rmd"             "storage.html"          
+## [27] "storage.Rmd"            "timing.html"           
+## [29] "timing.Rmd"</code></pre></div>
 </div>
 <div id="the-workflow-plan-data-frame" class="section level1">
 <h1 class="hasAnchor">
@@ -564,12 +573,12 @@ df
 ## cache /tmp/RtmpMUHFVs/articles/.drake
 ##                      item   type elapsed   user system
 ## 1  coef_regression1_large target  0.004s 0.004s     0s
-## 2  coef_regression1_small target  0.006s 0.004s 0.001s
-## 3  coef_regression2_large target  0.004s 0.001s 0.003s
+## 2  coef_regression1_small target  0.006s 0.006s     0s
+## 3  coef_regression2_large target  0.003s 0.004s     0s
 ## 4  coef_regression2_small target  0.003s 0.003s     0s
 ## 5              data.frame import  0.005s 0.005s     0s
-## 6                    knit import  0.003s 0.002s     0s
-## 7                   large target  0.047s 0.047s     0s
+## 6                    knit import  0.003s 0.003s     0s
+## 7                   large target  0.046s 0.046s     0s
 ## 8                      lm import  0.002s 0.002s     0s
 ## 9                  mtcars import      0s     0s     0s
 ## 10                   nrow import  0.003s 0.003s     0s
@@ -577,20 +586,20 @@ df
 ## 12                   reg1 import  0.001s 0.001s     0s
 ## 13                   reg2 import  0.001s 0.001s     0s
 ## 14      regression1_large target  0.007s 0.007s     0s
-## 15      regression1_small target  0.004s 0.004s     0s
-## 16      regression2_large target  0.003s 0.003s     0s
+## 15      regression1_small target  0.005s 0.005s     0s
+## 16      regression2_large target  0.004s 0.004s     0s
 ## 17      regression2_small target  0.005s 0.005s     0s
-## 18            "report.md" target  0.038s 0.034s 0.004s
+## 18            "report.md" target   0.04s  0.04s     0s
 ## 19           "report.Rmd" import      0s     0s     0s
 ## 20             sample.int import  0.003s 0.003s     0s
 ## 21               simulate import  0.001s 0.001s     0s
-## 22                  small target  0.031s 0.031s     0s
+## 22                  small target  0.031s 0.027s 0.004s
 ## 23                summary import  0.003s 0.003s     0s
-## 24 summ_regression1_large target  0.004s 0.004s     0s
+## 24 summ_regression1_large target  0.003s 0.003s     0s
 ## 25 summ_regression1_small target  0.003s 0.003s     0s
 ## 26 summ_regression2_large target  0.003s 0.003s     0s
-## 27 summ_regression2_small target  0.003s 0.003s     0s
-## 28       suppressWarnings import  0.003s 0.004s     0s</code></pre></div>
+## 27 summ_regression2_small target  0.003s 0.004s     0s
+## 28       suppressWarnings import  0.003s 0.003s     0s</code></pre></div>
 <p>See also <code><a href="../reference/predict_runtime.html">predict_runtime()</a></code> and <code><a href="../reference/rate_limiting_times.html">rate_limiting_times()</a></code>.</p>
 <p>In the new graph, the black nodes from before are now green.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
@@ -743,7 +752,7 @@ config<span class="op">$</span>cache<span class="op">$</span><span class="kw">ge
 ## [1] "40fb781de184c741"
 
 config<span class="op">$</span>cache<span class="op">$</span><span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"reg2"</span>) <span class="co"># different</span>
-## [1] "ce2debf8b59dc8d5"</code></pre></div>
+## [1] "894bf8ea897e5988"</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan.</span>
 <span class="co"># Same as drake_graph():</span>
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>

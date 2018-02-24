@@ -151,12 +151,21 @@
 
 <span class="co"># and saved files in your file system.</span>
 <span class="kw">list.files</span>()
-##  [1] "best-practices_files" "best-practices.html"  "best-practices.Rmd"  
-##  [4] "caution.html"         "caution.Rmd"          "debug.html"          
-##  [7] "debug.Rmd"            "drake.Rmd"            "example-basic.Rmd"   
-## [10] "example-gsp.Rmd"      "example-packages.Rmd" "faq.Rmd"             
-## [13] "graph.Rmd"            "parallelism.Rmd"      "report.Rmd"          
-## [16] "storage.Rmd"          "timing.Rmd"</code></pre></div>
+##  [1] "best-practices_files"   "best-practices.html"   
+##  [3] "best-practices.Rmd"     "caution.html"          
+##  [5] "caution.Rmd"            "debug.html"            
+##  [7] "debug.Rmd"              "drake.html"            
+##  [9] "drake.Rmd"              "example-basic.html"    
+## [11] "example-basic.Rmd"      "example-gsp_files"     
+## [13] "example-gsp.html"       "example-gsp.Rmd"       
+## [15] "example-packages_files" "example-packages.html" 
+## [17] "example-packages.Rmd"   "faq.html"              
+## [19] "faq.Rmd"                "graph.html"            
+## [21] "graph.Rmd"              "index.html"            
+## [23] "parallelism.html"       "parallelism.Rmd"       
+## [25] "report.Rmd"             "storage.html"          
+## [27] "storage.Rmd"            "timing.html"           
+## [29] "timing.Rmd"</code></pre></div>
 <p>Your real work is outlined in a data frame of data analysis steps called “targets”. The targets depend on the imports, and <code>drake</code> will figure out how they are all connected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_plan
 ## # A tibble: 15 x 2
