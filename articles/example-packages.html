@@ -254,7 +254,7 @@ whole_plan
 ## 7 "\"report.md\"" "knit(knitr_in(\"report.Rmd\"), file_out(\"repo… any</code></pre></div>
 <p>Now, we run the project to download the data and analyze it. The results will be summarized in the knitted report, <code>report.md</code>, but you can also read the results directly from the cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/Rtmp7HeoFN/articles/.drake
+## cache /tmp/RtmpYWCOpZ/articles/.drake
 ## connect 9 imports: report_plan, package_list, data_plan, make_my_table, ...
 ## connect 7 targets: recent, older, averages_recent, averages_older, plot_...
 ## Loading required package: methods
@@ -274,29 +274,29 @@ whole_plan
 ## Used non-default triggers. Some targets may be not be up to date.
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_recent)
-## cache /tmp/Rtmp7HeoFN/articles/.drake
+## cache /tmp/RtmpYWCOpZ/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14322.87
 ## 2   knitr       10906.63
 ## 3    Rcpp       19749.80
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(averages_older)
-## cache /tmp/Rtmp7HeoFN/articles/.drake
+## cache /tmp/RtmpYWCOpZ/articles/.drake
 ##   package mean_downloads
 ## 1 ggplot2       14641.29
 ## 2   knitr        9068.71
 ## 3    Rcpp       14408.06
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_recent)
-## cache /tmp/Rtmp7HeoFN/articles/.drake</code></pre></div>
+## cache /tmp/RtmpYWCOpZ/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(plot_older)
-## cache /tmp/Rtmp7HeoFN/articles/.drake</code></pre></div>
+## cache /tmp/RtmpYWCOpZ/articles/.drake</code></pre></div>
 <p><img src="example-packages_files/figure-html/firstmakepackages-2.png" width="672"></p>
 <p>Because we used triggers, each <code><a href="../reference/make.html">make()</a></code> rebuilds the <code>recent</code> target to get the latest download numbers for today. If the newly-downloaded data are the same as last time and nothing else changes, <code>drake</code> skips all the other targets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(whole_plan)
-## cache /tmp/Rtmp7HeoFN/articles/.drake
+## cache /tmp/RtmpYWCOpZ/articles/.drake
 ## Unloading targets from environment:
 ##   averages_recent
 ##   plot_older
@@ -318,6 +318,11 @@ whole_plan
 <iframe src="https://cdn.rawgit.com/ropensci/drake/ddefa828/images/packages.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 </div>
+<div id="what-remote-data-sources-in-general" class="section level1">
+<h1 class="hasAnchor">
+<a href="#what-remote-data-sources-in-general" class="anchor"></a>What remote data sources in general?</h1>
+<p>When you rely on data from the internet, you should trigger a new download when the data change remotely. <a href="https://github.com/ropensci/drake/blob/master/vignettes/best-practices.Rmd#remote-data-sources">This section of the best practices guide</a> explains how to automatically refresh the data when the online timestamp changes.</p>
+</div>
 </div>
   </div>
 
@@ -329,6 +334,7 @@ whole_plan
 <li><a href="#get-the-code-">Get the code.</a></li>
       <li><a href="#overview">Overview</a></li>
       <li><a href="#analysis">Analysis</a></li>
+      <li><a href="#what-remote-data-sources-in-general">What remote data sources in general?</a></li>
       </ul>
 </div>
       </div>
