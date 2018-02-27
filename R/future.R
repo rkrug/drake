@@ -12,7 +12,7 @@ run_future <- function(config){
           queue = queue
         )
         # Pop the head target only if its priority is 0
-        next_target <- queue$pop0(what = "names")
+        next_target <- pop0(fheap)
         if (!length(next_target)){
           # It's hard to make this line run in a small test workflow
           # suitable enough for unit testing, but

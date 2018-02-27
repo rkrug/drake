@@ -54,6 +54,7 @@ Imports:
   CodeDepends,
   crayon,
   evaluate,
+  datastructures,
   digest,
   formatR,
   future,
@@ -97,6 +98,7 @@ Suggests:
   rmarkdown,
   tidyr
 Remotes:
+  dirmeier/datastructures,
   tidyverse/tidyselect
 VignetteBuilder: knitr
 Encoding: UTF-8
