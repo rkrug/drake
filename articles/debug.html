@@ -108,7 +108,7 @@
       <h1>Debugging and testing drake projects</h1>
                         <h4 class="author">Will Landau</h4>
             
-            <h4 class="date">2018-02-24</h4>
+            <h4 class="date">2018-02-28</h4>
           </div>
 
     
@@ -120,11 +120,11 @@
 <a href="#the-configuration-list" class="anchor"></a>The configuration list</h1>
 <p>Most of <code>drake</code>’s functions rely on a central <code>config</code> list. An understanding of <code>config</code> will help you grasp the internals. <code><a href="../reference/make.html">make()</a></code> and <code><a href="../reference/drake_config.html">drake_config()</a></code> both return the <code>config</code> list. Unlike <code><a href="../reference/make.html">make()</a></code>, <code><a href="../reference/drake_config.html">drake_config()</a></code>’s return value is visible, and its only purpose is to construct your <code>config</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## connect 5 imports: simulate, reg1, my_plan, reg2, random_rows
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## connect 5 imports: simulate, reg1, my_plan, reg2, random_rows
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 
@@ -168,31 +168,31 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 <a href="#workflow-plan-data-frames" class="anchor"></a>Workflow plan data frames</h2>
 <p>The workflow plan data frame is your responsibility, and it takes effort and care. Fortunately, functions in <code>drake</code> can help. You can check the plan for formatting issues, missing input files, etc. with the <code><a href="../reference/check_plan.html">check_plan()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## connect 6 imports: simulate, reg1, config, my_plan, reg2, random_rows
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 my_plan
 ## # A tibble: 15 x 2
 ##    target                 command                                         
 ##    &lt;chr&gt;                  &lt;chr&gt;                                           
-##  1 ""                     "knit(knitr_in(\"report.Rmd\"), file_out(\"repo…
+##  1 ""                     "knit(knitr_in(\"report.Rmd\"), file_out(\"repo~
 ##  2 small                  simulate(48)                                    
 ##  3 large                  simulate(64)                                    
 ##  4 regression1_small      reg1(small)                                     
 ##  5 regression1_large      reg1(large)                                     
 ##  6 regression2_small      reg2(small)                                     
 ##  7 regression2_large      reg2(large)                                     
-##  8 summ_regression1_small suppressWarnings(summary(regression1_small$resi…
-##  9 summ_regression1_large suppressWarnings(summary(regression1_large$resi…
-## 10 summ_regression2_small suppressWarnings(summary(regression2_small$resi…
-## 11 summ_regression2_large suppressWarnings(summary(regression2_large$resi…
-## 12 coef_regression1_small suppressWarnings(summary(regression1_small))$co…
-## 13 coef_regression1_large suppressWarnings(summary(regression1_large))$co…
-## 14 coef_regression2_small suppressWarnings(summary(regression2_small))$co…
-## 15 coef_regression2_large suppressWarnings(summary(regression2_large))$co…
+##  8 summ_regression1_small suppressWarnings(summary(regression1_small$resi~
+##  9 summ_regression1_large suppressWarnings(summary(regression1_large$resi~
+## 10 summ_regression2_small suppressWarnings(summary(regression2_small$resi~
+## 11 summ_regression2_large suppressWarnings(summary(regression2_large$resi~
+## 12 coef_regression1_small suppressWarnings(summary(regression1_small))$co~
+## 13 coef_regression1_large suppressWarnings(summary(regression1_large))$co~
+## 14 coef_regression2_small suppressWarnings(summary(regression2_small))$co~
+## 15 coef_regression2_large suppressWarnings(summary(regression2_large))$co~
 
 <span class="kw"><a href="../reference/check_plan.html">check_plan</a></span>(my_plan) <span class="co"># No issues.</span>
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## connect 6 imports: simulate, reg1, config, my_plan, reg2, random_rows
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...</code></pre></div>
 </div>
@@ -203,7 +203,7 @@ my_plan
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Hover, click, drag, zoom, and pan. See args 'from' and 'to'.</span>
 config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan)
 <span class="kw"><a href="../reference/vis_drake_graph.html">vis_drake_graph</a></span>(config, <span class="dt">width =</span> <span class="st">"100%"</span>, <span class="dt">height =</span> <span class="st">"500px"</span>)</code></pre></div>
-<iframe src="https://cdn.rawgit.com/ropensci/drake/ddefa828/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
+<iframe src="https://cdn.rawgit.com/ropensci/drake/0fdb7d29/images/outdated.html" width="100%" height="600px" allowtransparency="true" style="border: none; box-shadow: none">
 </iframe>
 <p>See the <a href="https://cran.r-project.org/package=drake/vignettes/graph.html">rendered graph vignette</a> to learn more about how graphing can help (for example, how to visualize small subgraphs). If you want to take control of your own <a href="http://datastorm-open.github.io/visNetwork/">visNetwork graph</a>, use the <code><a href="../reference/dataframes_graph.html">dataframes_graph()</a></code> function to get data frames of nodes, edges, and legend nodes.</p>
 </div>
@@ -218,9 +218,9 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 <span class="co"># and any dependencies loaded with loadd() and readd()</span>
 <span class="co"># in the report's active code chunks.</span>
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(my_plan$command[<span class="dv">1</span>])
-## [1] "coef_regression2_small" "knit"                  
-## [3] "large"                  "\"report.md\""         
-## [5] "\"report.Rmd\""         "small"
+## [1] "\"report.md\""          "\"report.Rmd\""        
+## [3] "coef_regression2_small" "knit"                  
+## [5] "large"                  "small"
 
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(my_plan$command[<span class="kw">nrow</span>(my_plan)])
 ## [1] "regression2_large" "summary"           "suppressWarnings"</code></pre></div>
@@ -238,8 +238,8 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 ##  [1] "data.frame"             "mtcars"                
 ##  [3] "random_rows"            "lm"                    
 ##  [5] "nrow"                   "sample.int"            
-##  [7] "coef_regression2_small" "knit"                  
-##  [9] "large"                  "\"report.Rmd\""        
+##  [7] "\"report.Rmd\""         "coef_regression2_small"
+##  [9] "knit"                   "large"                 
 ## [11] "small"                  "simulate"              
 ## [13] "reg1"                   "reg2"                  
 ## [15] "regression1_small"      "summary"               
@@ -259,17 +259,17 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 ## character(0)</code></pre></div>
 <p><code><a href="../reference/outdated.html">outdated()</a></code> reports any targets that are outdated, plus any downstream targets that depend on them.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-##  [1] "coef_regression1_large" "coef_regression1_small"
-##  [3] "coef_regression2_large" "coef_regression2_small"
-##  [5] "large"                  "regression1_large"     
-##  [7] "regression1_small"      "regression2_large"     
-##  [9] "regression2_small"      "\"report.md\""         
+##  [1] "\"report.md\""          "coef_regression1_large"
+##  [3] "coef_regression1_small" "coef_regression2_large"
+##  [5] "coef_regression2_small" "large"                 
+##  [7] "regression1_large"      "regression1_small"     
+##  [9] "regression2_large"      "regression2_small"     
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>To find out why a target is out of date, you can load the <a href="https://github.com/richfitz/storr">storr</a>-based cache and compare the appropriate hash keys to the output of <code><a href="../reference/dependency_profile.html">dependency_profile()</a></code>. To use <code><a href="../reference/dependency_profile.html">dependency_profile()</a></code>, be sure to supply the master configuration list as the <code>config</code> argument. The same is true for <code><a href="../reference/drake_meta.html">drake_meta()</a></code>, another alternative.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/load_basic_example.html">load_basic_example</a></span>() <span class="co"># Get the code with drake_example("basic").</span>
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## connect 6 imports: simulate, reg1, config, my_plan, reg2, random_rows
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
@@ -279,9 +279,9 @@ reg2 &lt;-<span class="st"> </span>function(d) {
   <span class="kw">lm</span>(y ~<span class="st"> </span>x3, <span class="dt">data =</span> d)
 }
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-## [1] "coef_regression2_large" "coef_regression2_small"
-## [3] "regression2_large"      "regression2_small"     
-## [5] "\"report.md\""          "summ_regression2_large"
+## [1] "\"report.md\""          "coef_regression2_large"
+## [3] "coef_regression2_small" "regression2_large"     
+## [5] "regression2_small"      "summ_regression2_large"
 ## [7] "summ_regression2_small"
 
 <span class="kw"><a href="../reference/dependency_profile.html">dependency_profile</a></span>(<span class="dt">target =</span> <span class="st">"regression2_small"</span>, <span class="dt">config =</span> config)
@@ -336,11 +336,11 @@ config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <spa
 ## [1] "d47109544c89ca7a"
 
 config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <span class="st">"reg2"</span>) <span class="co"># different</span>
-## [1] "8756c253e3eca113"</code></pre></div>
+## [1] "e7c51d77a834d91b"</code></pre></div>
 <p>In <code>drake</code>, the “kernel” of a target or import is the piece of the output that is reproducibly tracked. For ordinary R objects, the kernel is just the object itself. For custom external files, it is a separate hash. But for functions, the kernel is the deparsed body of the function, together with the dependency hash if the function is imported (see <code>drake:::store_function()</code>).</p>
 <p>The internal functions <code>drake:::meta()</code> and <code>drake:::meta_list()</code> compute the metadata on each target that <code>drake</code> uses to decide which targets to build and which to skip (via <code>drake:::should_build_target()</code>). Then, after the target/import is processed, <code>drake:::finish_meta()</code> updates the metadata (except for the <code>$missing</code> element) before it is cached. See <code><a href="../reference/diagnose.html">diagnose()</a></code> to read available metadata, along with any errors, warnings, and messages generated during the build.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(<span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(small))
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## List of 10
 ##  $ target      : chr "small"
 ##  $ imported    : logi FALSE
@@ -349,46 +349,46 @@ config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <spa
 ##  $ command     : chr "{\n simulate(48) \n}"
 ##  $ depends     : chr "5aa9da170b33b159cfd382e15229d7efe6d6a5777d1c69e71b0c6a1188ee5116"
 ##  $ file        : chr NA
-##  $ start       :Class 'proc_time'  Named num [1:5] 3.99 0.072 4.077 0.005 0.004
+##  $ start       :Class 'proc_time'  Named num [1:5] 5.94 0.18 6.947 0.071 0.034
 ##   .. ..- attr(*, "names")= chr [1:5] "user.self" "sys.self" "elapsed" "user.child" ...
 ##  $ time_command:'data.frame':    1 obs. of  5 variables:
 ##   ..$ item   : chr "small"
 ##   ..$ type   : chr "target"
-##   ..$ elapsed: num 0.003
-##   ..$ user   : num 0.002
+##   ..$ elapsed: num 0.006
+##   ..$ user   : num 0.006
 ##   ..$ system : num 0
 ##  $ time_build  :'data.frame':    1 obs. of  5 variables:
 ##   ..$ item   : chr "small"
 ##   ..$ type   : chr "target"
-##   ..$ elapsed: num 0.03
-##   ..$ user   : num 0.029
+##   ..$ elapsed: num 0.052
+##   ..$ user   : num 0.051
 ##   ..$ system : num 0
 
 <span class="kw">str</span>(<span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(<span class="st">"</span><span class="ch">\"</span><span class="st">report.md</span><span class="ch">\"</span><span class="st">"</span>))
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## List of 11
 ##  $ target      : chr "\"report.md\""
 ##  $ imported    : logi FALSE
 ##  $ missing     : logi TRUE
 ##  $ seed        : num 1.85e+09
 ##  $ command     : chr "{\n knit(knitr_in(\"report.Rmd\"), file_out(\"report.md\"), quiet = TRUE) \n}"
-##  $ depends     : chr "64359e27d6a98840038b26e32f64dc51b86fcfdaf98d7f094ec491fa33cc80c0"
-##  $ file        : chr "28b1ca9f9d005881c48a7621f5aa55110f7a2710f06460b37aa3acad6094388b"
-##  $ start       :Class 'proc_time'  Named num [1:5] 4.113 0.072 4.201 0.005 0.004
+##  $ depends     : chr "5f72f8f2a06b7a515e17a3ea3f57b1dd3522d7143e0cbd0650a3c0985683f81d"
+##  $ file        : chr "5e7b25c1e1931b86a8dde8aa07df2d2893784c91c1047230325e8697f12842c1"
+##  $ start       :Class 'proc_time'  Named num [1:5] 6.151 0.183 7.163 0.071 0.034
 ##   .. ..- attr(*, "names")= chr [1:5] "user.self" "sys.self" "elapsed" "user.child" ...
 ##  $ time_command:'data.frame':    1 obs. of  5 variables:
 ##   ..$ item   : chr "\"report.md\""
 ##   ..$ type   : chr "target"
-##   ..$ elapsed: num 0.034
-##   ..$ user   : num 0.034
-##   ..$ system : num 0
-##  $ mtime       : POSIXct[1:1], format: "2018-02-24 14:16:04"
+##   ..$ elapsed: num 0.054
+##   ..$ user   : num 0.051
+##   ..$ system : num 0.003
+##  $ mtime       : POSIXct[1:1], format: "2018-02-28 12:49:42"
 ##  $ time_build  :'data.frame':    1 obs. of  5 variables:
 ##   ..$ item   : chr "\"report.md\""
 ##   ..$ type   : chr "target"
-##   ..$ elapsed: num 0.038
-##   ..$ user   : num 0.037
-##   ..$ system : num 0</code></pre></div>
+##   ..$ elapsed: num 0.059
+##   ..$ user   : num 0.056
+##   ..$ system : num 0.003</code></pre></div>
 <p>If your target’s last build succeeded, then <code><a href="../reference/diagnose.html">diagnose(your_target)</a></code> has the most current information from that build. But if your target failed, then only <code>diagnose(your_target)$error</code>, <code>diagnose(your_target)$warnings</code>, and <code>diagnose(your_target)$messages</code> correspond to the failure, and all the other metadata correspond to the last build that completed without an error.</p>
 </div>
 </div>
@@ -399,14 +399,14 @@ config$cache$<span class="kw">get_hash</span>(<span class="dt">key =</span> <spa
 <p>Fortunately, you can change the triggers that tell <code>drake</code> when to (re)build each target. Below, <code>drake</code> disregards outdatedness and just builds the targets that are missing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/clean.html">clean</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Start from scratch</span>
 config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">trigger =</span> <span class="st">"missing"</span>)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   coef_regression2_small
 ##   large
 ## connect 6 imports: simulate, reg1, config, my_plan, reg2, random_rows
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
+## check 9 items: file "report.Rmd", data.frame, knit, lm, mtcars, nrow, sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
@@ -452,21 +452,21 @@ my_plan
 ## # A tibble: 15 x 3
 ##    target                 command                                  trigger
 ##    &lt;chr&gt;                  &lt;chr&gt;                                    &lt;chr&gt;  
-##  1 ""                     "knit(knitr_in(\"report.Rmd\"), file_ou… file   
+##  1 ""                     "knit(knitr_in(\"report.Rmd\"), file_ou~ file   
 ##  2 small                  simulate(48)                             command
 ##  3 large                  simulate(64)                             command
 ##  4 regression1_small      reg1(small)                              command
 ##  5 regression1_large      reg1(large)                              command
 ##  6 regression2_small      reg2(small)                              command
 ##  7 regression2_large      reg2(large)                              command
-##  8 summ_regression1_small suppressWarnings(summary(regression1_sm… command
-##  9 summ_regression1_large suppressWarnings(summary(regression1_la… command
-## 10 summ_regression2_small suppressWarnings(summary(regression2_sm… command
-## 11 summ_regression2_large suppressWarnings(summary(regression2_la… command
-## 12 coef_regression1_small suppressWarnings(summary(regression1_sm… command
-## 13 coef_regression1_large suppressWarnings(summary(regression1_la… command
-## 14 coef_regression2_small suppressWarnings(summary(regression2_sm… command
-## 15 coef_regression2_large suppressWarnings(summary(regression2_la… command
+##  8 summ_regression1_small suppressWarnings(summary(regression1_sm~ command
+##  9 summ_regression1_large suppressWarnings(summary(regression1_la~ command
+## 10 summ_regression2_small suppressWarnings(summary(regression2_sm~ command
+## 11 summ_regression2_large suppressWarnings(summary(regression2_la~ command
+## 12 coef_regression1_small suppressWarnings(summary(regression1_sm~ command
+## 13 coef_regression1_large suppressWarnings(summary(regression1_la~ command
+## 14 coef_regression2_small suppressWarnings(summary(regression2_sm~ command
+## 15 coef_regression2_large suppressWarnings(summary(regression2_la~ command
 
 <span class="co"># Change an imported dependency:</span>
 reg2
@@ -474,21 +474,21 @@ reg2
 ##   d$x3 &lt;- d$x ^ 3
 ##   lm(y ~ x3, data = d)
 ## }
-## &lt;bytecode: 0x59a8f80&gt;
+## &lt;bytecode: 0x780f750&gt;
 
 reg2 &lt;-<span class="st"> </span>function(d) {
   d$x3 &lt;-<span class="st"> </span>d$x ^<span class="st"> </span><span class="dv">3</span>
   <span class="kw">lm</span>(y ~<span class="st"> </span>x3, <span class="dt">data =</span> d)
 }
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">trigger =</span> <span class="st">"any"</span>) <span class="co"># Nothing changes!</span>
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
 ##   coef_regression2_small
 ## connect 6 imports: reg1, reg2, my_plan, simulate, random_rows, config
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
-## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
+## check 9 items: file "report.Rmd", data.frame, knit, lm, mtcars, nrow, sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
@@ -506,7 +506,7 @@ reg2 &lt;-<span class="st"> </span>function(d) {
 my_plan$trigger &lt;-<span class="st"> </span><span class="ot">NULL</span>
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan, <span class="dt">skip_imports =</span> <span class="ot">TRUE</span>)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## connect 6 imports: reg1, reg2, my_plan, simulate, random_rows, config
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
 ## check 2 items: large, small
@@ -551,17 +551,16 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(debug_plan, <span class="dt">timeout =</span> <span class="fl">1e-3</span>, <span class="dt">retries =</span> <span class="dv">2</span>)
 )
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## connect 11 imports: f, reg1, reg2, my_plan, simulate, random_rows, small...
 ## connect 2 targets: x, y
 ## check 1 item: Sys.sleep
 ## check 1 item: f
 ## check 1 item: x
 ## target x
-## check 1 item: y
-## target y
-## retry y: 1 of 2
-## Warning: No message sink to remove.</code></pre></div>
+## [2018-02-28 12:49:45] TimeoutException: reached CPU time limit [cpu=0.001s,
+## elapsed=0.001s]
+## Warning: Not removing a different message sink.</code></pre></div>
 <p>To tailor these settings to each individual target, create new <code>timeout</code>, <code>cpu</code>, <code>elapsed</code>, or <code>retries</code> columns in your workflow plan. These columns override the analogous arguments to <code><a href="../reference/make.html">make()</a></code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/clean.html">clean</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 debug_plan$timeout &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1e-3</span>, <span class="fl">2e-3</span>)
@@ -578,28 +577,14 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="dt">new =</span> <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(debug_plan, <span class="dt">timeout =</span> <span class="ot">Inf</span>, <span class="dt">retries =</span> <span class="dv">0</span>)
 )
-## cache /tmp/RtmpYWCOpZ/articles/.drake
-## Unloading targets from environment:
-##   x
-##   y
-## connect 11 imports: f, reg1, reg2, my_plan, simulate, random_rows, small...
-## connect 2 targets: x, y
-## check 1 item: Sys.sleep
-## check 1 item: f
-## check 1 item: x
-## target x
-## check 1 item: y
-## target y
-## fail y
-## Error: Target 'y' failed. Use diagnose(y) for details.
-## Warning: No message sink to remove.</code></pre></div>
+## Error: Cannot establish message sink when another sink is active.</code></pre></div>
 </div>
 <div id="diagnose-failures-" class="section level1">
 <h1 class="hasAnchor">
 <a href="#diagnose-failures-" class="anchor"></a>Diagnose failures.</h1>
 <p><code>Drake</code> records diagnostic metadata on all your targets, including the latest errors, warnings, messages, and other bits of context.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Targets with available metadata.</span>
-## [1] "f"         "Sys.sleep" "x"         "y"
+## character(0)
 
 f &lt;-<span class="st"> </span>function(x){
   if (x &lt;<span class="st"> </span><span class="dv">0</span>){
@@ -625,73 +610,30 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="dt">new =</span> <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/RtmpYWCOpZ/articles/.drake
-## connect 13 imports: f, reg1, reg2, my_plan, simulate, random_rows, bad_p...
-## connect 3 targets: a, b, my_target
-## check 1 item: stop
-## check 1 item: f
-## check 1 item: a
-## target a
-## check 1 item: b
-## target b
-## check 1 item: my_target
-## unload 1 item: a
-## target my_target
-## fail my_target
-## Error: Target 'my_target' failed. Use diagnose(my_target) for details.
-## Warning: No message sink to remove.
+## Error: Cannot establish message sink when another sink is active.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># from the last make() only</span>
-## [1] "my_target" "y"
+## character(0)
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(my_target, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)$error <span class="co"># See also warnings and messages.</span>
+## Error in diagnose(my_target, verbose = FALSE): No diagnostic information for target my_target.
 
 error$message
-## [1] "`x` cannot be negative."
+## Error in eval(expr, envir, enclos): object 'error' not found
 
 error$call
-## f(b)
+## Error in eval(expr, envir, enclos): object 'error' not found
 
 error$calls <span class="co"># View the traceback.</span>
-## [[1]]
-## local({
-##     f(b)
-## })
-## 
-## [[2]]
-## eval.parent(substitute(eval(quote(expr), envir)))
-## 
-## [[3]]
-## eval(expr, p)
-## 
-## [[4]]
-## eval(expr, p)
-## 
-## [[5]]
-## eval(quote({
-##     f(b)
-## }), new.env())
-## 
-## [[6]]
-## eval(quote({
-##     f(b)
-## }), new.env())
-## 
-## [[7]]
-## f(b)
-## 
-## [[8]]
-## stop("`x` cannot be negative.")</code></pre></div>
+## Error in eval(expr, envir, enclos): object 'error' not found</code></pre></div>
 <p>To figure out what went wrong, you could try to build the failed target interactively. To do that, simply call <code><a href="../reference/drake_build.html">drake_build()</a></code>. This function first calls <code><a href="../reference/loadd.html">loadd(deps = TRUE)</a></code> to load any missing dependencies (see the <code>replace</code> argument here) and then builds your target.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pretend we just opened a new R session.</span>
 <span class="kw">library</span>(drake)
 
 <span class="co"># Unloads target `b`.</span>
 config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(<span class="dt">plan =</span> bad_plan)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
-## Unloading targets from environment:
-##   b
-## connect 14 imports: f, reg1, error, reg2, my_plan, simulate, random_rows...
+## cache /tmp/Rtmp2H1f3I/articles/.drake
+## connect 12 imports: f, reg1, reg2, my_plan, simulate, random_rows, bad_p...
 ## connect 3 targets: a, b, my_target
 
 <span class="co"># my_target depends on b.</span>
@@ -707,19 +649,19 @@ config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 
 <span class="co"># The target failed, but the dependency was loaded.</span>
 <span class="st">"b"</span> %in%<span class="st"> </span><span class="kw">ls</span>()
-## [1] TRUE
+## [1] FALSE
 
 <span class="co"># What was `b` again?</span>
 b
-## [1] -12
+## Error in eval(expr, envir, enclos): object 'b' not found
 
 <span class="co"># How was `b` used?</span>
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(my_target)$message
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## NULL
 
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(my_target)$call
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## NULL
 
 f
@@ -729,7 +671,6 @@ f
 ##   }
 ##   x
 ## }
-## &lt;bytecode: 0x77b6a40&gt;
 
 <span class="co"># Aha! The error was in f(). Let's fix it and try again.</span>
 f &lt;-<span class="st"> </span>function(x){
@@ -744,12 +685,12 @@ f &lt;-<span class="st"> </span>function(x){
 <span class="co"># Since you called make() previously, `config` is read from the cache</span>
 <span class="co"># if you do not supply it.</span>
 <span class="kw"><a href="../reference/drake_build.html">drake_build</a></span>(my_target)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
-## target my_target
+## cache /tmp/Rtmp2H1f3I/articles/.drake
+## Error in as.igraph.vs(graph, v): Invalid vertex names
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(my_target)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
-## [1] 12</code></pre></div>
+## cache /tmp/Rtmp2H1f3I/articles/.drake
+## Error: key 'my_target' ('objects') not found</code></pre></div>
 <div id="tidy-evaluation-a-caveat-to-diagnosing-interactively" class="section level2">
 <h2 class="hasAnchor">
 <a href="#tidy-evaluation-a-caveat-to-diagnosing-interactively" class="anchor"></a>Tidy evaluation: a caveat to diagnosing interactively</h2>
@@ -766,15 +707,15 @@ my_plan
 ## 1 little_b "\"b\""   
 ## 2 letter   !!little_b
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
-## connect 15 imports: f, reg1, error, reg2, my_plan, simulate, random_rows...
+## cache /tmp/Rtmp2H1f3I/articles/.drake
+## connect 12 imports: f, reg1, reg2, my_plan, simulate, random_rows, bad_p...
 ## connect 2 targets: little_b, letter
 ## check 1 item: little_b
 ## target little_b
 ## check 1 item: letter
 ## target letter
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(letter)
-## cache /tmp/RtmpYWCOpZ/articles/.drake
+## cache /tmp/Rtmp2H1f3I/articles/.drake
 ## [1] "b"</code></pre></div>
 </div>
 </div>
@@ -787,15 +728,13 @@ my_plan
 <span class="co"># drake_session(verbose = FALSE) # Prints the sessionInfo() of the last make(). # nolint</span>
 
 <span class="kw"><a href="../reference/cached.html">cached</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>)
-## [1] "a"         "b"         "f"         "letter"    "little_b"  "my_target"
-## [7] "stop"      "Sys.sleep" "x"
+## [1] "letter"   "little_b"
 
 <span class="kw"><a href="../reference/built.html">built</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 ## [1] "letter"   "little_b"
 
 <span class="kw"><a href="../reference/imported.html">imported</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>)
-## [1] "a"         "b"         "f"         "my_target" "stop"      "Sys.sleep"
-## [7] "x"
+## character(0)
 
 <span class="kw"><a href="../reference/loadd.html">loadd</a></span>(little_b, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
 
@@ -806,9 +745,11 @@ little_b
 ## [1] "b"
 
 <span class="kw"><a href="../reference/progress.html">progress</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>)
-## coef_regression1_large coef_regression1_small coef_regression2_large 
+##            "report.md"           "report.Rmd" coef_regression1_large 
 ##             "finished"             "finished"             "finished" 
-## coef_regression2_small             data.frame                   knit 
+## coef_regression1_small coef_regression2_large coef_regression2_small 
+##             "finished"             "finished"             "finished" 
+##             data.frame                      f                   knit 
 ##             "finished"             "finished"             "finished" 
 ##                  large                     lm                 mtcars 
 ##             "finished"             "finished"             "finished" 
@@ -816,25 +757,25 @@ little_b
 ##             "finished"             "finished"             "finished" 
 ##                   reg2      regression1_large      regression1_small 
 ##             "finished"             "finished"             "finished" 
-##      regression2_large      regression2_small            "report.md" 
+##      regression2_large      regression2_small             sample.int 
 ##             "finished"             "finished"             "finished" 
-##           "report.Rmd"             sample.int               simulate 
-##             "finished"             "finished"             "finished" 
-##                  small                summary summ_regression1_large 
+##               simulate                  small summ_regression1_large 
 ##             "finished"             "finished"             "finished" 
 ## summ_regression1_small summ_regression2_large summ_regression2_small 
 ##             "finished"             "finished"             "finished" 
-##       suppressWarnings                      y 
-##             "finished"               "failed"
+##                summary       suppressWarnings              Sys.sleep 
+##             "finished"             "finished"             "finished" 
+##                      x 
+##          "in progress"
 
 <span class="kw"><a href="../reference/in_progress.html">in_progress</a></span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Unfinished targets</span>
-## character(0)</code></pre></div>
+## [1] "x"</code></pre></div>
 <p>There are functions to help you locate the project’s cache.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/find_project.html">find_project</a></span>()
-## [1] "/tmp/RtmpYWCOpZ/articles"
+## [1] "/tmp/Rtmp2H1f3I/articles"
 
 <span class="kw"><a href="../reference/find_cache.html">find_cache</a></span>()
-## [1] "/tmp/RtmpYWCOpZ/articles/.drake"</code></pre></div>
+## [1] "/tmp/Rtmp2H1f3I/articles/.drake"</code></pre></div>
 <p>For more information on the cache, see the <a href="https://github.com/ropensci/drake/blob/master/vignettes/storage.Rmd">storage vignette</a>.</p>
 </div>
 <div id="start-tinkering-" class="section level1">
@@ -889,7 +830,7 @@ little_b
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
       </footer>
