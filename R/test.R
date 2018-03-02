@@ -105,8 +105,9 @@ write_v4.3.0_project <- function(){ # nolint
   unzip(zip, exdir = ".", setTimes = TRUE)
 }
 
-unload_active_bindings <- function(){
-  envir <- eval(parse(text = get_testing_scenario()$envir))
+unload_active_bindings <- function(
+  envir = eval(parse(text = get_testing_scenario()$envir))
+){
   active_bindings <- ls(envir = envir) %>%
     Filter(f = function(x){
       bindingIsActive(x, env = envir)

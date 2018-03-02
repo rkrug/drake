@@ -104,4 +104,6 @@ test_with_dir("active bindings", {
   tmp <- config$envir$nextone
   expect_true("nextone" %in% ls(config$envir))
   expect_equal(config$envir$nextone, readd(nextone, cache = config$cache))
+  unload_active_bindings(envir = config$envir)
+  expect_false("nextone" %in% ls(config$envir))
 })
