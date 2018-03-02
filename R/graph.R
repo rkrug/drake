@@ -194,9 +194,10 @@ assert_unique_names <- function(imports, targets, envir, verbose){
   }
   common <- intersect(imports, targets)
   if (verbose & length(common)){
-    message(
-      "Unloading targets from environment:\n",
-      multiline_message(common), sep = ""
+    console_many_targets(
+      common,
+      pattern = "unload",
+      config = list(verbose = verbose)
     )
   }
   remove(list = common, envir = envir)

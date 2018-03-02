@@ -181,6 +181,7 @@ make_with_config <- function(config){
   }
   if (!config$imports_only){
     make_targets(config = config)
+    bind_targets(config = config)
   }
   drake_cache_log_file(
     file = config$cache_log_file,
@@ -297,4 +298,18 @@ initialize_session <- function(config){
       namespace = "session"
     )
   }
+}
+
+bind_targets <- function(config){
+  unload_these <- intersect(config$plan$target, ls(envir = config$envir))
+  remove(list = unload_these, envir = config$envir)
+  jobs <- jobs_imports(config$jobs)
+  load_these <- built(cache = config$cache, jobs = jobs)
+  loadd(
+    lazy = "bind",
+    list = load_these,
+    cache = config$cache,
+    envir = config$envir,
+    jobs = jobs
+  )
 }
