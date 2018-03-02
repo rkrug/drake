@@ -68,6 +68,7 @@ test_with_dir <- function(desc, ...){
       test_that(desc = desc, ...)
     }
   )
+  unload_active_bindings()
   invisible()
 }
 
@@ -102,4 +103,13 @@ write_v4.3.0_project <- function(){ # nolint
     mustWork = TRUE
   )
   unzip(zip, exdir = ".", setTimes = TRUE)
+}
+
+unload_active_bindings <- function(){
+  envir <- eval(parse(text = get_testing_scenario()$envir))
+  active_bindings <- ls(envir = envir) %>%
+    Filter(f = function(x){
+      bindingIsActive(x, env = envir)
+    })
+  rm(list = active_bindings, envir = envir)
 }
