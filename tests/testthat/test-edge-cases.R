@@ -155,6 +155,5 @@ test_with_dir("true targets can be functions", {
       namespace = "kernels")
     )
   )
-  myfunction <- readd(myfunction)
   expect_equal(myfunction(4), 5)
 })

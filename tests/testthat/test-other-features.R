@@ -61,6 +61,7 @@ test_with_dir("drake_build works as expected", {
 
   # Replacing deps in environment
   expect_equal(e$a, 1)
+  remove(list = "a", envir = e)
   e$a <- 2
   o <- drake_build(b, envir = e)
   expect_equal(e$a, 2)
@@ -68,17 +69,20 @@ test_with_dir("drake_build works as expected", {
   o <- drake_build(b, envir = e, replace = FALSE)
   expect_equal(e$a, 2)
   expect_equal(readd(a), 1)
+  remove(list = "a", envir = e)
   e$a <- 3
   o <- drake_build(b, envir = e, replace = TRUE)
   expect_equal(e$a, 1)
 
   # `replace` in loadd()
   expect_equal(e$b, 1)
+  remove(list = "b", envir = e)
   e$b <- 5
   loadd(b, envir = e, replace = FALSE)
   expect_equal(e$b, 5)
   loadd(b, envir = e, replace = TRUE)
   expect_equal(e$b, 1)
+  remove(list = "b", envir = e)
   e$b <- 5
   loadd(b, envir = e)
   expect_equal(e$b, 1)
@@ -139,11 +143,11 @@ test_with_dir("warnings and messages are caught", {
   }
   bad_plan <- drake_plan(x = f(), y = x)
   expect_warning(make(bad_plan, verbose = TRUE, session_info = FALSE))
-  x <- diagnose(x)
-  expect_true(grepl("my first warn", x$warnings[1]))
-  expect_true(grepl("my second warn", x$warnings[2]))
-  expect_true(grepl("my first mess", x$messages[1]))
-  expect_true(grepl("my second mess", x$messages[2]))
+  diag <- diagnose(x)
+  expect_true(grepl("my first warn", diag$warnings[1]))
+  expect_true(grepl("my second warn", diag$warnings[2]))
+  expect_true(grepl("my first mess", diag$messages[1]))
+  expect_true(grepl("my second mess", diag$messages[2]))
 })
 
 test_with_dir("missed() works", {

@@ -116,6 +116,7 @@ test_with_dir("basic Makefile stuff works", {
 })
 
 test_with_dir("Makefile stuff in globalenv()", {
+  try(remove(list = targ, envir = globalenv()), silent = TRUE)
   targ <- "drake_TESTGLOBAL_target"
   drake_TESTGLOBAL_plan <- data.frame(target = targ, command = 1)
   drake_TESTGLOBAL_config <- make(
@@ -128,6 +129,7 @@ test_with_dir("Makefile stuff in globalenv()", {
   clean(list = targ)
   drake_TESTGLOBAL_config$cache$del(key = targ, namespace = "progress")
   expect_equal(unname(progress(list = targ)), "not built or imported")
+  remove(list = targ, envir = globalenv())
   mk("drake_TESTGLOBAL_target", cache_path = default_cache_path())
   expect_equal(unname(progress(list = targ)), "finished")
   drake_TESTGLOBAL_config$cache$del(key = targ, namespace = "progress")

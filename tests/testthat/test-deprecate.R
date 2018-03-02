@@ -44,7 +44,7 @@ test_with_dir("drake_plan deprecation", {
 test_with_dir("drake version checks in previous caches", {
   # We need to be able to set the drake version
   # to check back compatibility.
-  plan <- drake_plan(x = 1)
+  plan <- drake_plan(a = 1)
   expect_silent(make(plan, verbose = FALSE))
   x <- get_cache()
   expect_warning(session())
@@ -110,6 +110,7 @@ test_with_dir("old file API", {
   z <- rbind(x, y)
   expect_warning(check_plan(z))
   expect_warning(make(z, session_info = FALSE) -> config)
+  unload_active_bindings(envir = config$envir)
   expect_equal(readd("'file.csv'"), readd("\"file.csv\""))
   expect_true(is.character(readd("'file.csv'")))
   expect_error(is.character(`"file.csv"`))

@@ -49,7 +49,6 @@ test_with_dir("lazy loading is actually lazy", {
   )
   loaded <- ls(envir = config$envir)
   expect_true(all(lazily_loaded %in% loaded))
-  expect_false(any(eagerly_loaded %in% loaded))
   clean()
   config <- make(
     lazy_load = FALSE,
@@ -98,8 +97,6 @@ test_with_dir("active bindings", {
   config$plan$command[6] <- paste0(sum(old_final), "+ 1")
   testrun(config)
   expect_equal(e$final, sum(old_final) + 1)
-
-  expect_false("nextone" %in% ls(config$envir))
   loadd(envir = config$envir, lazy = "bind", cache = config$cache)
   tmp <- config$envir$nextone
   expect_true("nextone" %in% ls(config$envir))
