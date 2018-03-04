@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create a workflow plan data frame
-for the <code>plan</code> argument of <code><a href='make.html'>make()</a></code>. <U+2014> drake_plan • drake</title>
+for the <code>plan</code> argument of <code><a href='make.html'>make()</a></code>. — drake_plan • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -135,14 +135,14 @@ for the <code>plan</code> argument of <code><a href='make.html'>make()</a></code
 
     
     <p>Turns a named collection of target/command pairs into
-a workflow plan data frame for <code><a href='make.html'>make()</a></code> and
-<code><a href='check.html'>check()</a></code>. You can give the commands
+a workflow plan data frame for <code><a href='make.html'>make()</a></code>. You can give the commands
 as named expressions, or you can use the <code>list</code>
 argument to supply them as character strings.</p>
     
 
     <pre class="usage"><span class='fu'>drake_plan</span>(<span class='no'>...</span>, <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>character</span>(<span class='fl'>0</span>), <span class='kw'>file_targets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>strings_in_dots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tidy_evaluation</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>strings_in_dots</span> <span class='kw'>=</span> <span class='kw pkg'>pkgconfig</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/pkgconfig/topics/get_config'>get_config</a></span>(<span class='st'>"drake::strings_in_dots"</span>),
+  <span class='kw'>tidy_evaluation</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -197,7 +197,8 @@ when evaluating commands passed through the free-form
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame of targets and commands.</p>
+    <p>A data frame of targets and commands. See the details
+for optional columns you can append manually post-hoc.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -209,6 +210,30 @@ and commands are the pieces of R code that produce them.</p>
 use the <code><a href='file_in.html'>file_in()</a></code>, <code><a href='knitr_in.html'>knitr_in()</a></code>, and
 <code><a href='file_out.html'>file_out()</a></code> functions in your commands.
 the examples in this help file provide some guidance.</p>
+<p>Besides the <code>target</code> and <code>command</code> columns, there are optional columns
+you may append to your workflow plan data frame:</p><ul>
+<li><p><code>trigger</code>: a character vector of triggers. A trigger is a rule for
+when to cause a target to (re)build. See <code><a href='triggers.html'>triggers()</a></code> for your options.
+For a walkthrough, see
+<a href='https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd#test-with-triggers'>https://github.com/ropensci/drake/blob/master/vignettes/debug.Rmd#test-with-triggers</a>. # nolint</p></li>
+<li><p><code>retries</code>: number of times to retry a target if it fails
+to build the first time.</p></li>
+<li><p><code>timeout</code>: Seconds of overall time to allow before imposing
+a timeout on a target. Passed to <code><a href='http://www.rdocumentation.org/packages/R.utils/topics/withTimeout'>R.utils::withTimeout()</a></code>.
+Assign target-level timeout times with an optional <code>timeout</code>
+column in <code>plan</code>.</p></li>
+<li><p><code>cpu</code>: Seconds of cpu time to allow before imposing
+a timeout on a target. Passed to <code><a href='http://www.rdocumentation.org/packages/R.utils/topics/withTimeout'>R.utils::withTimeout()</a></code>.
+Assign target-level cpu timeout times with an optional <code>cpu</code>
+column in <code>plan</code>.</p></li>
+<li><p><code>elapsed</code>: Seconds of elapsed time to allow before imposing
+a timeout on a target. Passed to <code><a href='http://www.rdocumentation.org/packages/R.utils/topics/withTimeout'>R.utils::withTimeout()</a></code>.
+Assign target-level elapsed timeout times with an optional <code>elapsed</code>
+column in <code>plan</code>.</p></li>
+<li><p><code>evaluator</code>: An experimental column. Each entry is a function
+passed to the <code>evaluator</code> argument of <code><a href='http://www.rdocumentation.org/packages/future/topics/future'>future::future()</a></code>
+for each worker in <code><a href='make.html'>make(..., parallelism = "future")</a></code>.</p></li>
+</ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -269,7 +294,7 @@ the examples in this help file provide some guidance.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

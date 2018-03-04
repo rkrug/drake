@@ -109,7 +109,7 @@
             <h3 class="subtitle">where to begin</h3>
                         <h4 class="author">Will Landau</h4>
             
-            <h4 class="date">2018-02-28</h4>
+            <h4 class="date">2018-03-04</h4>
           </div>
 
     
@@ -162,21 +162,21 @@
 ## # A tibble: 15 x 2
 ##    target                 command                                         
 ##    &lt;chr&gt;                  &lt;chr&gt;                                           
-##  1 ""                     "knit(knitr_in(\"report.Rmd\"), file_out(\"repo~
+##  1 ""                     "knit(knitr_in(\"report.Rmd\"), file_out(\"repo…
 ##  2 small                  simulate(48)                                    
 ##  3 large                  simulate(64)                                    
 ##  4 regression1_small      reg1(small)                                     
 ##  5 regression1_large      reg1(large)                                     
 ##  6 regression2_small      reg2(small)                                     
 ##  7 regression2_large      reg2(large)                                     
-##  8 summ_regression1_small suppressWarnings(summary(regression1_small$resi~
-##  9 summ_regression1_large suppressWarnings(summary(regression1_large$resi~
-## 10 summ_regression2_small suppressWarnings(summary(regression2_small$resi~
-## 11 summ_regression2_large suppressWarnings(summary(regression2_large$resi~
-## 12 coef_regression1_small suppressWarnings(summary(regression1_small))$co~
-## 13 coef_regression1_large suppressWarnings(summary(regression1_large))$co~
-## 14 coef_regression2_small suppressWarnings(summary(regression2_small))$co~
-## 15 coef_regression2_large suppressWarnings(summary(regression2_large))$co~</code></pre></div>
+##  8 summ_regression1_small suppressWarnings(summary(regression1_small$resi…
+##  9 summ_regression1_large suppressWarnings(summary(regression1_large$resi…
+## 10 summ_regression2_small suppressWarnings(summary(regression2_small$resi…
+## 11 summ_regression2_large suppressWarnings(summary(regression2_large$resi…
+## 12 coef_regression1_small suppressWarnings(summary(regression1_small))$co…
+## 13 coef_regression1_large suppressWarnings(summary(regression1_large))$co…
+## 14 coef_regression2_small suppressWarnings(summary(regression2_small))$co…
+## 15 coef_regression2_large suppressWarnings(summary(regression2_large))$co…</code></pre></div>
 <p>Wildcard templating generates these data frames at scale.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 dataset_plan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(
@@ -260,20 +260,20 @@ whole_plan
 <p>At this point, all your targets are out of date because the project is new.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">config &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_config.html">drake_config</a></span>(my_plan, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) <span class="co"># Master configuration list</span>
 <span class="kw"><a href="../reference/outdated.html">outdated</a></span>(config)
-##  [1] "\"report.md\""          "coef_regression1_large"
-##  [3] "coef_regression1_small" "coef_regression2_large"
-##  [5] "coef_regression2_small" "large"                 
-##  [7] "regression1_large"      "regression1_small"     
-##  [9] "regression2_large"      "regression2_small"     
+##  [1] "coef_regression1_large" "coef_regression1_small"
+##  [3] "coef_regression2_large" "coef_regression2_small"
+##  [5] "large"                  "regression1_large"     
+##  [7] "regression1_small"      "regression2_large"     
+##  [9] "regression2_small"      "\"report.md\""         
 ## [11] "small"                  "summ_regression1_large"
 ## [13] "summ_regression1_small" "summ_regression2_large"
 ## [15] "summ_regression2_small"</code></pre></div>
 <p>The <code><a href="../reference/make.html">make()</a></code> function traverses the network and builds the targets that require updates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## connect 11 imports: my_variable, analysis_plan, simulate, reg1, config, ...
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
-## check 9 items: file "report.Rmd", data.frame, knit, lm, mtcars, nrow, sa...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
@@ -298,20 +298,20 @@ whole_plan
 ## target file "report.md"</code></pre></div>
 <p>For the <code>reg2()</code> model on the small dataset, the p-value on <code>x2</code> is so small that there may be an association between weight and fuel efficiency after all.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/readd.html">readd</a></span>(coef_regression2_small)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ##              Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept) 27.504915 1.02496426 26.835000 9.676340e-30
 ## x2          -0.708536 0.08285938 -8.551066 4.617125e-11</code></pre></div>
 <p>The project is currently up to date, so the next <code><a href="../reference/make.html">make()</a></code> does nothing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## Unloading targets from environment:
 ##   small
 ##   large
 ##   coef_regression2_small
 ## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
-## check 9 items: file "report.Rmd", data.frame, knit, lm, mtcars, nrow, sa...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
@@ -326,10 +326,10 @@ whole_plan
 }
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## connect 11 imports: dataset_plan, reg1, reg2, analysis_methods, my_plan,...
 ## connect 15 targets: file "report.md", small, large, regression1_small, r...
-## check 9 items: file "report.Rmd", data.frame, knit, lm, mtcars, nrow, sa...
+## check 9 items: data.frame, knit, lm, mtcars, nrow, file "report.Rmd", sa...
 ## check 3 items: random_rows, reg1, reg2
 ## check 1 item: simulate
 ## check 2 items: large, small
@@ -410,7 +410,7 @@ whole_plan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Load multiple targets or imports from the drake cache. <U+2014> loadd • drake</title>
+<title>Load one or more targets or imports from the drake cache. — loadd • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -128,16 +128,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Load multiple targets or imports from the drake cache.</h1>
+    <h1>Load one or more targets or imports from the drake cache.</h1>
     </div>
 
     
     <p>Loads the object(s) into the
-current workspace (or <code>envir</code> if given). Defaults
-to loading the whole cache if arguments <code>...</code>
-and <code>list</code> are not set
-(or all the imported objects if in addition
-imported_only is <code>TRUE</code>).</p>
+current workspace (or environment <code>envir</code> if given). Defaults
+to loading the entire cache if you do not supply anything
+to arguments <code>...</code> or <code>list</code>.</p>
     
 
     <pre class="usage"><span class='fu'>loadd</span>(<span class='no'>...</span>, <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>character</span>(<span class='fl'>0</span>), <span class='kw'>imported_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>getwd</span>(),
@@ -282,6 +280,10 @@ will not be replaced.</p></td>
 <span class='co'># Be sure your computer has enough memory.</span>
 <span class='fu'>loadd</span>()
 <span class='fu'>ls</span>()
+<span class='co'># With files, you just get the fingerprint.</span>
+<span class='fu'>loadd</span>(<span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'><a href='file_store.html'>file_store</a></span>(<span class='st'>"report.md"</span>))
+<span class='fu'>ls</span>() <span class='co'># Should include "\"report.md\"".</span>
+<span class='fu'>get</span>(<span class='fu'><a href='file_store.html'>file_store</a></span>(<span class='st'>"report.md"</span>))
 })
 <span class='co'># }</span></pre>
   </div>
@@ -306,7 +308,7 @@ will not be replaced.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

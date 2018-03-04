@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create the internal runtime parameter list
-used internally in <code><a href='make.html'>make()</a></code>. <U+2014> drake_config • drake</title>
+used internally in <code><a href='make.html'>make()</a></code>. — drake_config • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -173,17 +173,19 @@ and it could lead to false negative results from
       <td><p>workflow plan data frame.
 A workflow plan data frame is a data frame
 with a <code>target</code> column and a <code>command</code> column.
+(See the details in the <code><a href='drake_plan.html'>drake_plan()</a></code> help file
+for descriptions of the optional columns.)
 Targets are the objects and files that drake generates,
 and commands are the pieces of R code that produce them.
 Use the function <code><a href='drake_plan.html'>drake_plan()</a></code> to generate workflow plan
-data frames easily, and see functions <code><a href='analyses.html'>analyses()</a></code>,
-<code><a href='summaries.html'>summaries()</a></code>, <code><a href='evaluate.html'>evaluate()</a></code>,
-<code><a href='expand.html'>expand()</a></code>, and <code><a href='gather.html'>gather()</a></code> for
+data frames easily, and see functions <code><a href='plan_analyses.html'>plan_analyses()</a></code>,
+<code><a href='plan_summaries.html'>plan_summaries()</a></code>, <code><a href='evaluate_plan.html'>evaluate_plan()</a></code>,
+<code><a href='expand_plan.html'>expand_plan()</a></code>, and <code><a href='gather_plan.html'>gather_plan()</a></code> for
 easy ways to generate large workflow plan data frames.</p></td>
     </tr>
     <tr>
       <th>targets</th>
-      <td><p>character string, names of targets to build.
+      <td><p>character vector, names of targets to build.
 Dependencies are built too. Together, the <code>plan</code> and
 <code>targets</code> comprise the workflow network
 (i.e. the <code>graph</code> argument).
@@ -268,9 +270,7 @@ download and install Rtools.</p>
 <p>Imports and targets are processed separately, and they usually
 have different parallelism needs. To use at most 2 jobs at a time
 for imports and at most 4 jobs at a time for targets, call
-<code><a href='make.html'>make(..., jobs = c(imports = 2, targets = 4))</a></code>,
-<code><a href='make.html'>make(..., jobs = c(targets = 4, imports = 2))</a></code>,
-or <code><a href='make.html'>make(..., jobs = c(2, 4))</a></code>.</p>
+<code><a href='make.html'>make(..., jobs = c(imports = 2, targets = 4))</a></code>.</p>
 <p>For <code>"future_lapply"</code> parallelism, <code>jobs</code>
 only applies to the imports.
 To set the max number of jobs for <code>"future_lapply"</code>
@@ -567,7 +567,7 @@ if targets fail.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

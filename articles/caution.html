@@ -109,7 +109,7 @@
             <h3 class="subtitle">Cautionary notes for drake</h3>
                         <h4 class="author">Will Landau</h4>
             
-            <h4 class="date">2018-02-28</h4>
+            <h4 class="date">2018-03-04</h4>
           </div>
 
     
@@ -185,7 +185,7 @@ my_plan
 ## 1 little_b "\"b\""   
 ## 2 letter   !!little_b
 <span class="kw"><a href="../reference/make.html">make</a></span>(my_plan)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## connect 1 import: my_plan
 ## connect 2 targets: little_b, letter
 ## Loading required package: methods
@@ -194,7 +194,7 @@ my_plan
 ## check 1 item: letter
 ## target letter
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(letter)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## [1] "b"</code></pre></div>
 <p>For the commands you specify the free-form <code>...</code> argument, <code><a href="../reference/drake_plan.html">drake_plan()</a></code> also supports tidy evaluation. For example, it supports quasiquotation with the <code>!!</code> argument. Use <code>tidy_evaluation = FALSE</code> or the <code>list</code> argument to suppress this behavior.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_variable &lt;-<span class="st"> </span><span class="dv">5</span>
@@ -231,7 +231,7 @@ my_plan
 <p>When <code><a href="../reference/make.html">make()</a></code> fails, use <code><a href="../reference/failed.html">failed()</a></code> and <code><a href="../reference/diagnose.html">diagnose()</a></code> to debug. Try the following out yourself.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Targets with available diagnostic metadata, incluing errors, warnings, etc.</span>
 <span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>()
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## [1] "letter"   "little_b"
 
 f &lt;-<span class="st"> </span>function(){
@@ -244,7 +244,7 @@ withr::<span class="kw">with_message_sink</span>(
   <span class="kw">stdout</span>(),
   <span class="kw"><a href="../reference/make.html">make</a></span>(bad_plan)
 )
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## connect 6 imports: my_variable, letter, f, little_b, my_plan, bad_plan
 ## connect 1 target: target
 ## check 1 item: stop
@@ -256,11 +256,11 @@ withr::<span class="kw">with_message_sink</span>(
 ## Warning: No message sink to remove.
 
 <span class="kw"><a href="../reference/failed.html">failed</a></span>() <span class="co"># From the last make() only</span>
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## [1] "target"
 
 error &lt;-<span class="st"> </span><span class="kw"><a href="../reference/diagnose.html">diagnose</a></span>(target)$error <span class="co"># See also warnings and messages.</span>
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 
 error$message
 ## [1] "unusual error"
@@ -321,7 +321,7 @@ envir &lt;-<span class="st"> </span><span class="kw">new.env</span>(<span class=
 myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drake_plan.html">drake_plan</a></span>(<span class="dt">out =</span> <span class="kw">f</span>(<span class="dv">1</span>:<span class="dv">3</span>))
 
 <span class="kw"><a href="../reference/make.html">make</a></span>(myplan, <span class="dt">envir =</span> envir)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## connect 2 imports: f, g
 ## connect 1 target: out
 ## check 1 item: g
@@ -331,7 +331,7 @@ myplan &lt;-<span class="st"> </span><span class="kw"><a href="../reference/drak
 
 <span class="kw">ls</span>() <span class="co"># Check that your workspace did not change.</span>
 ## [1] "bad_plan"    "envir"       "error"       "f"           "letter"     
-## [6] "little_b"    "my_plan"     "my_variable" "myplan"
+## [6] "little_b"    "myplan"      "my_plan"     "my_variable"
 
 <span class="kw">ls</span>(envir) <span class="co"># Check your evaluation environment.</span>
 ## [1] "f"   "g"   "out"
@@ -340,7 +340,7 @@ envir$out
 ## [1] 3 4 5
 
 <span class="kw"><a href="../reference/readd.html">readd</a></span>(out)
-## cache /tmp/Rtmp2H1f3I/articles/.drake
+## cache /tmp/Rtmp4h8MI3/articles/.drake
 ## [1] 3 4 5</code></pre></div>
 </div>
 <div id="refresh-the-drake_config-list-early-and-often-" class="section level2">
@@ -400,7 +400,7 @@ future::<span class="kw"><a href="../reference/plan.html">plan</a></span>(multis
 
 command &lt;-<span class="st"> "x &lt;- digest::digest(file_in(</span><span class="ch">\"</span><span class="st">input_file.rds</span><span class="ch">\"</span><span class="st">)); assign(</span><span class="ch">\"</span><span class="st">x</span><span class="ch">\"</span><span class="st">, 1); x"</span>
 <span class="kw"><a href="../reference/deps.html">deps</a></span>(command)
-## [1] "\"input_file.rds\"" "assign"             "digest::digest"</code></pre></div>
+## [1] "assign"             "digest::digest"     "\"input_file.rds\""</code></pre></div>
 <p><code>Drake</code> takes special precautions so that a target/import does not depend on itself. For example, <code><a href="../reference/deps.html">deps(f)</a></code> might return <code>"f"</code> if <code>f()</code> is a recursive function, but <code><a href="../reference/make.html">make()</a></code> just ignores this conflict and runs as expected. In other words, <code><a href="../reference/make.html">make()</a></code> automatically removes all self-referential loops in the dependency network.</p>
 </div>
 <div id="dependencies-of-knitr-reports" class="section level2">
@@ -520,7 +520,7 @@ dovec &lt;-<span class="st"> </span>names %in%<span class="st"> </span>vectorize
   includes &lt;-<span class="st"> "#include &lt;sys/wait.h&gt;"</span>
   code &lt;-<span class="st"> "int wstat; while (waitpid(-1, &amp;wstat, WNOHANG) &gt; 0) {};"</span>
 
-  wait &lt;-<span class="st"> </span>inline::<span class="kw"><a href="http://www.rdocumentation.org/packages/inline/topics/cfunction">cfunction</a></span>(
+  wait &lt;-<span class="st"> </span>inline::<span class="kw">cfunction</span>(
     <span class="dt">body =</span> code,
     <span class="dt">includes =</span> includes,
     <span class="dt">convention =</span> <span class="st">".C"</span>
@@ -637,7 +637,7 @@ keys/config/c2VlZA (Sandy Sum's conflicted copy 2018-01-31)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

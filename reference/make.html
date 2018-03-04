@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run your project (build the outdated targets). <U+2014> make • drake</title>
+<title>Run your project (build the outdated targets). — make • drake</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -163,17 +163,19 @@ for an overview of the documentation.</p>
       <td><p>workflow plan data frame.
 A workflow plan data frame is a data frame
 with a <code>target</code> column and a <code>command</code> column.
+(See the details in the <code><a href='drake_plan.html'>drake_plan()</a></code> help file
+for descriptions of the optional columns.)
 Targets are the objects and files that drake generates,
 and commands are the pieces of R code that produce them.
 Use the function <code><a href='drake_plan.html'>drake_plan()</a></code> to generate workflow plan
-data frames easily, and see functions <code><a href='analyses.html'>analyses()</a></code>,
-<code><a href='summaries.html'>summaries()</a></code>, <code><a href='evaluate.html'>evaluate()</a></code>,
-<code><a href='expand.html'>expand()</a></code>, and <code><a href='gather.html'>gather()</a></code> for
+data frames easily, and see functions <code><a href='plan_analyses.html'>plan_analyses()</a></code>,
+<code><a href='plan_summaries.html'>plan_summaries()</a></code>, <code><a href='evaluate_plan.html'>evaluate_plan()</a></code>,
+<code><a href='expand_plan.html'>expand_plan()</a></code>, and <code><a href='gather_plan.html'>gather_plan()</a></code> for
 easy ways to generate large workflow plan data frames.</p></td>
     </tr>
     <tr>
       <th>targets</th>
-      <td><p>character string, names of targets to build.
+      <td><p>character vector, names of targets to build.
 Dependencies are built too. Together, the <code>plan</code> and
 <code>targets</code> comprise the workflow network
 (i.e. the <code>graph</code> argument).
@@ -258,9 +260,7 @@ download and install Rtools.</p>
 <p>Imports and targets are processed separately, and they usually
 have different parallelism needs. To use at most 2 jobs at a time
 for imports and at most 4 jobs at a time for targets, call
-<code>make(..., jobs = c(imports = 2, targets = 4))</code>,
-<code>make(..., jobs = c(targets = 4, imports = 2))</code>,
-or <code>make(..., jobs = c(2, 4))</code>.</p>
+<code>make(..., jobs = c(imports = 2, targets = 4))</code>.</p>
 <p>For <code>"future_lapply"</code> parallelism, <code>jobs</code>
 only applies to the imports.
 To set the max number of jobs for <code>"future_lapply"</code>
@@ -528,12 +528,12 @@ for more details.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='make_with_config.html'>make_with_config()</a></code>,
-<code><a href='drake_plan.html'>drake_plan()</a></code>, <code><a href='drake_plan.html'>drake_plan()</a></code>,
+    <p><code><a href='drake_plan.html'>drake_plan()</a></code>,
 <code><a href='vis_drake_graph.html'>vis_drake_graph()</a></code>,
-<code><a href='max_useful_jobs.html'>max_useful_jobs()</a></code>, <code><a href='shell_file.html'>shell_file()</a></code>,
-<code><a href='default_hook.html'>default_hook()</a></code>, <code><a href='silencer_hook.html'>silencer_hook()</a></code>,
-<code><a href='triggers.html'>triggers()</a></code></p>
+<code><a href='parallelism_choices.html'>parallelism_choices()</a></code>,
+<code><a href='max_useful_jobs.html'>max_useful_jobs()</a></code>,
+<code><a href='triggers.html'>triggers()</a></code>,
+<code><a href='make_with_config.html'>make_with_config()</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -556,6 +556,10 @@ for more details.</p>
 <span class='fu'><a href='outdated.html'>outdated</a></span>(<span class='no'>config</span>) <span class='co'># Everything is up to date again.</span>
 <span class='fu'>make</span>(<span class='no'>my_plan</span>, <span class='kw'>cache_log_file</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># Write a text log file this time.</span>
 <span class='fu'><a href='vis_drake_graph.html'>vis_drake_graph</a></span>(<span class='no'>config</span>) <span class='co'># The colors changed in the graph.</span>
+<span class='fu'><a href='clean.html'>clean</a></span>() <span class='co'># Start from scratch.</span>
+<span class='co'># Run with at most 2 jobs at a time for the imports</span>
+<span class='co'># and at most 4 jobs at a time for the targets.</span>
+<span class='fu'>make</span>(<span class='no'>my_plan</span>, <span class='kw'>jobs</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='kw'>imports</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>targets</span> <span class='kw'>=</span> <span class='fl'>4</span>))
 <span class='fu'><a href='clean.html'>clean</a></span>() <span class='co'># Start from scratch.</span>
 <span class='co'># Rerun with "Makefile" parallelism with at most 4 jobs.</span>
 <span class='co'># Requires Rtools on Windows.</span>
@@ -599,7 +603,7 @@ for more details.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
